@@ -1,0 +1,82 @@
+.z-component-detail-head{
+  padding: 40rpx 0 00rpx;
+}
+.z-component-detail-head-title{
+  position: relative;
+  padding-right: 220rpx;
+}
+.z-component-detail-head-title-1{
+  padding-right: 0;
+}
+.z-component-detail-head-title .z-component-detail-head-name{
+  line-height: 50rpx;
+  font-size: 38rpx;
+  font-weight: 900;
+  color:#000;
+  position: relative;
+}
+.z-component-detail-head-title .z-component-detail-head-price{
+  line-height: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  top:0rpx;
+  right: 0rpx;
+  text-align: right;
+  font-size: 30rpx;
+  color:#ff5500;
+  font-weight: 900;
+}
+.z-component-detail-head-address{
+  font-size: 24rpx;
+  color:#666;
+  line-height: 50rpx;
+  position: relative;
+  padding-right: 60rpx;
+}
+.z-component-detail-head-address .z-component-detail-head-address-text{
+  position: relative;
+  padding-left: 40rpx;
+}
+.z-component-detail-head-address .z-component-detail-head-address-text .z-component-detail-head-address-text-img{
+  position: absolute;
+  width:40rpx;
+  height: 50rpx;
+  left: 0;
+  top:0;
+}
+.z-component-detail-head-address .z-component-detail-head-address-text .z-component-detail-head-address-text-img image{
+  width:23rpx;
+  height: 26rpx;
+}
+.z-component-detail-head-address-check{
+  position: absolute;
+  height: 50rpx;
+  right: 0;
+  top:0;
+  width:60rpx;
+  text-align: right;
+}
+.z-component-detail-head-address-check image{
+  width:39rpx;
+  height: 43rpx;
+  display: inline-block;
+}
+.z-components-item-characteristic{
+  padding-top: 10rpx;
+  padding-right: 170rpx;
+  position: relative;
+  min-height: 40rpx;
+}
+.z-component-detail-head-updata-time{
+  position: absolute !important;
+  width:170rpx;
+  height:20rpx;
+  font-size: 20rpx;
+  color:#cccccc !important;
+  text-align: right;
+  bottom: 0 !important;
+  right: 0 !important;
+  background:#fff !important;
+  margin: 0  !important;
+  padding: 0 !important;
+}

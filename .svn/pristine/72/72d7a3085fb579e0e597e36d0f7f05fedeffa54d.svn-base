@@ -1,0 +1,40 @@
+<view class="hui-warning">
+  <view class="color-000 size-36 font-blod">发帖真实性承诺</view>
+  <view class="dark-font size-24">为维护真房源环境，请据实发布</view>
+  <view class="dark-font size-24">如发现虚假，平台将有权删除</view>
+</view>
+<view class="hui-promise">
+  <view class="hui-promise-item flex hui-flex-align-center">
+    <view>
+      <view class="size-30 color-000">身份真实</view>
+      <view class="color-99 size-22">依据真实身份发布</view>
+    </view>
+  </view>
+  <view class="hui-promise-item flex hui-flex-align-center">
+    <view>
+      <view class="size-30 color-000">上传实拍图片</view>
+      <view class="color-99 size-22">上传与房源相关的真实图片</view>
+    </view>
+  </view>
+  <view class="hui-promise-item flex hui-flex-align-center">
+    <view>
+      <view class="size-30 color-000">房源如实描述</view>
+      <view class="color-99 size-22">房源真实在租，位置及厅室等信息真实有效</view>
+    </view>
+  </view>
+  <view class="hui-promise-item flex hui-flex-align-center">
+    <view>
+      <view class="size-30 color-000">房租标价合理</view>
+      <view class="color-99 size-22">标明实际租住价格，承诺不收取额外费用</view>
+    </view>
+  </view>
+</view>
+<view> 
+  <checkbox-group bindchange="checkboxChange" class="checkbox flex flex-center">
+    <label class="color-99 size-24 flex flex-center">
+      <checkbox value="aaaa" checked="{{false}}" />我已阅读并同意
+    </label>
+    <navigator hover-class="none" url="/taofang-package/pages/agreement/authorized-release/authorized-release" class="blue-font size-24">《房屋委托365发布协议》</navigator>
+  </checkbox-group>
+</view>
+<button class="hui-publish-btn" disabled='{{disabled}}' catchtap='doPublish'>立即发布</button>

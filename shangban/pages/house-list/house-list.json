@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "search": "/shangban/components/search/search",
+    "view-item": "/shangban/components/view-item/view-item",
+    "filter-tabs": "/shangban/components/filter-tabs/filter-tabs",
+    "scroll-tabs":"/shangban/components/scroll-tabs/scroll-tabs",
+    "list": "/shangban/components/list/list",
+    "brand-presence":"/shangban/components/brand-presence/brand-presence"
+  },
+  "navigationBarTitleText": "房源列表"
+}

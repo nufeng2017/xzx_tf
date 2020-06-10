@@ -1,0 +1,71 @@
+@import "/template/popup.wxss";
+page{
+    background: #f4f4f4;
+    font-size: 30rpx;
+}
+.footer {
+    position: fixed;
+    height: 98rpx;
+    background: #fff;
+    padding-left: 40rpx;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    line-height: 98rpx;
+}
+.footer label{
+    float: left;
+}
+.footer label text{
+    font-size: 24rpx;
+    color: #333;
+}
+.footer label text text{
+    color: #0062cc;
+}
+.footer .btn{
+    height: 100%;
+    width: 34.6%;
+    text-align: center;
+    color: #fff;
+    font-size: 32rpx;
+    background: #ffa229;
+}
+.footer .xieyi{
+  float: left;
+  font-size: 24rpx;
+  color: #0062cc;
+}
+/*  重写 radio 样式  */
+/* 未选中的 背景样式 */
+radio .wx-radio-input{
+   border-radius: 50%;/* 圆角 */
+   width: 40rpx;
+   height: 40rpx;
+}
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked{
+   border: none;
+   background: #4b96ff!important;
+}
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked::before{
+   border-radius: 50%;/* 圆角 */
+   width: 35rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+   height: 35rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+   line-height: 35rpx;
+   text-align: center;
+   font-size:30rpx; /* 对勾大小 30rpx */
+   color:#fff; /* 对勾颜色 白色 */
+   background: transparent;
+   transform:translate(-50%, -50%) scale(1);
+   -webkit-transform:translate(-50%, -50%) scale(1);
+}
+.previewimg{
+  width:100%;
+  text-align:center;
+}
+.htimg{
+  margin:auto;
+  width:100%;
+}

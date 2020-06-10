@@ -1,0 +1,71 @@
+var appInstance = getApp();
+var that;
+Page({
+  /**
+   * 页面的初始数据
+   */
+  data: {
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    that = this
+  },
+
+  onShow: function() {
+
+  },
+
+  doPublish(info) {
+    let changeUid = appInstance.getUtil.cacheGet("changeUid")
+    if (changeUid) {
+      let houseName = info.currentTarget.dataset.housetype
+      // 登录过
+        if (this.getUserPublishState()) {
+          // 用户之前发布过房源
+          this.navigateTo("/taofang-package/pages/publish-form/publish-form?houseType=" + houseName + "&publish=" + true)
+        } else {
+          // 用户之前没有发布过房源
+          this.navigateTo("/taofang-package/pages/publish-promise/publish-promise?houseType=" + houseName + "&publish=" + true)
+        }
+    } else {
+      // 没有登录过
+      this.navigateTo("/pages/login/login")
+    }
+  },
+
+  /**
+   * 更新是否点击过立即发布提示
+   * @return true:用户之前发布过房源  false 用户之前没有发布过房源
+   * 
+   * userPublishInfos:[
+   * {
+   *  changeUid:"4479037"
+   * }
+   * ]
+   */
+  getUserPublishState() {
+    let userPublishInfoArr = appInstance.getUtil.cacheGet("userPublishInfos")
+    let publish = false
+    let changeUid = appInstance.getUtil.cacheGet("changeUid")
+    if (userPublishInfoArr) {
+      var index
+      for (index in userPublishInfoArr) {
+        if (userPublishInfoArr[index].changeUid == changeUid ) {
+          // 已经点击过发布
+          publish = true
+          break
+        }
+      }
+    }
+    return publish
+  },
+
+  navigateTo(url) {
+    wx.navigateTo({
+      url: url,
+    })
+  }
+});

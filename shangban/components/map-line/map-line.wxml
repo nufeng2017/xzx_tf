@@ -1,0 +1,34 @@
+<!-- 地图路线 -->
+<view class="z-component-map-line">
+  <view class="z-component-map-line-address" wx:if="{{detailType==1}}">
+    <view class="z-component-map-line-address-name">{{blockname}}</view>
+    <view class="z-component-map-line-address-address">{{address}}</view>
+  </view>
+  <view class="z-component-map-line-tabs">
+    <van-tabs 
+      active="{{ active }}" 
+      bind:change="onChange" 
+      tab-class="z-component-map-line-my" 
+      tab-active-class="z-component-map-line-my-active"
+      nav-class="z-component-map-line-my-nav"
+      color="#ff9000"
+      border="{{false}}"
+    >
+      <van-tab title="{{item}}" wx:for="{{tabs}}" wx:key="index">
+        <view class="z-component-map-content" style="{{more?'height:auto':''}}" wx:if="{{detail.length>0}}">
+          <view 
+            class="z-text-hidden z-component-map-content-item " 
+            wx:for="{{detail}}" 
+            wx:key="index"
+          >
+            <image  src="./img/train.png" class="z-component-map-line-icon"/>
+            {{item}}
+          </view>
+          <view class="z-component-map-content-more" bindtap="checkmore" wx:if="{{detail.length>2}}">{{more?'收缩':'共'+detail.length+'条路线'}}</view>
+        </view>
+        <view class="z-component-map-line-no-data" wx:if="{{detail.length==0}}">暂未发现相关地铁路线~</view>
+      </van-tab>
+    </van-tabs>
+    <view class="z-component-map-line-tabs-more" bindtap="checkDetail">{{detailType==1?'查看详情':'咨询详情'}}</view>
+  </view>
+</view>

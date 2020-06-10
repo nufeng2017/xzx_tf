@@ -1,0 +1,68 @@
+// // 支持es4语法
+// var timeUtils = {
+//   // 时间转换
+//   formatDate: function(time, format = 'YY-MM-DD hh:mm') {
+//     var date = getDate(time);
+//     var year = date.getFullYear(),
+//       month = date.getMonth() + 1, //月份是从0开始的
+//       day = date.getDate(),
+//       hour = date.getHours(),
+//       min = date.getMinutes(),
+//       sec = date.getSeconds();
+//     var preArr = Array.apply(null, Array(10)).map(function(elem, index) {
+//       return '0' + index;
+//     }); ////开个长度为10的数组 格式为 00 01 02 03
+
+//     var newTime = format.replace(/YY/g, year)
+//       .replace(/MM/g, preArr[month] || month)
+//       .replace(/DD/g, preArr[day] || day)
+//       .replace(/hh/g, preArr[hour] || hour)
+//       .replace(/mm/g, preArr[min] || min)
+//       .replace(/ss/g, preArr[sec] || sec);
+
+//     return newTime;
+//   },
+
+
+
+//    dateFormat : function (timestamp, format) {
+//     if (!format) {
+//       format = "yyyy-MM-dd hh:mm:ss";
+//     }
+//     timestamp = parseInt(timestamp);
+//     var realDate = getDate(timestamp);
+//     function timeFormat(num) {
+//       return num < 10 ? '0' + num : num;
+//     }
+//     var date = [
+//       ["M+", timeFormat(realDate.getMonth() + 1)],
+//       ["d+", timeFormat(realDate.getDate())],
+//       ["h+", timeFormat(realDate.getHours())],
+//       ["m+", timeFormat(realDate.getMinutes())],
+//       ["s+", timeFormat(realDate.getSeconds())],
+//       ["q+", Math.floor((realDate.getMonth() + 3) / 3)],
+//       ["S+", realDate.getMilliseconds()],
+//     ];
+//     var reg1 = regYear.exec(format);
+//     // console.log(reg1[0]);
+//     if (reg1) {
+
+//       format = format.replace(reg1[1], (realDate.getFullYear() + '').substring(4 - reg1[1].length));
+//     }
+//     for (var i = 0; i < date.length; i++) {
+//       var k = date[i][0];
+//       var v = date[i][1];
+
+//       var reg2 = getRegExp("(" + k + ")").exec(format);
+//       if (reg2) {
+//         format = format.replace(reg2[1], reg2[1].length == 1
+//           ? v : ("00" + v).substring(("" + v).length));
+//       }
+//     }
+//     return format;
+//   }
+// }
+// // 导出对外暴露的属性
+// module.exports = {
+//   formatDate: timeUtils.formatDate
+// }

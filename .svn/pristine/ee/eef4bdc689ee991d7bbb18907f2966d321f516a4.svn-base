@@ -1,0 +1,67 @@
+//index.js
+var appInstance = getApp();
+Page({
+  data: {
+    houseList:{},
+    city: '',//当前定位城市
+    cityname:'',//当前定位城市
+  },
+  onShareAppMessage: function (res) {
+    var title = '365淘房租房';
+    var path = '/pages/index/index?city=' + appInstance.globalData.city;
+    return appInstance.getShareReturn(title, path);
+  },
+  onLoad: function () {
+    var that = this;
+    //定位接口有调用频率限制，打开首页不定位，影响效率
+    /*
+    appInstance.getUtil.freshLocal(appInstance.globalData.city, function (res) {
+      if (res.city && res.city != appInstance.globalData.city) {
+        console.log('需要切换城市')
+        wx.showModal({
+          title: '提示',
+          content: '当前定位城市是' + res.cityname +'，是否切换',
+          success: function (result) {
+            if (result.confirm) {
+              appInstance.globalData.city = res.city;
+              appInstance.globalData.cityname = res.cityname;
+              var local = {};
+              local.city = appInstance.globalData.city;
+              local.cityname = appInstance.globalData.cityname;
+              appInstance.getUtil.cachePut('local', local);
+              wx.reLaunch({
+                url: 'index'
+              })
+            } else if (result.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }
+    });
+    */
+  },
+  onShow: function () {
+    var that = this;
+    if (!this.data.city || this.data.city != appInstance.globalData.city) {
+        this.setData({ city: appInstance.globalData.city, cityname: appInstance.globalData.cityname,  selected: {}, color: {}, picker_index:'0'});
+      appInstance.getConfig().then(function(config){
+        that.getHouse();
+      });
+    }
+  },
+  getHouse: function () {
+    var that = this;
+    var data = { 'city': appInstance.globalData.city };
+    appInstance.getUtil.apiRequest('5aa75c753326b', 'GET', data, function (res) {
+      if (res.data.code == '1') {
+        var houseList = res.data.data;
+        houseList.forEach(function (val, index, arr) {
+          arr[index]['special'] = appInstance.formatSpecial(val.special, 4, val.c_business_key, val.house_comefrom);
+        });
+        that.setData({ houseList: res.data.data });
+      }
+    });
+  }
+})
+

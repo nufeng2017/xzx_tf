@@ -1,0 +1,310 @@
+//index.js
+var appInstance = getApp();
+Page({
+  data: {
+    houseList:{},
+    chooseHouse: {},//配置项数据
+    city: '',//当前定位城市
+    cityname:'',//当前定位城市
+
+    selected:{},
+    color:{},
+    searchConfig:{},
+    show:{
+      street: '位置',
+      lease_mode: '出租方式',
+      rental_range: '租金',
+      house_comefrom: '来源'
+    },
+    picker_index:'',
+    popupOpen:false,
+    popupShow:false,
+    clickCloseBig:false,
+    activity:{},
+    isClickPop:false,
+    ad:{}
+  },
+  onShareAppMessage: function (res) {
+    var title = '365淘房租房';
+    var path = '/pages/index/index?city=' + appInstance.globalData.city;
+    return appInstance.getShareReturn(title, path);
+  },
+  navigator: function (e) {
+    var url = e.currentTarget.dataset.url;
+    var key = e.currentTarget.dataset.key;
+    var selected = {};
+    var color = {};
+    if (key == 'lease_mode') {
+      var value = e.currentTarget.dataset.value;
+      var index = e.currentTarget.dataset.index;
+      selected.lease_mode = value;
+      color.lease_mode = index;
+    }
+    if (key == 'house_comefrom') {
+      var value = e.currentTarget.dataset.value;
+      var index = e.currentTarget.dataset.index;
+      selected.house_comefrom = value;
+      color.house_comefrom = index;
+    }
+    if (key == 'special') {
+      var value = e.currentTarget.dataset.value;
+      selected.special = value;
+      var temp = new Array();
+      temp[value] = true;
+      color.special = temp;
+    }
+    selected = JSON.stringify(selected);
+    color = JSON.stringify(color);
+    wx.navigateTo({
+      url: url + '?selected=' + selected + '&color=' + color
+    })
+  },
+  //快速找房 跳转到列表页 将数据data传到列表页
+  quire_house:function(e){
+    var url = e.currentTarget.dataset.url;
+    var selected = JSON.stringify(this.data.selected);
+    var color = JSON.stringify(this.data.color);
+    wx.navigateTo({
+      url: url + '?selected=' + selected + '&color=' + color
+    })
+  },
+  onLoad: function () {
+    var that = this;
+    //定位接口有调用频率限制，打开首页不定位，影响效率
+    /*
+    appInstance.getUtil.freshLocal(appInstance.globalData.city, function (res) {
+      if (res.city && res.city != appInstance.globalData.city) {
+        console.log('需要切换城市')
+        wx.showModal({
+          title: '提示',
+          content: '当前定位城市是' + res.cityname +'，是否切换',
+          success: function (result) {
+            if (result.confirm) {
+              appInstance.globalData.city = res.city;
+              appInstance.globalData.cityname = res.cityname;
+              var local = {};
+              local.city = appInstance.globalData.city;
+              local.cityname = appInstance.globalData.cityname;
+              appInstance.getUtil.cachePut('local', local);
+              wx.reLaunch({
+                url: 'index'
+              })
+            } else if (result.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }
+    });
+    */
+  },
+  onShow: function () {
+    var that = this;
+    that.setData({ popupOpen: false });
+    that.setData({ popupShow: false });
+
+    if (!this.data.city || this.data.city != appInstance.globalData.city) {
+        var show = {
+          street: '位置',
+          lease_mode: '出租方式',
+          rental_range: '租金',
+          house_comefrom: '来源'
+        }
+        this.setData({ city: appInstance.globalData.city, cityname: appInstance.globalData.cityname, show: show, selected: {}, color: {}, picker_index:'0'});
+      appInstance.getConfig().then(function(config){
+        that.getSearch();
+        that.getHouse();
+      });
+
+        var data = { 'city': appInstance.globalData.city };
+      appInstance.getUtil.apiRequest('5b2ca4d8b0feb', 'GET', data, function (res) {
+          if (res.data.code == '1') {
+            if (res.data.data.allow == '7' || res.data.data.allow == '2'){
+              that.setData({ popupOpen: true });
+              that.setData({ popupShow: true });
+              if (that.data.clickCloseBig == true){
+                that.setData({ popupShow: false });
+              }
+              var activity = {};
+              activity.id = res.data.data.activityid;
+              activity.cards = res.data.data.cards.join(',');
+              that.setData({ activity: activity });
+            } else if (that.data.isClickPop == true){
+              //已经提示过
+              that.setData({ isClickPop: false });
+              setTimeout(() => {
+                wx.showToast({
+                  title: '您已经领取过了',
+                  icon: 'none',
+                  duration: 3000,
+                })
+              }, 100);
+            } else {
+              return false;
+            }
+          }
+        });  
+      appInstance.getUtil.adcom(appInstance.globalData.city, appInstance.getUtil.otherConfig.adId,function(res){
+        if (res[0]) that.setData({ad:res[0]});
+      }); 
+    }
+  },
+  getSearch:function(){
+    var that = this;
+    var congigdata = appInstance.globalData.config;
+      var searchConfig = {
+        street: congigdata.street,
+        lease_mode: congigdata.lease_mode,
+        rental_range: congigdata.rental_range,
+        house_comefrom: ['来源', "公寓", "个人"]
+      };
+      searchConfig.street.unshift({ title: '位置' })
+      searchConfig.lease_mode.splice(0, 1, '出租方式')
+      searchConfig.rental_range.splice(0, 1, {value: '租金' });
+
+      that.setData({ searchConfig: searchConfig });
+  },
+  getHouse: function () {
+    var that = this;
+    var data = { 'city': appInstance.globalData.city };
+    appInstance.getUtil.apiRequest('5aa75c753326b', 'GET', data, function (res) {
+      if (res.data.code == '1') {
+        var houseList = res.data.data;
+        houseList.forEach(function (val, index, arr) {
+          arr[index]['special'] = appInstance.formatSpecial(val.special, 4, val.c_business_key, val.house_comefrom);
+        });
+        that.setData({ houseList: res.data.data });
+      }
+    });
+  },
+  //点击展开下拉选择器
+  pickerChange:function(e){
+    var searchConfig = this.data.searchConfig;
+    var key = e.currentTarget.dataset.key;
+    if (key == 'street'){
+      var index = parseInt(e.detail.value);
+
+      var selected = this.data.selected;
+      var show = this.data.show;
+      var color = this.data.color;
+      delete selected.area_id;
+      delete color.area_id;
+      if (index > 0) {
+        selected.area_id = searchConfig.street[index].aid;
+        color.area_id = index-1;
+      }
+      this.setData({ selected: selected });
+      this.setData({ color: color });
+      show.street = searchConfig.street[index].title;
+      this.setData({ show: show });
+    }
+    if (key == 'lease_mode') {
+      var index = parseInt(e.detail.value);
+      var selected = this.data.selected;
+      var color = this.data.color;
+      var show = this.data.show;
+
+      selected.lease_mode = index;
+      color.lease_mode = index;
+      this.setData({ selected: selected });
+      this.setData({ color: color });
+      show.lease_mode = searchConfig.lease_mode[index];
+      this.setData({ show: show });
+    }
+    if (key == 'rental_range') {
+      var index = parseInt(e.detail.value);
+      var selected = this.data.selected;
+      var color = this.data.color;
+      var show = this.data.show;
+
+      delete selected.rent;
+      if (index > 0) {
+        var min = searchConfig.rental_range[index].min;
+        var max = searchConfig.rental_range[index].max;
+        selected.rent = min + ',' + max;
+      }
+      color.rent = index;
+      this.setData({ selected: selected });
+      this.setData({ color: color });
+      show.rental_range = searchConfig.rental_range[index].value;
+      this.setData({ show: show });
+    }
+    if (key == 'house_comefrom') {
+      var index = parseInt(e.detail.value);
+      var selected = this.data.selected;
+      var color = this.data.color;
+      var show = this.data.show;
+
+      selected.house_comefrom = index;
+      color.house_comefrom = index;
+
+      this.setData({ selected: selected });
+      this.setData({ color: color });
+      show.house_comefrom = searchConfig.house_comefrom[index];
+      this.setData({ show: show});
+    }
+  },
+  closeBig:function(){//点击关闭弹窗
+    this.setData({ popupShow: false });
+    this.setData({ clickCloseBig: true });
+
+  },
+  showBig:function(){
+    this.setData({ popupShow: true });
+  },
+  addCdkey:function(){
+    var that = this;
+    //点击领取按钮并且未登录
+    var cacheKey = appInstance.getUtil.getUserinfoKey();
+    let userInfo = appInstance.getUtil.cacheGet(cacheKey);
+    if (!userInfo) {
+      that.setData({ isClickPop: true });
+    }
+    var data = { 'city': appInstance.globalData.city };
+    data.card_ids = this.data.activity.cards;
+    data.cdkey_from = 6; 
+    data.activityid = this.data.activity.id;
+    appInstance.getUtil.apiRequest('5b30d891c8eb5', 'POST', data, function (res) {
+      //console.log(res);
+      if (res.data.code == '1') {
+        var list = res.data.data;
+        var success = false;
+        list.forEach(function (val, index, arr) {
+          if (val.status == '1'){
+            success = true;
+          }
+        });
+        if(success == true){
+          wx.showToast({
+            title: '领券成功',
+            icon: 'none',
+            duration: 3000,
+            success: function () {
+              that.setData({ popupOpen: false });
+              wx.navigateTo({
+                url: '/pages/my_coupon/my_coupon'
+              });
+            }
+          })
+        }else{
+          that.setData({ popupShow: false });
+          that.setData({ clickCloseBig: true });
+          wx.showToast({
+            title: '大礼包领取失败，请重新领取',
+            icon: 'none',
+            duration: 3000,
+          })
+        }
+      }else{
+        that.setData({ popupShow: false });
+        that.setData({ clickCloseBig: true });
+        wx.showToast({
+          title: '大礼包领取失败，请重新领取',
+          icon: 'none',
+          duration: 3000,
+        })
+      }
+    });
+  }
+})
+

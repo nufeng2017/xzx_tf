@@ -1,0 +1,21 @@
+<!-- 底部栏 -->
+<view class="z-component-bottom-win z-flex z-flex-line-center {{isIPX ? 'iphonex':''}}">
+  <view class="z-component-bottom-win-info">
+    <view class="z-component-bottom-win-img">
+      <image-loader original-image="{{info.userInfo.smallphoto}}" default-image="/shangban/assets/img/default-avatar.png" mode="aspectFill"/>
+    </view>
+    <view class="z-component-bottom-win-content z-flex z-flex-direction z-flex-align-center">
+      <view class="z-component-bottom-win-name z-flex z-flex-line-center">
+        {{info.contactor}}
+        <view wx:if="{{infofrom==5}}" class="z-component-bottom-win-middle-star">
+          <van-rate value="{{info.userInfo.starlevel}}" size="20rpx" disabled="{{true}}" disabled-color="#ff7500" custom-class="z-custom-class" gutter="{{0}}"/>
+        </view>
+      </view>
+      <view class="z-component-bottom-win-middle-info">{{infofrom==5?info.userInfo.agencyInfo?info.userInfo.agencyInfo.agentname:'':'个人'}}</view>
+    </view>
+  </view>
+  <view class="z-component-bottom-win-btns z-flex z-flex-justify">
+    <view class="z-component-bottom-win-btn z-component-bottom-win-btn-1" bindtap="call">电话咨询</view>
+    <view class="z-component-bottom-win-btn">在线咨询</view>
+  </view>
+</view>

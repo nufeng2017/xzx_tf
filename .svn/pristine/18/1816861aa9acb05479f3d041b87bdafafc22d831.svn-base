@@ -1,0 +1,17 @@
+<!-- 详情页标题及头部内容 -->
+<view class-="z-component-detail-head">
+  <view class="z-component-detail-head-title z-cl {{detailType==1?'':'z-component-detail-head-title-1'}}">
+    <view class="z-component-detail-head-name">{{info.blockname || info.address}}</view>
+    <view class="z-component-detail-head-price" wx:if="{{detailType==1}}">{{info.price}}{{info.price_unit}}</view>
+  </view>
+  <view class="z-cl z-component-detail-head-address">
+    <view class="z-component-detail-head-address-text"><view class="z-component-detail-head-address-text-img z-flex z-flex-line-center"><image src="./img/pos.png"></image></view>{{info.area?(info.area+' · '+info.address):(info.district+'-'+ info.streetName+ ' · '+info.blockshowname)}}</view>
+    <view class="z-component-detail-head-address-check" bindtap="checkMap">
+      <image src="./img/map_icon.png"></image>
+    </view>
+  </view>
+  <view class="z-components-item-characteristic z-flex z-flex-line-center">
+    <view wx:for="{{info.type_arr?info.type_arr:info.label}}" wx:key="index">{{item}}</view>
+    <view class="z-component-detail-head-updata-time">{{info.updatetime_ch}}</view>
+  </view>
+</view>

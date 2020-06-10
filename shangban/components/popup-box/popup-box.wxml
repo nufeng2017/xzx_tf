@@ -1,0 +1,14 @@
+<!-- 弹窗遮罩层和弹窗外层 -->
+
+<van-popup  show="{{ show}}" z-index="{{10000}}" bind:click-overlay="close" round="{{true}}">
+  <view class="z-component-popup-box">
+    <view class="z-component-popup-box-title">
+      {{title}}
+      <view class="z-flex z-flex-center" bindtap="close">
+        <image src="./img/close.png" class="z-component-popup-box-close-img"></image>
+      </view>
+    </view>
+    <view class="z-component-popup-box-body"><slot name="popup-body"></slot></view>
+    <view class="z-component-popup-box-foot"><slot name="popup-foot"></slot></view>
+  </view>
+</van-popup>

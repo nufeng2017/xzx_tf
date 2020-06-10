@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "swiper-view": "/shangban/components/swiper-view/swiper-view"
+  },
+  "navigationBarTitleText": "查看大图",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#000"
+}

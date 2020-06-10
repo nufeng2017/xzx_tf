@@ -1,0 +1,26 @@
+// pages/detailpages/detailpages.js
+var appInstance = getApp();
+var obj = {};
+Page({
+  /**
+   * 页面的初始数据
+   */
+  data: {},
+  onLoad(options){
+
+    console.log(options)
+
+    appInstance.getUtil.ajax({
+      path: '5cecf9143ece2',
+      method: "GET",
+      check: true,
+      data: { 'rid': options.id, 'city': appInstance.globalData.city },
+      success:res=>{
+
+        console.log(res);
+      }
+    })
+
+  }
+   
+})

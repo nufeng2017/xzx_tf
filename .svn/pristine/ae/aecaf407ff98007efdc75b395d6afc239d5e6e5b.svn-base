@@ -1,0 +1,104 @@
+<!--首页-->
+<view class="z-wrap">
+
+  <!-- 搜索 -->
+  <view class="z-search-box">
+    <search dis-input="{{true}}" type="2" show-im="{{true}}"/>
+  </view>
+
+  <!-- 链接 -->
+  <view class="z-grid">
+    <van-grid column-num="4" border="{{false}}">
+      <van-grid-item
+        icon="{{item.icon_img}}"
+        text="{{item.icon_name}}"
+        data-text="{{item.icon_name}}"
+        wx:for="{{grid}}"
+        wx:key="index"
+        custom-class="z-grid-style"
+        catchtap="indexLink"
+      />
+    </van-grid>
+  </view>
+
+  <!-- 房源动态 -->
+  <view class="z-house-info">
+    <view class="z-img-box">
+      <image src="./img/house-info-title.png"></image>
+    </view>
+    <view class="flex z-house-info-content">
+      <view class="z-house-info-item flex flex-column flex-align-center" wx:for="{{houseInfo}}" wx:key="index">
+        <view class="z-info-item-title">{{item.title}}</view>
+        <view class="z-info-item-num">
+          <text class="z-info-item-num-txt">{{item.count}}</text>
+          {{item.unit}} 
+          <view 
+            class="z-change-num"
+            wx:if="{{item.trend}}"
+          >
+            <image src="{{item.trend=='up'?'./img/up.png':'./img/down.png'}}" class="z-change-icon"></image>
+            {{item.changeNum}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 大家都在搜 -->
+  <view class="z-view-block">
+    <cell border="{{false}}" show-arrow="{{false}}">
+      <view slot="title" class="z-view-title">大家都在搜</view>
+    </cell>
+    <view class="z-img-link-box cl">
+      <view wx:for="{{imgLinks}}" wx:key="index" bindtap="areaLink" data-item="{{item}}">
+        <image src="{{item.icon_img}}" mode="aspectFill"/>
+        <view>{{item.icon_name}} <van-icon name="arrow" color="#fff" size="20rpx;"/></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 热门楼盘 -->
+  <view class="z-view-block" wx:if="{{indexData.hot_block.show==1}}">
+    <cell border="{{false}}">
+      <view slot="title" class="z-view-title">{{indexData.hot_block.module_title}}</view>
+      <view slot="right" class="z-cell-right" bindtap="checkLp">查看全部</view>
+    </cell>
+    <scroll-view scroll-x="{{true}}" scroll-with-animation="{{true}}" class="z-hot-house-box">
+      <img-txt wx:for="{{hotHouse}}" wx:key="index" info="{{item}}" url="{{'../../pages/detail/detail?detailtype=1&id=' + item.office_bid}}"/>
+    </scroll-view>
+  </view>
+
+  <!-- 推荐写字楼 -->
+  <view class="z-view-block" wx:if="{{indexData.recommend.show==1}}">
+    <cell border="{{false}}" show-arrow="{{false}}">
+      <view slot="title" class="z-view-title">{{indexData.recommend.module_title}}</view>
+    </cell>
+    <view class="z-recommend-house">
+      <view-item 
+        wx:for="{{list}}"
+        wx:key="index"
+        title="{{item.title}}"
+        icon-type="{{1}}"
+        characteristic="{{item.label}}"
+        address="{{item.subway_distance}}"
+        is-video="{{false}}"
+        img="{{item.img_url}}"
+        is-rent="{{item.istag}}"
+        is-money-house="{{item.is_money_house}}"
+        url="{{'../../pages/detail/detail?detailtype=2&id=' + item.house_id}}"
+      >
+        <view slot="content" class="z-components-address z-text-overflow">{{item.buildarea+'㎡ · '+item.district}}{{item.streetname?'-'+item.streetname:''}}{{' · '+item.blockshowname}}</view>
+        <view slot="price" class="z-view-item-price">
+          <text class="z-view-item-price1">{{item.price_day}}<text class="z-price-unit">{{item.priceunit_day}}</text></text>
+          <text class="z-view-item-price2">{{item.price_month}}<text class="z-price-unit">{{item.priceunit_month}}</text></text>
+        </view>
+      </view-item>
+    </view>
+  </view>
+
+  <!-- 查看全部 -->
+  <button class="z-btn-class" bindtap="checkAllList">查看全部</button>
+
+  <!-- 加载 -->
+  <load-page show="{{show}}"/>
+</view>

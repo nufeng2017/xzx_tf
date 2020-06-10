@@ -1,0 +1,26 @@
+<view class="hui-wrap">
+  <view class="hui-user-info flex hui-flex-justify hui-flex-align-center">
+    <view class="flex hui-flex-align-center">
+      <view class="hui-avatar">
+        <image src="../../img/default-avatar.png" mode="aspectFit"></image>
+      </view>
+      <view>173****0157</view>
+    </view>
+    <!-- 去掉 hui-no-authentication-icon就是已认证图标-->
+    <view class="hui-authentication-icon hui-no-authentication-icon"></view>
+  </view>
+  <view class="hui-authentication-pro">
+    <navigator class="hui-authentication-item flex hui-flex-align-center hui-zhima" hover-class="none">
+      <view class="flex-item">
+        <view class="hui-authentication-item-title">芝麻信用认证</view>
+        <view class="size-24 dark-font">去认证</view>
+      </view>
+    </navigator>
+    <navigator class="hui-authentication-item flex hui-flex-align-center hui-bank" hover-class="none">
+      <view class="flex-item">
+        <view class="hui-authentication-item-title">银行卡实名认证</view>
+        <view class="size-24 dark-font yellow-font">已认证</view>
+      </view>
+    </navigator>
+  </view>
+</view>

@@ -1,0 +1,123 @@
+@import '../../assets/css/app.wxss';
+.z-wrap{
+  padding-bottom: 92rpx;
+}
+/* 九宫格样式 */
+.z-grid{
+  padding: 20rpx 0;
+}
+.van-grid-item__text text{
+  font-size: 26rpx;
+  color:#333;
+}
+.van-icon.van-icon--image{
+  width:65rpx;
+  height:65rpx;
+}
+/* 房源动态 */
+.z-house-info{
+  height: 130rpx;
+  padding-left: 123rpx;
+  position: relative;
+  background: #fafafa;
+}
+.z-house-info .z-img-box{
+  width:123rpx;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top:0;
+}
+.z-house-info .z-house-info-content{
+  height: 100%;
+}
+.z-house-info .z-house-info-item{
+  padding-left: 26rpx;
+  height: 100%;
+  white-space: nowrap;
+}
+.z-house-info .z-house-info-item:not(:first-child){
+  margin-left: 20rpx;
+}
+.z-house-info .z-info-item-title{
+  color:#a4aeb7;
+  font-size: 20rpx;
+}
+.z-house-info .z-info-item-num{
+  font-size: 20rpx;
+  color:#333;
+}
+.z-house-info .z-info-item-num-txt{
+  font-size: 40rpx;
+  font-weight: 900;
+}
+.z-house-info .z-change-num{
+  display: inline-block;
+  margin-left: 5rpx;
+}
+.z-house-info .z-change-icon{
+  width:13rpx;
+  height: 12rpx;
+}
+/* 板块 */
+.z-view-block{
+  padding-top: 20rpx;
+}
+
+/* 大家都在搜 */
+.z-img-link-box{
+  position: relative;
+  padding-left: 232rpx;
+  height: 322rpx;
+}
+.z-img-link-box>view{
+  float: left;
+  width:210rpx;
+  height: 150rpx;
+  position: relative;
+  border-radius: 4rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 30rpx 0 0 30rpx;
+  font-size: 30rpx;
+  color:#fff;
+}
+.z-img-link-box>view:nth-child(3),.z-img-link-box>view:nth-child(5){
+  float: right;
+}
+.z-img-link-box>view:nth-child(2),.z-img-link-box>view:nth-child(3){
+  margin-bottom: 22rpx;
+}
+.z-img-link-box>view image{
+  position: absolute;
+  width:100%;
+  height: 100%;
+  left: 0;
+  top:0;
+  z-index: 1;
+}
+.z-img-link-box>view>view{
+  position: relative;
+  z-index: 2;
+}
+.z-img-link-box>view:first-child{
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top:0;
+}
+
+/* 热门楼盘 */
+.z-hot-house-box{
+  position: relative;
+  width:712rpx;
+  height: 320rpx;
+  white-space: nowrap;
+}
+.z-components-address{
+  width:100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: normal;
+}

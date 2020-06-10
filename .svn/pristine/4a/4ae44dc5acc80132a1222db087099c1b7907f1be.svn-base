@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+    "van-grid": "/shangban/@vant/weapp/grid/index",
+    "van-grid-item": "/shangban/@vant/weapp/grid-item/index",
+    "search": "/shangban/components/search/search",
+    "cell": "/shangban/components/cell/cell",
+    "van-icon": "/shangban/@vant/weapp/icon/index",
+    "view-item": "/shangban/components/view-item/view-item",
+    "img-txt": "/shangban/components/img-txt/img-txt",
+    "load-page": "/shangban/components/load-page/load-page"
+  },
+  "navigationBarTitleText": "写字楼"
+}

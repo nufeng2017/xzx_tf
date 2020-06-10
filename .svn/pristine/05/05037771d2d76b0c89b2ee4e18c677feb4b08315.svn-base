@@ -1,0 +1,174 @@
+<view>
+  <!-- 房源搜索 -->
+  <view class="hui-index-search flex hui-flex-align-center">
+    <navigator class="location flex hui-flex-align-center" hover-class="none" url="/pages/city/city">
+      <text>{{cityname}}</text>
+    </navigator>
+    <navigator class="flex hui-flex-align-center flex-item" url="/pages/search-new/search-new" hover-class="none">
+      <image src="/img/search.png"></image>
+      <view class="color-99 size-24">想住在哪儿？</view>
+    </navigator>
+  </view>
+  <!--房源入口  -->
+  <view class="hui-house-link">
+    <view class='house_into'>
+      <navigator url='/taofang-package/pages/house-list/house-list?renttype=1' hover-class="none">
+        <image src='../../img/index-icon-1.png' mode="aspectFit"></image>
+        <text>整租</text>
+      </navigator>
+      <navigator url='/taofang-package/pages/house-list/house-list?renttype=2' hover-class="none">
+        <image src='../../img/index-icon-2.png' mode="aspectFit"></image>
+        <text>合租</text>
+      </navigator>
+      <navigator url='../../pages/list/list?selected={"house_comefrom":"1","itemname":""}&color={"house_comefrom":"1"}' hover-class="none">
+        <image src='../../img/index-icon-3.png' mode="aspectFit"></image>
+        <text>品牌公寓</text>
+      </navigator>
+      <navigator url='/taofang-package/pages/house-list/house-list?originFrom=1' hover-class="none">
+        <image src='../../img/index-icon-4.png' mode="aspectFit"></image>
+        <text>个人房源</text>
+      </navigator>
+      <navigator url='../../pages/list/list?selected={"monthly":"1","itemname":""}' hover-class="none">
+        <image src='../../img/index-icon-5.png' mode="aspectFit"></image>
+        <text>月付</text>
+      </navigator>
+    </view>
+    <view class='house_into'>
+      <navigator url='/taofang-package/pages/house-list/house-list?infotype=4' hover-class="none">
+        <image src='../../img/index-icon-6.png' mode="aspectFit"></image>
+        <text>商铺</text>
+      </navigator>
+      <navigator url='/taofang-package/pages/house-list/house-list?infotype=3' hover-class="none">
+        <image src='../../img/index-icon-7.png' mode="aspectFit"></image>
+        <text>写字楼</text>
+      </navigator>
+      <navigator url='/taofang-package/pages/house-list/house-list?infotype=5' hover-class="none">
+        <image src='../../img/index-icon-8.png' mode="aspectFit"></image>
+        <text>厂房</text>
+      </navigator>
+      <navigator url='/taofang-package/pages/house-list/house-list?infotype=6' hover-class="none">
+        <image src='../../img/index-icon-9.png' mode="aspectFit"></image>
+        <text>车位</text>
+      </navigator>
+      <navigator url='../../pages/apartment/list/list' hover-class="none">
+        <image src='../../img/index-icon-10.png' mode="aspectFit"></image>
+        <text>独栋公寓</text>
+      </navigator>
+    </view>
+  </view>
+  <!-- 历史记录 -->
+  <view class="flex hui-flex-align-center hui-history" wx:if="{{searchHistory.length > 0}}">
+    <view class="hui-history-title">历史</view>
+    <scroll-view class="hui-history-board flex-item" scroll-x>
+      <view wx:for="{{searchHistory}}" wx:key="index" bindtap="checkHouse" data-index="{{index}}" ><text decode="true">{{item.desContent}}</text></view>
+    </scroll-view>
+    <image src="/img/empty.png" bindtap="clearHistory"></image>
+  </view>
+  <!-- 广告-->
+  <swiper class="hui-advertisement" current="0"  indicator-dots='true' indicator-color='#fff' indicator-active-color='#ffa42f' autoplay='true' interval='4000' circular='true' hidden='{{adList.length == 0}}'>
+    <block wx:for="{{adList}}">
+      <swiper-item class="flex flex-center" >
+        <image src="{{item.advert_image}}" catchtap='goAdPage' data-url='{{item.advert_url}}'/>
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- 精选好房 -->
+  <view class="hui-sel-best-house">
+    <view class="cl hui-sel-best-house-item-box">
+      <navigator class="hui-sel-best-house-item fl hui-hot-rent  flex  flex-column" url='../../pages/list/list?c_ids={{c_ids}}&selected={"itemname":""}' hover-class="none" style="height:294rpx;">
+        <view class="black-font size-30 font-blod">365快租</view>
+        <view class="hui-advantage size-22">平台特选好房</view>
+      </navigator>
+      <navigator class="hui-sel-best-house-item fr hui-direct-rent  flex  flex-column" url="/taofang-package/pages/house-list/house-list?originFrom=1" >
+        <view class="black-font size-30 font-blod">房东直租</view>
+        <view class="hui-advantage size-22">精选个人房源</view>
+      </navigator>
+      <navigator class="hui-sel-best-house-item fr hui-low-price flex  flex-column" url="/taofang-package/pages/house-list/house-list?renttype=1&room=1">
+        <view class="black-font size-30 font-blod">温馨一居</view>
+        <view class="hui-advantage size-22">尽享品质生活</view>
+      </navigator>
+    </view>
+  </view>
+  <!-- 租房服务 -->
+  <view>
+    <view class='list_title flex hui-flex-justify hui-flex-align-center'>
+      <text>租房服务</text>
+    </view>
+    <view class="cl hui-other-link">
+      <navigator class="fl flex flex-center" hover-class="none" url="/taofang-package/pages/external-image/external-image?imgUrl=1">
+        <image src="../../img/365-kuaizu-icon.png" mode="aspectFit"></image>
+        <view>
+          <view class="kuaizu font-blod">365快租</view>
+          <view class="color-99 size-22">帮你推荐品质好房</view>
+        </view>
+      </navigator>
+      <navigator class="fl flex flex-center" hover-class="none" url="/taofang-package/pages/external-image/external-image?imgUrl=2">
+        <image src="../../img/365-boshi-icon.png" mode="aspectFit"></image>
+        <view>
+          <view class="zuboshi font-blod">365租博士</view>
+          <view class="color-99 size-22">1对1解决租房问题</view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+  <!--房东直租  -->
+  <view class='house_list'>
+    <view class='list_title flex hui-flex-justify hui-flex-align-center'>
+      <text>房东直租</text>
+      <navigator url='/taofang-package/pages/house-list/house-list?originFrom=1'>
+        <view class='list_title_morehouse'>
+          <text>查看全部</text>
+          <image src='../../img/dropdownR.png'></image>
+        </view>
+      </navigator>
+    </view>
+    <!--房源列表内容  -->
+    <scroll-view class="hui-house-list-wrap" scroll-x="{{true}}">
+      <view class="hui-house-list-container">
+        <block wx:for='{{rentHouseList}}' wx:key="*this">
+          <navigator class="hui-house-list-item-wrap" url='/taofang-package/pages/details-page/details-page?id={{item.id}}'>
+            <image src="{{item.pic1}}"></image>
+            <view class="size-30 text-overflow">{{item.blockshowname+item.room+"室"+item.hall+"厅"}}</view>
+            <view class="hui-house-list-item-addr text-overflow">{{item.district+"-"+item.street+" | "+item.buildarea+"㎡"}}</view>
+            <view class="hui-price">{{item.priceInt}}<text class="">{{priceUnitMap[item.priceunit]}}</text>
+            </view>
+          </navigator>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+  <!--为你推荐  -->
+  <view class='house_list'>
+    <view class='list_title flex hui-flex-justify hui-flex-align-center'>
+      <text>为你推荐</text>
+      <navigator url= '../../pages/list/list?selected={"lease_mode":"1","itemname":""}&color={"lease_mode":"1"}'>
+        <view class='list_title_morehouse'>
+          <text>查看全部</text>
+          <image src='../../img/dropdownR.png'></image>
+        </view>
+      </navigator>
+    </view>
+    <!--房源列表内容  -->
+    <scroll-view class="hui-house-list-wrap" scroll-x="{{true}}">
+      <view class="hui-house-list-container">
+        <block wx:for='{{houseList}}' wx:key="*this">
+          <navigator class="hui-house-list-item-wrap" url='/pages/detailPages/detailPages?h_id={{item.h_id}}&r_id={{item.r_id}}&house_comefrom={{item.house_comefrom}}&l_id={{item.l_id}}&city={{item.city}}'>
+            <image src="{{item.list_images}}"></image>
+            <view class="size-30 text-overflow">{{item.xiaoqu_name+item.room+"室"+item.hall+"厅"}}</view>
+            <view class="hui-house-list-item-addr text-overflow">{{item.xiaoqu_info.xdistrict_name+"-"+item.xiaoqu_info.xstreet_name+" | "+item.acreage+"㎡"}}</view>
+            <view class="hui-price">{{item.rent}}<text class="">{{item.rent_intro}}</text></view>
+          </navigator>
+        </block>
+
+      </view>
+    </scroll-view>
+  </view>
+
+<image wx:if='{{floatAdList && floatAdList.length>0}}' src="{{floatAdList[0].advert_image}}" mode="widthFix" class="ad-f"  catchtap='goAdPage' data-url='{{floatAdList[0].advert_url}}'></image>
+
+</view>
+
+<!-- 添加小程序提示图标 -->
+<view class="hui-add-procedures" style="left:{{left}}" wx:if="{{topTipsShow}}">
+  喜欢，就<text class="hui-add-procedures-btn">“添加到我的小程序”</text><image src="/img/delete-icon-1.png" class="hui-close-tips" mode="center" bindtap="closeTips"></image>
+</view>

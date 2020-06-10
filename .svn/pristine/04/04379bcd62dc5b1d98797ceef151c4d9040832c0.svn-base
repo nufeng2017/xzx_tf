@@ -1,0 +1,106 @@
+<scroll-view scroll-y>
+  <form bindsubmit="formSubmit">
+    <view class="hui-other-item-container">
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify" bindtap="isShowModel" data-modelstatus="show">
+        <view class="hui-form-item-title size-24 dark-font">证件类型</view>
+        <view class="hui-form-item-block">
+          <input name="certificateType" placeholder="请选择" placeholder-class="hui-placeholder-style-2" disabled="{{true}}" value='{{value.length == 1? certificateTypeArr[value[0]] :""}}' bindinput="bindinput" ></input>
+        </view>
+      </view>
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify">
+        <view class="hui-form-item-title size-24 dark-font">证件号码</view>
+        <view class="hui-form-item-block">
+          <input id="certificateNo" name="certificateNo" placeholder="请参照示例填写权证号" placeholder-class="hui-placeholder-style-2" bindinput="bindinput" value='{{owner_contract_number}}'></input>
+        </view>
+      </view>
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify">
+        <view class="hui-form-item-title size-24 dark-font">丘权号</view>
+        <view class="cl hui-form-item-block flex hui-flex-align-center">
+          <input id="qiuquanNo" name="qiuquanNo" placeholder="请参照示例填写丘权号" placeholder-class="hui-placeholder-style-2" bindinput="bindinput" value='{{owner_land_right_number}}'></input>
+        </view>
+      </view>
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify">
+        <view class="hui-form-item-title size-24 dark-font">产权人姓名</view>
+        <view class="cl hui-form-item-block flex hui-flex-align-center">
+          <input id = "ownerName" name="ownerName" placeholder="请输入产权人姓名" placeholder-class="hui-placeholder-style-2" bindinput="bindinput" value='{{owner_name}}'></input>
+        </view>
+      </view>
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify">
+        <view class="hui-form-item-title size-24 dark-font">产权人身份证号</view>
+        <view class="cl hui-form-item-block">
+          <input id="ownerIDCard" name="ownerIDCard" placeholder="请输入产权人身份证号" placeholder-class="hui-placeholder-style-2" bindinput="bindinput" value='{{owner_identity_card_number}}'></input>
+        </view>
+      </view>
+      <view class="hui-txt-tips">
+        <view class="flex hui-flex-align-center">
+          <image src="/taofang-package/img/icon-tips.png" mode="scaleToFill"></image>
+          <view>仅限网站审核使用，不对外展示，示例
+            <view class="enableRouter" catchtap='previewSample' data-index = '0'>《不动产权证》</view>
+            <view class="enableRouter"  catchtap='previewSample' data-index = '1'>《房屋所有权证》</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="flex hui-flex-align-center hui-upload-tips">
+      <text>上传房产证明及产权人身份证</text>
+      <view class="hui-txt-tips">
+        <view class="flex hui-flex-align-center">
+          <image src="/taofang-package/img/icon-tips.png" mode="scaleToFill"></image>
+          <view>仅用于网站房源审核，请放心上传！</view>
+        </view>
+      </view>
+    </view>
+   
+    <view class="hui-img-board cl">
+      <view class='hui-img-item fl' wx:for="{{imgUrls}}">
+        <view wx:if="{{item.isUploaded}}">
+          <navigator class="hui-img-box" hover-class="none" url="/taofang-package/pages/edit-img/edit-img?imgUrl={{item.imgUrl}}&imgIndex={{index}}">
+            <image mode="aspectFill" src="{{item.imgUrl}}"></image>
+          </navigator>
+        </view>
+
+        <!-- 正在上传的图片 -->
+        <view wx:else>
+          <view class="hui-img-loading flex flex-center flex-column">上传中</view>
+        </view>
+        <view class="hui-img-item-delete-btn" catchtap='deleteImg' data-index="{{index}}"></view>
+      </view>
+      <!-- 上传完成的图片 -->
+
+      <!-- 添加图片 -->
+      <view class="hui-img-item hui-img-upload-btn flex flex-center flex-column" bindtap="uploadImg">
+        <view>上传照片 最多9张</view>
+      </view>
+    </view>
+
+
+    <button class="hui-save-btn" form-type="submit">保存</button>
+  </form>
+</scroll-view>
+
+<!-- 弹窗 -->
+<view class="hui-popup-container {{isShowModel==='show'? '' : 'hui-none'}}">
+  <view class="hui-popup-header">
+    <!-- 弹窗tips  -->
+    <view class="hui-popup-tips">
+      <view class="hui-popup-txt">请选择证件类型</view>
+      <view class="hui-popup-btn" catchtap='listSureAction'>确定</view>
+    </view>
+    <!-- 信息输入板面 -->
+    <view class="hui-popup-select-board">
+      <!-- 滚动选择框 -->
+      <!-- value="{{value}}" -->
+      <picker-view indicator-style="height: 50px;" class="showBoard" bindchange="bindChange" bindpickstart="bindpickstart"
+      bindpickend = "bindpickend" value="{{value}}">
+        <picker-view-column>
+          <block wx:for="{{certificateTypeArr}}">
+          <view>{{item}}</view>
+          </block>
+        </picker-view-column>
+      </picker-view>
+    </view>
+  </view>
+</view>
+
+<!-- model bg-->
+<view class="hui-model-bg {{isShowModel==='show'? '' : 'hui-none'}}" bindtap="isShowModel" data-modelstatus="hide"></view>

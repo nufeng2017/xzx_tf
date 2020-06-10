@@ -1,0 +1,43 @@
+<!--搜索-->
+<view class="z-wrap">
+  <view class="z-container"><search  dis-input="{{false}}" bind:input="input" type="{{type}}" bind:confirm="confirm"/></view>
+
+  <!--热门搜索  -->
+  <view class="z-hot-search" wx:if="{{hot_search.length>0}}">
+    <view class="z-block-title">热门搜索</view>
+    <view class="z-hot-search-item cl">
+      <view class="fl" wx:for="{{hot_search}}" wx:key="index" data-index="{{index}}" bindtap="searcHot"  data-item="{{item}}">{{item.title}}</view>
+    </view>
+  </view>
+
+  <!-- 历史搜索 -->
+  <view class="z-history-search" wx:if="{{history.length>0}}">
+    <view class="z-block-title">历史搜索 <view class="z-history-search-delete" bindtap="deleteHistory"><image src="./img/delete.png"></image></view></view>
+    <view class="z-history-search-box">
+      <view class="z-history-search-item" wx:for="{{history}}" wx:key="index">
+        <van-swipe-cell right-width="{{100}}" bind:click="searchList" data-id="{{item.id||item.office_id}}" data-pro="{{type==2?'blockid':'office_id'}}" data-item="{{item}}">
+          <view class="z-flex">
+            <view class="z-history-search-item-icon">
+              <image src="./img/time.png"></image>
+            </view>
+            <view class="z-history-search-item-title z-text-hidden">{{item.name||item.blockname || item.keyword}}</view>
+          </view>
+          <view slot="right" class="z-history-search-item-right">删除</view>
+        </van-swipe-cell>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 联动 -->
+<view class="z-search-win" wx:if="{{show}}">
+  <view class="z-history-search-box"> 
+    <view class="z-history-search-item" wx:for="{{serchList}}" wx:key="index" bindtap="searchList" data-id="{{item.id||item.office_id}}" data-pro="{{type==2?'blockid':'office_id'}}" data-item="{{item}}">
+      <view class="z-history-search-item-icon">
+        <image src="./img/local_hui.png"></image>
+      </view>
+      <text>{{item.name||item.blockname}}</text>
+      <text style="font-size:24rpx;color:#666;margin-left:10rpx;">{{item.location||item.area}}</text>
+    </view>
+  </view>
+</view>

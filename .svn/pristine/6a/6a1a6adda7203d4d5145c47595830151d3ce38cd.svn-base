@@ -1,0 +1,103 @@
+/**
+ * 图片预加载组件
+ */
+import {env} from '../../utils/util.js';
+Component({
+  data: {
+    show:false,
+    uid:'',
+    value:''
+  },
+  lifetimes: {
+    attached: function () {
+      if (wx.getStorageSync(env + 'userinfo')) {
+        this.setData({
+          uid: wx.getStorageSync(env + 'userinfo').passport_uid
+        });
+        this.isShowPop(this.data.uid);
+      } else {
+        if (wx.getStorageSync('showdate') !== this.getDate()) {
+          this.setData({
+            show: true  
+          })
+          wx.setStorage({
+            key: "showdate",
+            data: this.getDate()
+          })
+        }
+      }
+    }
+  },
+  methods: {
+    close (){
+      this.setData({
+        show: false
+      })
+    },
+    bindKeyInput(e){
+      this.setData({
+        value: e.detail.value
+      })
+    },
+    getDate(){
+      let date = new Date();
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      return year + '-' + month + '-' + day;
+    },
+    isShowPop(uid){
+      let that = this;
+      wx.request({
+        url: 'https://newrent.house365.com/api/la-xin-activity/check-allowance',
+        data: {
+          uid: uid
+        },
+        success(res) {
+          if (res.data.result == 1) {
+            if (res.data.data.is_start == 1 && res.data.data.is_end == 0 && res.data.data.is_received == 0 
+              && wx.getStorageSync('showdate') !== that.getDate()) {
+              that.setData({
+                show: true
+              })
+              wx.setStorage({
+                key: "showdate",
+                data: that.getDate()
+              })
+            }
+          }
+        }
+      })    
+    },
+    limitGet(uid){
+      let that = this;
+      wx.request({
+        url: 'https://newrent.house365.com/api/la-xin-activity/get-allowance', 
+        method:'POST',
+        header:{
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+          mobile:this.data.value,
+          from:3
+        },
+        success(res) {
+          if (res.data.result == 1){
+            that.close();
+            wx.showToast({
+              title: res.data.data.msg,
+              icon: 'none',
+              duration: 2000
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        }
+      })
+    }
+  }
+})

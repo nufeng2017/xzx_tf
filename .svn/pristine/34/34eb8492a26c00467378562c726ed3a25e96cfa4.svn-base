@@ -1,0 +1,26 @@
+page{
+  background: #fff;
+}
+.hui-wrap{
+  border-bottom:20rpx solid #f0f0f0;
+  height:400rpx;
+  box-sizing: border-box;
+  padding: 60rpx 30rpx 60rpx;
+  position: relative;
+}
+.hui-wrap textarea{
+  height:100%;
+  width:100%;
+  font-size:30rpx;
+}
+.z-textareaTxtNum{
+  text-align: right;
+  position: absolute;
+  left:0;
+  width:100%;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  bottom:10rpx;
+  color:#bfbfbf;
+  font-size:24rpx;
+}

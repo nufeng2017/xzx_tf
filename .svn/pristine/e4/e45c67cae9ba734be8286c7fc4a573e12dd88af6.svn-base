@@ -1,0 +1,106 @@
+import { getOfficeList, getList } from '../../network/house-list.js';
+const appInstance = getApp();
+let isLoad;//正在加载
+Component({
+  properties: {
+    listBox:{
+      type:String
+    },
+    listType:{
+      type:null,
+      value:'1'//房源列表类型，1楼盘、2商办房源
+    },
+    requestData:{
+      type:Object,
+      value:{}
+    },
+    options:Object
+  },
+  data:{
+    page:0,
+    limit:20,
+    list:[],
+    firstLoad:true,
+    show404:false,//显示无数据提示
+    scroll:0
+  },
+  lifetimes: {
+    ready() {
+      isLoad = false;
+      this.getListType(1);
+    }
+  },
+  observers: {
+    'requestData': function (requestData){
+      if (!this.data.firstLoad){
+        this.getListType(1);
+      }
+    }
+  },
+  options: {
+    multipleSlots: true, // 在组件定义时的选项中启用多slot支持
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/ // 指定所有 _ 开头的数据字段为纯数据字段
+  },
+  methods: {
+    getNewData(){
+      this.getListType(this.data.page + 1);
+    },
+    getListType(page){
+      let fn = '';
+      if (parseInt(this.data.listType) == 1) {//楼盘接口
+        fn = getOfficeList;
+      } else if (parseInt(this.data.listType) == 2){//房源列表接口
+        fn = getList;
+      }
+      if (!isLoad){
+        this._getData(fn, page);
+        isLoad = true;
+      }
+    },
+    _getData(fn, page){
+      let o = {
+        curPage: page,
+        city: appInstance.globalData.city,
+        infotype: 3,
+        channl:'azn_xcx'
+      }
+      Object.assign(o, this.data.requestData);
+      if (fn){
+        fn(o).then((res)=>{
+          let list = this.data.list;
+          isLoad = false;       
+          if (res.data.data && Array.isArray(res.data.data)){
+            list = this._isList(res, list,page);
+          }
+          if (list === false){
+            wx.showToast({
+              title: '没有更多信息了',
+              icon:'none'
+            })
+            return;
+          }
+          this.setData({
+            list:list,
+            page:page,
+            firstLoad:false,
+            show404:list.length>0?false:true,
+          });
+        }).catch(() => { isLoad = false});
+      }
+    },
+    _isList(res, list, page){
+      if (res.data.data.length > 0 && page > 1) {
+        list = list.concat(res.data.data);
+      } else if ( page == 1) {
+        list = res.data.data;
+        this.setData({
+          scroll: 0
+        });
+      } else {
+        return false;
+      }
+      return list;
+    }
+  }
+})

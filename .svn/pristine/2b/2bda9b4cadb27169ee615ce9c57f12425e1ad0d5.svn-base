@@ -1,0 +1,19 @@
+<view class="hui-wrap">
+  <view class="hui-show-img-board flex flex-center">
+    <image src="../../img/test-img.png" mode="widthFix"></image>
+  </view>
+  <view class="hui-edit-btn">
+    <view class="flex hui-flex-justify hui-flex-align-center">
+      <view class="hui-cancel-btn">取消</view>
+      <view class="hui-left-btn">
+        <image src="/taofang-package/img/left-rotate-icon.png" mode="widthFix"></image>
+        <view>左旋转</view>
+      </view>
+      <view class="hui-right-btn">
+        <image src="/taofang-package/img/right-rotate-icon.png" mode="widthFix"></image>
+        <view>右旋转</view>
+      </view>
+      <view class="hui-ok-btn">完成</view>
+    </view>
+  </view>
+</view>

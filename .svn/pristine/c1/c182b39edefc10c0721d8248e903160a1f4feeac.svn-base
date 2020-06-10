@@ -1,0 +1,12 @@
+<!-- 详情页分享，咨询，收藏按钮组 -->
+<view class="z-components-btn-groups z-cl">
+  <button class="z-components-btn-groups-item z-fl z-flex z-flex-center" open-type="share">
+    <image src="./img/share.png" class="z-components-btn-groups-item-share"></image>
+  </button>
+  <button class="z-components-btn-groups-item z-fl z-flex z-flex-center" catchtap="keep">
+    <van-icon name="star-o" size="37rpx" color="#fff"/>
+  </button>
+  <button class="z-components-btn-groups-item z-fl z-flex z-flex-center" catchtap="message" >
+    <image src="./img/msg.png" class="z-components-btn-groups-item-msg"></image>
+  </button>
+</view>

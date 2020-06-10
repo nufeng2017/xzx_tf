@@ -1,0 +1,29 @@
+<view class="z-component-other-filter">
+  <view class="z-component-other-filter-content">
+    <view 
+      class="z-component-other-filter-item" 
+      wx:for="{{filterType}}" 
+      wx:key="index"
+      wx:for-index="idx" 
+      wx:for-item="itemName"
+    >
+      <view class="z-component-other-filter-item-title">{{itemName.title}}</view> 
+      <view class="z-component-other-filter-item-content z-cl">
+        <view 
+          class="z-component-other-filter-item-content-btn z-fl {{itemName.active[item.tag_id]?'z-component-other-filter-item-content-btn-1':''}}" 
+          style="{{item.tag_name=='不限'&&itemName.active.unlimited==1?'color:#fd994b;background: #ffe6c7':''}}"
+          wx:for="{{itemName.list}}" 
+          wx:key="index"
+          data-id="{{item.tag_id}}"
+          data-pro="{{itemName.pro}}"
+          data-idx="{{idx}}"
+          bindtap="select"
+        >{{item.tag_name}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="z-component-area-btn">
+    <button class="z-btn-class" bindtap="reset">重置</button>
+    <button class="z-btn-class" bindtap="beSet">确定</button>
+  </view>
+</view>

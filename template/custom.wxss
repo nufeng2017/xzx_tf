@@ -1,0 +1,213 @@
+/* pages/custom/custom.wxss */
+
+/*房源列表样式 start  */
+.list_item_out{
+  border-top: 1rpx solid #e5e5e5;
+  margin: 0 0 0 38rpx;
+}
+.list_item{
+  margin-right: 38rpx;
+  padding: 40rpx 0;
+  overflow: hidden;
+  height: auto;
+}
+.list_item .item_image{
+  /*34%  */
+  width:31.3%;
+  height: 160rpx;
+  position: relative;
+  float: left;
+}
+.list_item .seehouse360{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 125rpx;
+  height: 44rpx;
+  margin-left: -62rpx;
+  margin-top: -22rpx;
+}
+.list_item .seehouse360 image{
+  width: 100%;
+  height: 100%!important;
+}
+.list_item .item_image .hui_tip{
+  position: absolute;
+  left: 1rpx;
+  top: 1rpx;
+  width: 24rpx;
+  height: 24rpx;
+  color: #fff;
+  background: #ff0000;
+  font-size: 20rpx;
+  line-height: 24rpx;
+  text-align: center;
+}
+.list_item .item_image image{
+  width: 100%;
+  height: 160rpx;
+}
+.list_item .item_right{
+  /* padding-left: 3%;  */
+  position: relative;
+  width: 66%;
+  float: right;
+}
+.list_item .item_right .list_hang1{
+  color: #333;
+  font-size: 30rpx;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow:hidden;
+}
+.list_item .item_right .list_hang2{
+  color: #656565;
+  line-height: 38rpx;
+  font-size: 22rpx;
+  margin: 7rpx 0 7rpx 0;
+}
+.list_item .item_right .list_hang2 text{
+  padding-right: 10rpx;
+}
+.list_item .item_right .list_hang3{
+  color: #999;
+  font-size: 22rpx;
+  line-height: 38rpx;
+  margin: 5rpx 0;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow:hidden;
+}
+.list_item .item_right .list_hang4{
+  color: #4f98ff;
+  font-size: 20rpx;
+  margin-top: 5rpx;
+  white-space: nowrap;
+}
+.list_item .item_right .list_hang4 text{
+  background: #e4efff;
+  line-height: 30rpx;
+  padding: 0 10rpx;
+  display: inline-block;
+  margin-right: 9rpx;
+  border-radius: 6rpx;
+}
+.list_item .item_right .list_hang4 text.gongyu{
+  background: #4f98ff;
+  color: #fff;
+}
+.list_item .item_right .list_position{
+  position: absolute;
+  right: 0;
+  text-align: right;
+  top: 48rpx;
+  color: #ff9000;
+  font-size: 30rpx;
+  margin-right: 10rpx;
+}
+.list_item .item_right .list_position text{
+  font-size: 22rpx;
+}
+/*房源列表样式 end  */
+
+/* 独栋公寓列表样式start */
+.list_item_out.apartment_list_item_out{
+  margin: 0 0 0 50rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+}
+.apartment_list_item{
+  margin-right:50rpx;
+  padding:48rpx 0;
+  overflow:hidden;
+  height:auto;
+}
+.apartment_list_item_out .apartment_list_item_img{
+  width: 100%;
+  height: 340rpx;
+  position: relative;
+}
+.apartment_list_item_out .apartment_list_item_img image{
+  width: 100%;
+  height: 340rpx;
+}
+.apartment_list_item_out .apartment_list_item_img .position_tips{
+  position: absolute;
+  left: 20rpx;
+  top: 0;
+}
+.apartment_list_item_out .apartment_list_item_img .position_tips text{
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  padding: 0 10rpx;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  font-size: 20rpx;
+  border-radius: 14rpx;
+}
+.apartment_list_item_out .apartment_list_item_img .position_houseimg{
+  position: absolute;
+  right: 27rpx;
+  bottom: -50rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: #fff;
+  box-shadow: 0 2rpx 5rpx 3rpx rgb(247, 247, 247);
+  border-radius: 50%;
+}
+.apartment_list_item_out .apartment_list_item_img .position_houseimg image{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
+.apartment_list_item_out .apartment_list_item_text{
+  padding: 37rpx 0 0 0;
+  position: relative;
+}
+.apartment_list_item_out .apartment_list_item_text .apart_333{
+  font-size: 30rpx;
+  color: #333;
+  font-weight: bold;
+}
+.apartment_list_item_out .apartment_list_item_text .apart_656565{
+  font-size: 22rpx;
+  color: #656565;
+  margin-top: 12rpx;
+}
+.apartment_list_item_out .apartment_list_item_text .apart_ff9000{
+  font-size: 22rpx;
+  color: #ff9000;
+  margin-top: 12rpx;
+}
+.apartment_list_item_out .apartment_list_item_text .apart_ff9000 text{
+  font-size: 30rpx;
+}
+.apartment_list_item_out .apartment_list_item_text .apart_999{
+  font-size: 18rpx;
+  margin-top: 12rpx;
+  color: #999;
+}
+.red_tips{
+  font-size: 16rpx;
+  width: 24rpx;
+  height: 24rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 24rpx;
+  background: #ff0000;
+  margin-right: 8rpx;
+  display: inline-block;
+}
+.apart_position_999{
+  position: absolute;
+  right: 0;
+  top: 136rpx;
+  font-size: 22rpx;
+  color: #999;
+}
+.ellipsis-1{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/* 独栋公寓列表样式end */

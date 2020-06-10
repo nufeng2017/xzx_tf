@@ -1,0 +1,70 @@
+<view class="flex hui-flex-align-center hui-flex-justify hui-page-tips">
+  <view class="hui-txt-tips">
+    <view class="flex hui-flex-align-center">
+      <image src="/taofang-package/img/icon-tips.png" mode="scaleToFill"></image>
+      <view>刷新能让你的信息排名靠前哦！</view>
+    </view>
+  </view>
+  <view class="flex hui-flex-align-center">
+    <navigator class="hui-more-service size-20 blue-font" url="/pages/web/web?url=https://zt.house365.com/project/nj/2017/12/21/promote/">更多推广服务</navigator>
+    <view class="size-20 blue-font">免费刷新攻略</view>
+  </view>
+</view>
+
+<wxs src="../../xmlJs/xmlUtils.wxs" module="dateUtil"></wxs>
+<!-- 发布列表 -->
+<view class="hui-publish-wrap">
+  <block  wx:for="{{publishList}}" wx:key="*this">
+  <view class="hui-publish-item  {{item.status == 0?'hui-review':item.status == 1?'':item.status == 2?'hui-invalid':'hui-not-pass'}}" catchtap='itemClick' data-index='{{index}}'>
+ 
+    <!-- 上半部分 start-->
+    <view class="hui-publish-details">
+      <view class="hui-publish-img">
+        <image src="{{item.pic}}" mode="aspectFill"></image>
+      </view>
+      <view class="hui-publish-info flex hui-flex-justify flex-column">
+        <view class="hui-publish-title text-overflow color-000 size-30">{{item.title}}</view>
+        <view class="hui-address dark-font size-20">{{item.blockname+" "+item.renttype == "1"?"整租":"合租"+" "+item.room+"室"+item.hall+"厅"+item.toilet+"卫"}}</view>
+        <view class="hui-price flex hui-flex-align-center hui-flex-justify">
+          <view class="yellow-font size-30">{{item.price+priceUnitMap[item.priceunit]}}</view>
+          <view>{{dateUtil.formatDate(item.updatetime)}}更新</view>
+        </view>
+      </view>
+    </view>
+    <!-- 上半部分 end-->
+    <!-- 下半部分 start -->
+    <view class="hui-publish-btn-group flex hui-flex-align-cente">
+      <block wx:if="{{item.status == 0}}">
+        <!-- 发布中 -->
+        <view class="flex-item hui-refresh" catchtap='itemRefresh' data-index="{{index}}">刷新</view>
+        <view class="flex-item hui-change" catchtap='itemEdit' data-index="{{index}}">修改</view>
+        <view class="flex-item hui-share" catchtap='itemShare' data-index="{{index}}">分享</view>
+        <view class="flex-item hui-delete-publish" catchtap='itemDelete' data-index="{{index}}">删除</view>
+      </block>
+      <block wx:elif="{{item.status == 1}}">
+        <!-- 已激活 -->
+        <view class="flex-item hui-refresh" catchtap='itemRefresh' data-index="{{index}}">刷新</view>
+        <view class="flex-item hui-change" catchtap='itemEdit' data-index="{{index}}">修改</view>
+        <!-- <view class='flex-item '> -->
+         <view class="flex-item hui-share" catchtap='itemShare' data-index="{{index}}" ><button>分享</button></view>
+         <!-- <button class='share' open-type='share' data-index="{{index}}"></button> -->
+        <!-- </view> -->
+       
+        <view class="flex-item hui-delete-publish" catchtap='itemDelete' data-index="{{index}}">删除</view>
+      </block>
+      <block wx:elif="{{item.status == 2}}">
+        <!-- 失效-->
+        <view class="flex-item hui-republish" catchtap='itemRepublication' data-index="{{index}}">再发布</view>
+        <view class="flex-item hui-delete-publish" catchtap='itemDelete' data-index="{{index}}">删除</view>
+      </block>
+      <block wx:elif="{{item.status == 3}}">
+        <!-- 未通过-->
+        <view class="hui-phone">如有疑问请咨询{{item.person_tel}}</view>
+        <view class="flex-item hui-delete-publish" catchtap='itemDelete' data-index="{{index}}">删除</view>
+      </block>
+    </view>
+    <!-- 下半部分 end -->
+  </view>
+
+  </block>
+</view>

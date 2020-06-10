@@ -1,0 +1,26 @@
+.z-component-scroll-tabs-box{
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  height: 115rpx;
+  white-space: nowrap;
+  width:100%;
+  box-sizing: border-box;
+  padding-left: 38rpx;
+}
+.z-component-scroll-tabs-box .z-component-scroll-tab{
+  display: inline-block;
+  margin-right: 20rpx;
+  height: 50rpx;
+  padding: 0 28rpx;
+  line-height: 50rpx;
+  border:1rpx solid #e6e6e6;
+  color:#b2b2b2;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  vertical-align: top;
+}
+.z-component-scroll-tabs-box .z-component-scroll-tab.z-component-scroll-tab-active{
+  color:#333;
+  background: #efefef;
+  border-color:#efefef;
+}

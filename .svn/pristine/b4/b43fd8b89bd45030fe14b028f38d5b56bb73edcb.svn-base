@@ -1,0 +1,110 @@
+<view class='house_part'>
+    <view>
+        <image src="{{info.images}}" />
+    </view>
+    <view>
+        <text>{{info.title}}</text>
+        <text><text>{{info.housedetail}}</text><text class='rental'>{{info.rental}}<text>元/月</text></text></text>
+        <!--电子合同 -->
+        <view wx:if='{{info.sign_type == 1}}' class='dianzi'>
+            <view>电子合同</view>
+            <view>{{info.sign_status_ch}}</view>
+            <view class='seecontract' bindtap='pdf' wx:if="{{info.sign_status=='2'}}">查看合同</view>
+        </view>
+        <!--纸质合同 -->
+        <view wx:if='{{info.sign_type == 0}}' class='paper'>
+            <view>纸质合同</view>
+        </view>
+    </view>
+</view>
+<view class="main" wx:if="{{info.ct_status == '5'}}">
+    <view class='main_title'>退房信息</view>
+    <view class='main_con'><view>退房时间</view><view>{{info.stop_time}}</view></view>
+    <view class='main_con'><view>退房原因</view><view>{{info.stop_reason}}</view></view>
+    <view class='main_con'><view>备注</view><view>{{info.stop_note}}</view></view>
+    <view class='main_con'><view>退款金额</view><view>{{info.return_money}}元</view></view>
+</view>
+<view class="main">
+    <view class='main_title'>租约信息</view>
+    <view class='main_con'>
+      <view>起止时间</view>
+      <view>{{info.periodstart}}-{{info.periodend}}</view>
+    </view>
+    <view class='main_con'><view>付款方式</view><view>{{info.pay_method_ch}}</view></view>
+    <view class='main_con'><view>租金</view><view>{{info.rental}}元/月</view></view>
+    <view class='main_con'><view>押金</view><view>{{info.deposit}}元</view></view>
+    <view class='main_con' wx:for="{{info.deposit_other}}" wx:key="charge_type">
+      <view>{{item.charge_name}}</view><view>{{item.money}}元</view>
+    </view>
+    <view class='main_con' wx:for="{{info.other_fee}}" wx:key="charge_type">
+      <view>{{item.charge_name}}</view><view>{{item.money}}元/月</view>
+    </view>
+    <view class='main_con' wx:if="{{info.sign_status=='2' && info.next_pay_date > 0}}"><view>下期收租日</view><view>{{info.next_pay_date}}</view></view>
+    <view class='main_con' wx:if="{{info.sign_other_condition}}"><view>附加条款</view><view>{{info.sign_other_condition}}</view></view>
+</view>
+<view class="main" wx:if="{{history.length > 0}}">
+    <view class='main_title'>历史租约</view>
+    <view class="history" wx:for="{{history}}" wx:if="{{item.show || more}}" wx:key="charge_type">
+      <view class='main_con'>
+        <view>起止时间</view>
+        <view>{{item.periodstart}}-{{item.periodend}} (第{{history.length-index}}次签约)</view>
+      </view>
+      <view class='main_con'><view>付款方式</view><view>{{item.pay_method_ch}}</view></view>
+      <view class='main_con'><view>租金</view><view>{{item.rental}}元/月</view></view>
+      <view class='main_con'><view>押金</view><view>{{item.deposit}}元</view></view>
+      <view class='main_con' wx:for="{{item.deposit_other}}" wx:key="charge_type">
+        <view>{{item.charge_name}}</view><view>{{item.money}}元</view>
+      </view>
+      <view class='main_con' wx:for="{{item.other_fee}}" wx:key="charge_type">
+        <view>{{item.charge_name}}</view><view>{{item.money}}元/月</view>
+      </view>
+      <view class='main_con' wx:if="{{item.sign_other_condition}}"><view>附加条款</view><view>{{item.sign_other_condition}}</view></view>    
+    </view>
+    <view class='seeAllpaid' bindtap="showhistory" wx:if='{{hasHistory && !more}}'>
+        <text>查看历史租约</text>
+        <image src="/img/payment/dropdown_blue.png" />
+    </view>
+</view>
+<view class="main">
+    <view class='main_title'>租客信息</view>
+    <view class='main_con'><view>姓名</view><view>{{info.rentername}}</view></view>
+    <view class='main_con'><view>手机号</view><view>{{info.renterphone}}</view></view>
+</view>
+<view class="main">
+    <view class='main_title'>房东信息</view>
+    <view class='main_con'><view>姓名</view><view>{{info.manager_name}}</view></view>
+</view>
+<view wx:if='{{info.sign_type == 0}}' class="main">
+    <view class='main_title'>合同照片</view>
+    <view class="hetong_img">
+        <image wx:for='{{info.contractimgsArr}}' wx:key='*this' data-src="{{item}}" src="{{item}}" bindtap="previewImage" />
+    </view>
+</view>
+<view class="main lastmain">
+    <view class='main_title'>订单信息</view>
+    <view class='main_con'><view>订单号</view><view>{{info.ct_no}}</view></view>
+    <view class='main_con'><view>订单时间</view><view>{{info.add_time}}</view></view>
+</view>
+<!--电子合同 -->
+<view class="footer {{isIPX ? 'iphonex':''}}" wx:if='{{info.sign_type == 1}}'>
+    <view class="fl" bindtap="call">联系管家</view>
+    <view class="fl" bindtap='hetong' wx:if='{{info.sign_status == 1}}' >
+        <text>签署合同</text>
+    </view>
+    <view class="fl" bindtap='pay' wx:if='{{info.sign_status == 2}}'>
+        <text>查看账单</text>
+    </view>
+</view>
+<!--纸质合同 -->
+<view wx:if='{{info.sign_type == 0}}' class="footer  {{isIPX ? 'iphonex' : ''}} ">
+    <view class="fl" bindtap="call">
+        联系管家
+    </view>
+    <view class="fl" bindtap='pay'>
+        <text>查看账单</text>
+    </view>
+</view>
+<navigator url="/pages/web/web?url={{ad.advert_url}}" wx:if="{{ad.advert_id > 0}}">
+<image src="{{ad.advert_image}}" mode="widthFix" class="ad-f"></image>
+</navigator>
+

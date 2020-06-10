@@ -1,0 +1,103 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/detailPages/viewHouse/viewHouse",
+    "pages/detailPages/position/position",
+    "pages/detailPages/lgImg/lgImg",
+    "pages/my/my",
+    "pages/login/login",
+    "pages/detailPages/detailPages",
+    "pages/my_collection/my_collection",
+    "pages/my_order/my_order",
+    "pages/my_coupon/my_coupon",
+    "pages/city/city",
+    "pages/detailPages/report/report",
+    "pages/list/list",
+    "pages/search/search",
+    "pages/detailPages/brandList/brandList",
+    "pages/detailPages/m_pay/m_pay",
+    "pages/payment/leaseManage/leaseManage",
+    "pages/payment/paydetail/paydetail",
+    "pages/payment/rent/rent",
+    "pages/payment/pay/pay",
+    "pages/payment/payMode/payMode",
+    "pages/payment/billdetail/billdetail",
+    "pages/payment/hetong/hetong",
+    "pages/web/web",
+    "pages/apartment/list/list",
+    "pages/apartment/detailPages/detailPages",
+    "pages/apartment/apartment_list/apartment_list",
+    "pages/publish/publish",
+    "pages/search-new/search-new"
+ 
+  ],
+  "subpackages": [
+    {
+      "root": "taofang-package/",
+      "pages": [
+        "pages/publish-promise/publish-promise",
+        "pages/publish-form/publish-form",
+        "pages/house-img/house-img",
+        "pages/edit-img/edit-img",
+        "pages/publish-form/publish-step-2/publish-step-2",
+        "pages/textarea/textarea",
+        "pages/publish-form/owner-house-info/owner-house-info",
+        "pages/authentication/authentication",
+        "pages/authentication/zhima-authentication/zhima-authentication",
+        "pages/authentication/bank-card-authentication/bank-card-authentication",
+        "pages/agreement/authorized-release/authorized-release",
+        "pages/agreement/service-agreement/service-agreement",
+        "pages/search/search",
+        "pages/my-publish/my-publish",
+        "pages/house-list/house-list",
+        "pages/details-page/details-page",
+        "pages/external-image/external-image",
+        "pages/details-page/report/report"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/index/index": {
+      "packages": [
+        "taofang-package/"
+      ]
+    }
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "365淘房租房",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "tabBar": {
+    "color": "#033",
+    "selectedColor": "#333",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "img/tabbar11.png",
+        "selectedIconPath": "img/tabbar1.png"
+      },
+      {
+        "pagePath": "pages/publish/publish",
+        "text": "发房源",
+        "iconPath": "img/push.png",
+        "selectedIconPath": "img/push-1.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "img/tabbar22.png",
+        "selectedIconPath": "img/tabbar2.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

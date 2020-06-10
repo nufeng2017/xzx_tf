@@ -1,0 +1,119 @@
+<import src="../../template/custom.wxml" />
+<view>
+  <!-- 房源搜索 -->
+  <view class="hui-index-search flex hui-flex-align-center">
+    <navigator class="location flex hui-flex-align-center" hover-class="none" url="/pages/city/city">
+      <text>{{cityname}}</text>
+    </navigator>
+    <navigator class="flex hui-flex-align-center flex-item" url="/pages/search/search" hover-class="none">
+      <image src="/img/search.png"></image>
+      <view class="color-99 size-24">想住在哪？</view>
+    </navigator>
+  </view>
+  <!--房源入口  -->
+  <view class="hui-house-link">
+    <view class='house_into'>
+      <navigator url='/taofang-package/pages/house-list/house-list?selected={"lease_mode":"1","itemname":""}&color={"lease_mode":"1"}'  hover-class="none">
+        <image src='../../img/index-icon-1.png' mode="aspectFit"></image>
+        <text>整租</text>
+      </navigator>
+      <navigator  url='../../pages/list/list?selected={"lease_mode":"2","itemname":""}&color={"lease_mode":"2"}' hover-class="none">
+        <image src='../../img/index-icon-2.png' mode="aspectFit"></image>
+        <text>合租</text>
+      </navigator>
+      <navigator url='../../pages/apartment/list/list' hover-class="none">
+        <image src='../../img/index-icon-3.png' mode="aspectFit"></image>
+        <text>品牌公寓</text>
+      </navigator>
+      <navigator url='../../pages/list/list?selected={"house_comefrom":"2","itemname":""}&color={"house_comefrom":"2"}' hover-class="none">
+        <image src='../../img/index-icon-4.png' mode="aspectFit"></image>
+        <text>个人房源</text>
+      </navigator>
+      <navigator url='../../pages/list/list?selected={"monthly":"1","itemname":""}' hover-class="none">
+        <image src='../../img/index-icon-5.png' mode="aspectFit"></image>
+        <text>月付</text>
+      </navigator>
+    </view>
+    <view class='house_into'>
+      <navigator url='../../pages/list/list' hover-class="none">
+        <image src='../../img/index-icon-6.png' mode="aspectFit"></image>
+        <text>商铺</text>
+      </navigator>
+      <navigator url='../../pages/list/list' hover-class="none">
+        <image src='../../img/index-icon-7.png' mode="aspectFit"></image>
+        <text>写字楼</text>
+      </navigator>
+      <navigator url='../../pages/list/list' hover-class="none">
+        <image src='../../img/index-icon-8.png' mode="aspectFit"></image>
+        <text>厂房</text>
+      </navigator>
+      <navigator url='../../pages/list/list' hover-class="none">
+        <image src='../../img/index-icon-9.png' mode="aspectFit"></image>
+        <text>车位</text>
+      </navigator>
+      <navigator url='../../pages/list/list' hover-class="none">
+        <image src='../../img/index-icon-10.png' mode="aspectFit"></image>
+        <text>我要求租</text>
+      </navigator>
+    </view>
+  </view>
+  <!-- 历史记录 -->
+  <view class="flex hui-flex-align-center hui-history" wx:if="{{searchHistory.length > 0}}">
+    <view class="hui-history-title">历史</view>
+    <scroll-view class="hui-history-board flex-item" scroll-x>
+      <view wx:for="{{searchHistory}}" wx:key="index" bindtap="checkHouse" data-value="{{item}}">{{item}}</view>
+    </scroll-view>
+    <image src="/img/empty.png" bindtap="clearHistory"></image>
+  </view>
+  <!-- 看房团 -->
+  <view class="hui-advertisement"></view>
+  <!-- 精选好房 -->
+  <view class="hui-sel-best-house">
+    <view class="list_title flex hui-flex-justify hui-flex-align-center">
+      <text>精选好房</text>
+      <navigator url='../../pages/list/list'>
+        <view class='list_title_morehouse'>
+          <text>查看全部</text>
+          <image src='../../img/dropdownR.png'></image>
+        </view>
+      </navigator>
+    </view>
+    <view class="cl hui-sel-best-house-item-box">
+      <view class="hui-sel-best-house-item fl hui-near-subway">
+        <view class="black-font size-36">近地铁好房</view>
+        <view class="hui-advantage size-24">交通便利地段好</view>
+      </view>
+      <view class="hui-sel-best-house-item fl hui-direct-rent">
+        <view class="black-font size-36">房东直租</view>
+        <view class="hui-advantage size-24">精选个人房源</view>
+      </view>
+      <view class="hui-sel-best-house-item fl hui-hot-rent">
+        <view class="black-font size-36">热租好房</view>
+        <view class="hui-advantage size-24">时尚精装修</view>
+      </view>
+      <view class="hui-sel-best-house-item fl hui-low-price">
+        <view class="black-font size-36">低价租好房</view>
+        <view class="hui-advantage size-24">房租2000以下</view>
+      </view>
+    </view>
+  </view>
+  <!--房源列表  -->
+  <view class='house_list'>
+    <view class='list_title flex hui-flex-justify hui-flex-align-center'>
+      <text>推荐房源</text>
+      <navigator url='../../pages/list/list'>
+        <view class='list_title_morehouse'>
+          <text>查看全部</text>
+          <image src='../../img/dropdownR.png'></image>
+        </view>
+      </navigator>
+    </view>
+    <!--房源列表内容  -->
+    <view wx:for="{{houseList}}" wx:key="house_list">
+      <navigator url="/pages/detailPages/detailPages?h_id={{item.h_id}}&r_id={{item.r_id}}&house_comefrom={{item.house_comefrom}}&l_id={{item.l_id}}&city={{item.city}}">
+        <template is="house_list" data="{{item}}" />
+      </navigator>
+    </view>
+  </view>
+</view>
+

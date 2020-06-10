@@ -1,0 +1,20 @@
+.z-components-btn-groups{
+  height: 100rpx;
+  padding-right: 20rpx;
+}
+.z-components-btn-groups-item,.z-components-btn-groups-item:after,.z-components-btn-groups-item:before{
+  height: 100%;
+  width:70rpx;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background: transparent;
+}
+.z-components-btn-groups-item-share{
+  width:34rpx;
+  height: 35rpx;
+}
+.z-components-btn-groups-item-msg{
+  height: 37rpx;
+  width:37rpx;
+}

@@ -1,0 +1,44 @@
+<form bindsubmit="formSubmit">
+  <view class="hui-form-1">
+    <view class="hui-form-1-item flex hui-flex-align-center">
+      <label>银行卡号</label>
+      <view class="hui-form-input flex-item">
+        <input name="cardNo" placeholder-style="color:#ccc;font-size:30rpx;" placeholder="请输入您的银行卡号"></input>
+      </view>
+    </view>
+    <view class="hui-form-1-item flex hui-flex-align-center">
+      <label>持卡人姓名</label>
+      <view class="hui-form-input flex-item">
+        <input name="name" placeholder-style="color:#ccc;font-size:30rpx;" placeholder="请输入持卡人姓名"></input>
+      </view>
+    </view>
+    <view class="hui-form-1-item flex hui-flex-align-center">
+      <label>持卡人身份证号</label>
+      <view class="hui-form-input flex-item">
+        <input name="certNo" placeholder-style="color:#ccc;font-size:30rpx;" placeholder="请输入持卡人身份证号"></input>
+      </view>
+    </view>
+    <view class="hui-form-1-item flex hui-flex-align-center">
+      <label>银行预留手机号</label>
+      <view class="hui-form-input flex-item">
+        <input name="phoneNo" placeholder-style="color:#ccc;font-size:30rpx;" placeholder="请输入银行预留手机号" bindinput='inputPhoneChange'></input>
+      </view>
+    </view>
+    <view class="hui-form-1-item flex hui-flex-align-center">
+      <label>手机验证码</label>
+      <view class="hui-form-input flex-item">
+        <input name="code"  placeholder-style="color:#ccc;font-size:30rpx;" placeholder="请输入验证码"></input>
+      </view>
+      <view class="hui-form-code-btn" catchtap='getCode'>{{codename}}</view>
+    </view>
+    <view>
+      <checkbox-group bindchange="checkboxChange" class="checkbox" name="checkAgree">
+        <label class="color-99 size-24">
+          <checkbox  value="agree" checked="{{false}}" /> 我已阅读并同意
+        </label>
+        <navigator hover-class="none" url="/taofang-package/pages/agreement/service-agreement/service-agreement" class="blue-font size-24">《365淘房认证服务协议》</navigator>
+      </checkbox-group>
+    </view>
+    <button form-type="submit">立即授权</button>
+  </view>
+</form>

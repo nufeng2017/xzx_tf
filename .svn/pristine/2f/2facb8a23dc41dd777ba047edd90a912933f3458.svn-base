@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "search": "/shangban/components/search/search"
+  },
+  "navigationBarTitleText": "搜索"
+}

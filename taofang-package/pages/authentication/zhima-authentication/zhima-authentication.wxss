@@ -1,0 +1,9 @@
+.hui-txt-tips{
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
+.hui-description{
+  font-size:22rpx;
+  color:#9aa4b3;
+  padding: 0 30rpx;
+}

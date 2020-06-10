@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "咨询",
+  "usingComponents": {
+    "component-emoji": "/IM/components/emoji/emoji",
+    "input-modal": "/IM/components/inputmodal/inputmodal"
+  }
+}

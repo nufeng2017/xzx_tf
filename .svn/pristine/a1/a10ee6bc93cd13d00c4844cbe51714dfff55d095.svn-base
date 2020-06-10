@@ -1,0 +1,106 @@
+
+var regYear = getRegExp("(y+)", "i");
+
+var dateFormat = function (timestamp, format) {
+  console.log("时间：" + timestamp)
+  if (!format) {
+    format = "yyyy-MM-dd hh:mm";
+  }
+  // 秒转为毫秒时间戳
+  timestamp = parseInt(timestamp+"000");
+  var realDate = getDate(timestamp);
+  function timeFormat(num) {
+    return num < 10 ? '0' + num : num;
+  }
+  var date = [
+    ["M+", timeFormat(realDate.getMonth() + 1)],
+    ["d+", timeFormat(realDate.getDate())],
+    ["h+", timeFormat(realDate.getHours())],
+    ["m+", timeFormat(realDate.getMinutes())],
+    ["s+", timeFormat(realDate.getSeconds())],
+    ["q+", Math.floor((realDate.getMonth() + 3) / 3)],
+    ["S+", realDate.getMilliseconds()],
+  ];
+  var reg1 = regYear.exec(format);
+  // console.log(reg1[0]);
+  if (reg1) {
+
+    format = format.replace(reg1[1], (realDate.getFullYear() + '').substring(4 - reg1[1].length));
+  }
+  for (var i = 0; i < date.length; i++) {
+    var k = date[i][0];
+    var v = date[i][1];
+
+    var reg2 = getRegExp("(" + k + ")").exec(format);
+    if (reg2) {
+      format = format.replace(reg2[1], reg2[1].length == 1
+        ? v : ("00" + v).substring(("" + v).length));
+    }
+  }
+  return format;
+}
+
+var splitPhone = function(phoneStrs){
+  var phoneArr = ["",""]
+ 
+    var tempArr = phoneStrs.split(" ")
+    if (tempArr && tempArr.length >= phoneArr.length) {
+      for (var i = 0; i < phoneArr.length; i++) {
+        phoneArr[i] = tempArr[i]
+      }
+    }
+
+ 
+  return phoneArr
+}
+
+var queryItem = function(arr,item){
+ 
+  for (var i = 0; i < arr.length; i++) {
+      if(arr[i] == item){
+        return true
+      }
+  }
+
+  return false
+}
+
+var checkTrue = function(arr){
+
+  for(var i=0;i<arr.length;i++){
+    
+    if (arr[i].checked){
+      console.log(i);
+      return i;
+    }
+  }
+  
+}
+
+var mySplit = function(str){//去除小数点
+
+  return str.split('.')[0]
+}
+
+var changeUnit = function(str){
+
+  if (str == '元/月*平方米' || str == '元/月*平米'){
+
+    return '元/月*㎡'
+  } else if (str == '元/天*平方米' || str == '元/天*平米'){
+    return '元/天*㎡'
+  }else{
+    return str
+  }
+}
+
+
+// 导出对外暴露的属性
+module.exports = {
+  formatDate: dateFormat,
+  splitPhone: splitPhone,
+  queryItem: queryItem,
+  checkTrue: checkTrue,
+  mySplit: mySplit,
+  changeUnit: changeUnit
+}

@@ -1,0 +1,4 @@
+<view class="z-component-hidden-txt {{hidden?'':'z-component-hidden-txt-show'}}" style="{{'line-height:'+lineHeight +'rpx'}}">
+  <text>{{hidden?str:text}}</text>
+  <view class="z-component-hidden-txt-btn" bindtap="showAll" wx:if="{{isFold}}">{{hidden?'展开':'收缩'}}<van-icon  name="{{hidden?'arrow-down':'arrow-up'}}"/></view>
+</view>

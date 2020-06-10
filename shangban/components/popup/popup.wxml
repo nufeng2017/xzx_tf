@@ -1,0 +1,20 @@
+<view 
+  class="z-component-popup {{show?'z-component-popup-show':''}}"
+  style="{{popupStyle}}"
+>
+  <van-popup
+    show="{{ show }}"
+    position="{{position}}"
+    custom-class="z-my-popup"
+    overlay-style="position:absolute"
+    bind:click-overlay="over"
+    z-index="{{zIndex}}"
+  >
+    <area-filter style="{{popupType==1?'display:block':'display:none'}}"  bind:close="over"/>
+    <top-sheet style="{{popupTitle=='租金'?'display:block':'display:none'}}" bind:close="over" popup-title="{{popupTitle}}" list-type="{{listType}}"/>
+    <top-sheet style="{{popupTitle=='类型'?'display:block':'display:none'}}" bind:close="over" popup-title="{{popupTitle}}" list-type="{{listType}}"/>
+    <top-sheet style="{{popupTitle=='排序'?'display:block':'display:none'}}" bind:close="over" popup-title="{{popupTitle}}" list-type="{{listType}}"/> 
+    <top-sheet style="{{popupTitle=='面积'?'display:block':'display:none'}}" bind:close="over" popup-title="{{popupTitle}}" list-type="{{listType}}"/> 
+    <other-filter style="{{popupType==3&&listType==2?'display:block':'display:none'}}" bind:close="over" request-data="{{requestData}}"/>
+  </van-popup>
+</view>

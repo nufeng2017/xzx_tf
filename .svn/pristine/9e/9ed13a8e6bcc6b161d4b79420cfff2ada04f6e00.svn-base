@@ -1,0 +1,55 @@
+Page({
+  data:{
+    isShowModel:'hide',//是否显示模态框
+    isAuthenticate: false,//是否去认证,调用函数isAuthenticate
+    floorType: [//弹窗选择单层还是跃层
+      { name: '单层', value: '单层', checked: 'true' },
+      { name: '跃层', value: '跃层' }
+    ],
+    keyboardNum:['1','2','3','4','5','6','7','8','9','.','0','cancel'],//弹窗键盘按键
+  },
+  onShow(){
+    
+  },
+  isShowModel(e){
+    console.log(e)
+    this.setData({
+      isShowModel: e.currentTarget.dataset.modelstatus
+    });
+  },
+  uploadImg(){//上传照片选项
+    wx.showActionSheet({
+      itemList: ['拍照', '从手机相册选择'],
+      success(res) {
+        wx.chooseImage({
+          sourceType: ['camera', 'album'][res.tapIndex],
+          success(res) {
+            // tempFilePath可以作为img标签的src属性显示图片
+            const tempFilePaths = res.tempFilePaths
+          }
+        })
+      }
+    })
+  },
+  isAuthenticate(){
+    wx.showModal({
+      title: '提示',
+      content: '您还不是实名认证用户实名认证可优先通过审核',
+      cancelText: '继续发布',
+      cancelColor: '#333',
+      confirmText: '去认证',
+      confirmColor: '#ff6f29',
+      success(res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  bindChange(e){
+    const val = e.detail.value
+    console.log(val);
+  }
+});

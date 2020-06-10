@@ -1,0 +1,77 @@
+<template name="null"></template>
+<!--签署合同-->
+<template name="signContract">
+    <view class='popup_bg'>
+      <view class='popup'>
+        <view class='title'>
+          请确认合同的费用
+        </view>
+        <view class='popup_body'>
+          <view class='cl'>
+            <text class='fl'>租金</text>
+            <text class='fr'>{{popup.data.rental}}元/月</text>
+          </view>
+          <view class='cl'>
+            <text class='fl'>押金</text>
+            <text class='fr'>{{popup.data.deposit}}元</text>
+          </view>
+          <view class='cl' wx:for="{{popup.data.deposit_other}}" wx:key="deposit">
+            <text class='fl'>{{item.charge_name}}</text>
+            <text class='fr'>{{item.money}}元</text>
+          </view>
+          <view class='cl' wx:for="{{popup.data.other_fee}}" wx:key="fee">
+            <text class='fl'>{{item.charge_name}}</text>
+            <text class='fr'>{{item.money}}元/月</text>
+          </view>
+        </view>
+        <view class='popup_footer'>
+          <view bindtap='cancel'>取消</view>
+          <view class='color' bindtap='sign'>签署合同</view>
+        </view>
+      </view>
+    </view>
+</template>
+<!--查看账单-->
+<template name="seePaids">
+  <view class='popup_bg'>
+      <view class='popup'>
+        <view class='popup_body'>
+          <view>您签署的合同具备法律效力，全力守护您的租房权益。</view>
+        </view>
+        <view class='popup_footer'>
+          <view><navigator open-type="redirect" url="/pages/payment/paydetail/paydetail?ct_id={{popup.data.ct_id}}">查看租约</navigator></view>
+          <view class='color'><navigator open-type="redirect" url="/pages/payment/pay/pay?ct_id={{popup.data.ct_id}}">查看账单</navigator></view>
+        </view>
+      </view>
+    </view>
+</template>
+<!--联系管家-->
+<template name="call_guanjia">
+  <view class='popup_bg'>
+      <view class='popup'>
+        <view class='popup_body'>
+          <view>您的合同签署失败，请联系管家重新签署合同。</view>
+        </view>
+        <view class='popup_footer'>
+          <view class='color' bindtap='callGuanjia'>联系管家</view>
+        </view>
+      </view>
+    </view>
+</template>
+<!--拨打电话-->
+<template name="call">
+    <view class='popup_bg'>
+      <view class='popup'>
+        <view class='title'>
+          管家电话
+        </view>
+        <view class='popup_body'>
+          请拨打{{popup.data.phone}}
+        </view>
+        <view class='popup_footer'>
+          <view bindtap='cancel'>取消</view>
+          <view class='color' bindtap='call'>立即拨打</view>
+        </view>
+      </view>
+    </view>
+</template>

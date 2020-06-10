@@ -1,0 +1,27 @@
+<view class="hui-txt-tips">
+  <view class="flex hui-flex-align-center">
+    <image src="/taofang-package/img/icon-tips.png" mode="scaleToFill"></image>
+    <view>请输入您的真实资料用于认证</view>
+  </view>
+</view>
+<form bindsubmit="formSubmit">
+  <view class="hui-form-1">
+    <view class="hui-form-1-item flex hui-flex-align-center">
+      <label>姓名</label>
+      <view class="hui-form-input flex-item">
+        <input name="userName" placeholder-style="color:#ccc;font-size:30rpx;" placeholder="请输入姓名"></input>
+      </view>
+    </view>
+    <view class="hui-form-1-item flex hui-flex-align-center">
+      <label>身份证</label>
+      <view class="hui-form-input flex-item">
+        <input type='idcard' name="userIDCard" placeholder-style="color:#ccc;font-size:30rpx;" placeholder="请输入身份证号码"></input>
+      </view>
+    </view>
+    <button form-type="submit">立即提交</button>
+  </view>
+</form>
+<view class="hui-description">
+  <view class="size-30 black-font">为什么要实名认证？</view>
+  <view style="margin-top:25rpx;">使用芝麻实名认证有助于平台对虚假房源的甄别，提高您的房源信息 审核准确性和效率。个人信息仅用于本平台认证，请放心使用。</view>
+</view>

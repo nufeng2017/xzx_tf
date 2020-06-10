@@ -1,0 +1,51 @@
+
+//获取应用实例
+const app = getApp();
+let pageIndex; 
+let prevPage;
+Page({
+  // data: {
+  //   num: 0,
+  //   noteTxt:''
+  // },
+  // /**
+  //  * 生命周期函数--监听页面显示
+  //  */
+  // onLoad(options){
+  //   console.log(options)
+  //   this.setData({
+  //     noteTxt: options.note,
+  //     num: options.note.length
+  //   });
+  // },
+  // onShow() {
+  //   pageIndex = getCurrentPages();
+  //   prevPage = pageIndex[pageIndex.length - 2];
+  // },
+  // onUnload(){
+  //   prevPage.saveNoteTxt(this.data.noteTxt);
+  //   if (this.data.noteTxt.length > 0) {
+  //     prevPage.setData({
+  //       note: {
+  //         isSelect: true,
+  //         content: this.data.noteTxt
+  //       }
+  //     })
+  //   } else {
+  //     prevPage.setData({
+  //       note: {
+  //         isSelect: false,
+  //         content: '备注不超过200字'
+  //       }
+  //     })
+  //   }
+  // },
+  // record:function(e){   
+  //   var num = e.detail.cursor;
+  //   this.setData({
+  //     num: num,
+  //     noteTxt: e.detail.value
+  //   })
+  // },
+  
+})

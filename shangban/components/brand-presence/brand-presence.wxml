@@ -1,0 +1,22 @@
+<!-- 品牌入驻按钮 -->
+<view class="z-component-brand-presence z-flex z-flex-align-center z-flex-direction" bindtap="presence">
+  <image src="./img/phone.png" class="z-component-brand-presence-image"></image>
+  <view>品牌</view>
+  <view>入驻</view>
+</view>
+
+<!-- 弹窗 -->
+<popup-box show="{{show}}" bind:close="close" title="品牌入驻">
+  <view slot="popup-body">
+    <view class="z-component-brand-presence-input z-component-brand-presence-count-down">
+      <input placeholder="请输入您的手机号码" type="number" class="z-component-brand-presence-input-c" bindinput="inputPhone" value="{{phone}}"/>
+      <count-down text="获取验证码" bind:getcode="getCode" phone="{{phone}}" show="{{show}}"></count-down>
+    </view>
+    <view class="z-component-brand-presence-input">
+      <input placeholder="请输入验证码" type="number" class="z-component-brand-presence-input-c" bindinput="inputCode" value="{{code}}"/>
+    </view>
+    <view class="z-component-brand-presence-button">
+      <button class="z-btn-class z-btn-class-1" bindtap="submit">提交</button>
+    </view>
+  </view>
+</popup-box>

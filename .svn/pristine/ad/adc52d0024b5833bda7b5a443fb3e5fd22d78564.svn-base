@@ -1,0 +1,30 @@
+.z-component-area-filter{
+  width:100%;
+  height: 877rpx;
+  background: #fff;
+  padding-bottom: 125rpx;
+  position: relative;
+  box-sizing: border-box;
+}
+.z-component-area-box{
+  height: 100%;
+}
+.z-component-area-item{
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  width:33.3333333333%;
+  border-right: 1px solid #f2f2f2;
+  color:#333;
+  font-size: 32rpx;
+}
+.z-component-area-sel-item{
+  height: 80rpx;
+  line-height: 80rpx;
+  width:100%;
+  box-sizing: border-box;
+  padding-left: 40rpx;
+}
+.z-component-area--active{
+  color:#ffa229;
+}

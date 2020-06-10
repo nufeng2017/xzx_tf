@@ -1,0 +1,59 @@
+<view class='my-container'>
+  <view class='login-bar' bindtap='checkLogin'>
+    <view class="hui-phone flex hui-flex-align-center hui-flex-justify">
+      <view class="flex hui-flex-align-center">
+        <image class='head-img' src='{{headImg}}'></image>
+        <view class='login-info'>{{loginName}}</view>
+      </view>
+      <navigator class="hui-check-name flex hui-flex-align-center" hover-class="none" url="/taofang-package/pages/authentication/authentication">实名认证</navigator>
+    </view>
+    <view class='payment cl' wx:if="{{isPay}}">
+      <view bindtap='checkLogin' data-url='/pages/payment/leaseManage/leaseManage' class="flex flex-center">
+        <view class='tips' wx:if="{{gy_lease_num}}">{{gy_lease_num}}</view>
+        <text>租约管理</text>
+      </view>
+      <view bindtap='checkLogin' data-url='/pages/payment/rent/rent' class="flex flex-center">
+        <view class='tips' wx:if="{{gy_unpaid_num}}">{{gy_unpaid_num}}</view>
+        <text>支付房租</text>
+      </view>
+    </view>
+  </view>
+  <view class='items'>
+    <view class='item collection-house' bindtap='checkLogin' data-url='/taofang-package/pages/my-publish/my-publish'>
+      <view class='border'>
+        <image class='icon' src='../../img/my-publish.png'></image>
+        <view class='text'>我的发布</view>
+        <view class='num'>{{isLogin?myPublishNum + '条':''}}</view>
+        <image class='arrow' src='../../img/dropdownR.png'></image>
+      </view>
+    </view>
+    <view class='item collection-house' bindtap='checkLogin' data-url='/pages/my_collection/my_collection'>
+      <view class='border'>
+        <image class='icon' src='../../img/my-icon-star.png'></image>
+        <view class='text'>我的收藏</view>
+        <view class='num'>{{isLogin?collectionNum + '条':''}}</view>
+        <image class='arrow' src='../../img/dropdownR.png'></image>
+      </view>
+    </view>
+    <view class='item my-order' bindtap='checkLogin' data-url='/pages/my_order/my_order'>
+      <view class='border'>
+        <image class='icon' src='../../img/my-icon-calender.png'></image>
+        <view class='text'>我的预约</view>
+        <view class='num'>{{isLogin?orderNum + '条':''}}</view>
+        <image class='arrow' src='../../img/dropdownR.png'></image>
+      </view>
+    </view>
+    <view class='item my-coupon' bindtap='checkLogin' data-url='/pages/my_coupon/my_coupon'>
+      <view class='border'>
+        <image class='icon' src='../../img/my-icon-tag.png'></image>
+        <view class='text'>我的优惠</view>
+        <image class='arrow' src='../../img/dropdownR.png'></image>
+      </view>
+    </view>
+  </view>
+
+  <button class='logout' wx:if="{{isLogin}}" bindtap='logout'>退出登录</button>
+</view>
+<navigator url="/pages/web/web?url={{ad.advert_url}}" wx:if="{{ad.advert_id > 0}}">
+  <image src="{{ad.advert_image}}" mode="widthFix" class="ad-f"></image>
+</navigator>

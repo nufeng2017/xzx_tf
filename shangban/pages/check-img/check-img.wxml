@@ -1,0 +1,4 @@
+<!--查看轮播图-->
+<view class="z-wrap">
+  <swiper-view media="{{mediaData}}" page-type="2" active="{{active}}" location="{{location}}" detail-type="{{detailType}}"/>
+</view>

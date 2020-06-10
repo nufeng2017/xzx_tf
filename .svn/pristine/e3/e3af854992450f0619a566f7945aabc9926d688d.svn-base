@@ -1,0 +1,62 @@
+page{
+  background: #000;
+  height: 100%;
+}
+.hui-img-box{
+  width:100%;
+}
+.hui-wrap{
+  height: 100%;
+  width:100%;
+  position: fixed;
+  top:0;
+  left: 0;
+  background: #000;
+  z-index: 100;
+}
+.hui-show-img-board{
+  height: 85%;
+  width: 100%;
+}
+.hui-show-img-board image{
+  width:100%;
+}
+.hui-edit-btn{
+  height: 15%;
+  width:100%;
+  position: relative;
+}
+.hui-edit-btn .flex{
+  position: absolute;
+  width:100%;
+  left: 0;
+  bottom: 0;
+}
+.hui-cancel-btn,.hui-ok-btn{
+  width:142rpx;
+  height: 120rpx;
+  color:#306fc4;
+  font-size:36rpx;
+  box-sizing: border-box;
+  padding-top: 50rpx;
+  line-height: 1;
+  text-align: center;
+}
+.hui-left-btn,.hui-right-btn{
+  font-size:24rpx;
+  color:#fff;
+  width:142rpx;
+  height: 120rpx;
+  text-align: center;
+}
+.hui-left-btn image,.hui-right-btn image{
+  display: inline-block;
+  width:48rpx;
+  height: 48rpx;
+}
+.hui-ok-btn{
+  color:#666;
+}
+.hui-ok-btn.hui-change-image{
+  color:#ff6f29;
+}

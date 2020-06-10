@@ -1,0 +1,24 @@
+.z-component-popup-box{
+  width:650rpx;
+  border-radius: 10rpx;
+}
+.z-component-popup-box-title{
+  height: 130rpx;
+  color:#000;
+  font-weight: 900;
+  font-size: 40rpx;
+  position: relative;
+  text-align: center;
+  line-height: 130rpx;
+}
+.z-component-popup-box-title .z-flex{
+  position: absolute;
+  height: 80rpx;
+  width:80rpx;
+  top:0;
+  right: 0;
+}
+.z-component-popup-box-title .z-flex .z-component-popup-box-close-img{
+  width:24rpx;
+  height: 24rpx;
+}

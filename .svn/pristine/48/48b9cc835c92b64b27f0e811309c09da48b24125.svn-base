@@ -1,0 +1,33 @@
+<view class='not-found' wx:if="{{list.length == 0}}">
+  <image src='/img/404-2.png'></image>
+  <text class='text'>没有搜索到符合要求的数据</text>
+</view>
+<view class='list_con'>
+    <view class='list_item' wx:if="{{list.length > 0}}" wx:for="{{list}}" wx:key="house_list">
+        <navigator url="/pages/payment/pay/pay?ct_id={{item.ct_id}}">
+            <view class='item_left'>
+                <image src="/img/payment/fileicon.png" />
+            </view>
+            <view class='item_right'>
+                <text>{{item.title}}</text>
+                <text class='housedetail'>{{item.housedetail}}</text>                
+                <text><text>{{item.rentername}}</text><text>{{item.rental}}元/月</text></text>
+                <!--电子合同 -->
+                <view class='dianzi' wx:if="{{item.sign_type == '1'}}">
+                    <view>电子合同</view>
+                    <view class='red'>{{item.sign_status_ch}}</view>
+                </view>
+                <!--纸质合同 -->
+                <view class='paper' wx:if="{{item.sign_type == '0'}}">
+                    <view>纸质合同</view>
+                </view>
+            </view>
+            <view class='item_icon'>
+                <image src="/img/arrow-r.png" />
+            </view>
+        </navigator>
+    </view>
+</view>
+<navigator url="/pages/web/web?url={{ad.advert_url}}" wx:if="{{ad.advert_id > 0}}">
+<image src="{{ad.advert_image}}" mode="widthFix" class="ad-f"></image>
+</navigator>

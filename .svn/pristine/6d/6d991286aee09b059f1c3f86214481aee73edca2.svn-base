@@ -1,0 +1,59 @@
+.z-component-bottom-win{
+  position: fixed;
+  width:100%;
+  height: 100rpx;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+  border-top: 1px solid #f4f4f4;
+  box-shadow: 0 -4rpx 10rpx 4rpx #f4f4f4;
+  z-index: 1000;
+}
+.z-component-bottom-win-info{
+  width:370rpx;
+  box-sizing: border-box;
+  padding-left: 118rpx;
+  height: 100%;
+  position: relative;
+}
+.z-component-bottom-win-content{
+  height: 100%;
+}
+.z-component-bottom-win-name{
+  font-size: 28rpx;
+  color:#404040;
+}
+.z-component-bottom-win-middle-info{
+  font-size: 20rpx;
+  color:#8a8a8a;
+}
+.z-component-bottom-win-img{
+  position: absolute;
+  width:76rpx;
+  height: 76rpx;
+  left: 30rpx;
+  top:12rpx;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.z-component-bottom-win-btns{
+  width:380rpx;
+  height: 100%;
+}
+.z-component-bottom-win-btns .z-component-bottom-win-btn{
+  height: 100%;
+  width:50%;
+  line-height: 100rpx;
+  color:#fff;
+  font-size: 32rpx;
+  text-align: center;
+  background: #ee5230;
+}
+.z-component-bottom-win-btns .z-component-bottom-win-btn.z-component-bottom-win-btn-1{
+  background: #ffa229;
+}
+.z-component-card-rel{
+  width:112rpx;
+  height: 30rpx;
+  margin-left: 10rpx;
+}

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "view-item": "/shangban/components/view-item/view-item"
+  }
+}

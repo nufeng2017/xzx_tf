@@ -1,0 +1,33 @@
+<scroll-view 
+  class="z-components-list" 
+  scroll-y="{{true}}" 
+  bindscrolltolower="getNewData" 
+  scroll-anchoring="{{true}}"
+  scroll-top="{{scroll}}"
+>
+  <view-item 
+    wx:if="{{listBox == 'view-item'}}" 
+    wx:for="{{list}}"
+    wx:key="index"
+    img="{{item.cover_url || item.pic}}"
+    title="{{item.blockname || item.title}}"
+    address="{{item.subway_distance[0] || item.railway_distance_near}}"
+    characteristic="{{item.type_arr || item.label}}"
+    is-video="{{item.is_exist_video}}"
+    id="{{item.office_id || item.id}}"
+    url="{{'../../pages/detail/detail?detailtype='+listType + '&id=' + (item.office_id || item.id)}}"
+    is-rent="{{item.urgent_status}}"
+    is-money-house="{{item.is_money_house}}"
+  >
+    <view slot="content" class="z-components-list-content">{{listType==1?item.area:item.buildarea+'㎡ · '+item.district+(item.streetname?'-'+item.streetname:'')+' · '+item.blockshowname}}</view>
+    <view slot="price" class="z-view-item-price">
+      <text class="z-view-item-price1" wx:if="{{item.priceunit_day}}">{{item.price_day}}<text class="z-price-unit">{{item.priceunit_day}}</text></text>
+      <text class="z-view-item-price2" wx:if="{{item.priceunit_month}}">{{item.price_month}}<text class="z-price-unit">{{item.priceunit_month}}</text></text>
+      <text class="z-view-item-price1" wx:if="{{item.price_unit}}">{{item.price}}<text class="z-price-unit">{{item.price_unit}}</text></text>
+    </view>
+  </view-item>
+  <view class="z-none-data z-flex z-flex-center z-flex-direction " wx:if="{{show404}}">
+    <image src="/shangban/assets/img/none.png"></image>
+    <view style="color:#ccc;font-size:30rpx;margin-top:10rpx;">没有数据</view>
+  </view>
+</scroll-view>

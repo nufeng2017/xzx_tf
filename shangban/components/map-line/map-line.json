@@ -1,0 +1,7 @@
+{
+  "component":true,
+  "usingComponents": {
+    "van-tab": "/shangban/@vant/weapp/tab/index",
+    "van-tabs": "/shangban/@vant/weapp/tabs/index"
+  }
+}

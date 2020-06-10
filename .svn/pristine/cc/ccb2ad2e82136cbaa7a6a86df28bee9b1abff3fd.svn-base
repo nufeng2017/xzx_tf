@@ -1,0 +1,3 @@
+<view class="z-component-detail-item-box z-flex {{detailType==2?'z-component-detail-item-box-1':''}}">
+  <slot></slot>
+</view>

@@ -1,0 +1,176 @@
+<!--==============房源列表===============  -->
+<view class="search_title_out">
+  <navigator url="/pages/search/search" hover-class="none">
+    <view class="search_input_out">
+      <view class="search_input">
+        <image src="/img/search.png"></image>
+        <text>{{keyword?keyword:'请输入小区、区域、地铁站名称'}}</text>
+      </view>
+    </view>
+  </navigator>
+  <!--筛选条件  -->
+  <view class="condition_out">
+    <view class="condition">
+      <view class="condition_item" bindtap="isShowFilterWin" data-popup="1">
+        <text class="{{(fiterSubmitData.district||fiterSubmitData.streetid||fiterSubmitData.railway||fiterSubmitData.railPosition) ? 'color-ffa229':''}}">位置</text>
+        <image src="/img/dropdown.png"></image>
+      </view>
+      <view class="condition_item" bindtap="isShowFilterWin" data-popup="2">
+        <text class="{{(fiterSubmitData.price || fiterSubmitData.diy_price_start || fiterSubmitData.diy_price_end) ? 'color-ffa229':''}}">租金</text>
+        <image src="/img/dropdown.png"></image>
+      </view>
+      <view class="condition_item" bindtap="isShowFilterWin" data-popup="3">
+        <text class="{{fiterSubmitData.room ? 'color-ffa229':''}}">{{fiterSubmitData.room ? filterData.room[roomIndex].tag_name:'户型'}}</text>
+        <image src="/img/dropdown.png"></image>
+      </view>
+      <view class="condition_item" bindtap="isShowFilterWin" data-popup="4">
+        <text class="{{(fiterSubmitData.infotype || fiterSubmitData.forward || fiterSubmitData.fitment || fiterSubmitData.originFrom|| fiterSubmitData.renttype) ? 'color-ffa229':''}}">筛选</text>
+        <image src="/img/dropdown.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!--房源list  -->
+<view class="hui-list-container">
+  <navigator 
+    class="hui-list-item flex flex-center" 
+    hover-class="none" 
+    data-isreal="{{item.isreal}}" 
+    data-istag="{{item.istag}}"
+    wx:for="{{listData}}"
+    wx:key="*this"
+  >
+    <view class="hui-list-item-img">
+      <image src="../../img/small.jpg" style="{{imgLoadComplete[index]?'display:none':''}}"></image>
+      <image src="{{item.pic1}}" lazy-load="{{true}}" data-index="{{index}}" bindload="imgLoadComplete"></image>
+    </view>
+    <view class="flex-item flex flex-column hui-flex-justify hui-list-item-info-box">
+      <view class="hui-list-item-title text-overflow">{{item.blockshowname}}</view>
+      <view class="hui-list-item-info">{{item.renttype}} {{item.room}}室{{item.hall}}厅 {{item.buildarea}}㎡ {{item.fitment}}</view>
+      <view class="hui-list-item-info-1 flex hui-flex-align-center hui-flex-justify">
+        <view>{{item.street_name}} {{item.block_name}}</view>
+        <view class="hui-list-item-price">
+          {{item.price}}<text>{{unit[item.priceunit]}}</text>
+        </view>
+      </view>
+      <view class="hui-list-item-info-2" wx:if="{{item.owner_real==='1'}}">
+        <view class="hui-istag">实名认证</view>
+      </view>
+    </view>
+  </navigator>
+</view>
+
+
+<!--排序  -->
+<view class="turn" bindtap="isShowturnPopup">
+  <image src="/img/turn.png"></image>
+</view>
+<view class="turnPopup" wx:if="{{turnState}}" bindtap="closeturnPopup">
+  <view class="turnPopup_con">
+    <view class="">
+      <text>1</text>
+    </view>
+  </view>
+</view>
+
+
+<!--顶部弹窗背景  -->
+<view class="screen_view_bg" wx:if="{{showPopup!=0}}" bindtap="isShowFilterWin" data-popup="0"></view>
+
+
+<!--位置条件筛选  -->
+<view class="screen_view" wx:if="{{showPopup==1}}">
+  <view class="location_search">
+    <view class="first_part_location part_location">
+      <!--第一级  -->
+      <view class="{{positionMenu == 0 ? 'active' : ''}}" bindtap="showCondition" data-index="0">区域</view>
+      <view class="{{positionMenu == 1 ? 'active' : ''}}" bindtap="showCondition" data-index="1">地铁</view>
+    </view>
+    <view class="second_part_location part_location">
+      <!--第二级  -->
+      <view class="{{index==positionDataIndex?'active' : ''}} text-overflow" wx:for="{{positionData}}" data-id="{{item.tag_id}}" data-index="{{index}}" wx:key="*this" bindtap="selectPositionIndex">{{item.tag_name}}</view>
+    </view>
+    <view class="third_part_location part_location">
+      <!--第三级  -->
+      <view wx:if="{{item.tag_id != ''}}" class="{{positionChildDataIndex[item.tag_id]?'active' : ''}}" wx:for="{{positionData[positionDataIndex][positionField[positionMenu]['1']]}}" wx:key="*this" data-id="{{item.tag_id}}" bindtap="selectStreets">{{item.tag_name}}</view>
+    </view>
+  </view>
+  <view class="selected">
+    <view class="reset" data-key="position" bindtap="reset">重置</view>
+    <view class="confirm" data-key="position" bindtap="filter">确定</view>
+  </view>
+</view>
+
+
+<!--户型条件筛选  -->
+<view class="screen_view house_room" wx:if="{{showPopup==3}}">
+  <view class="screen_view_con">
+    <view class="price_view">
+      <view class="{{roomIndex == index ? 'active':''}}" wx:for="{{filterData.room}}" wx:key="*this" bindtap="filterSelect" data-property="roomIndex" data-index="{{index}}">{{item.tag_name}}</view>
+    </view>
+  </view>
+  <!--确定或重置筛选条件  -->
+  <view class="selected">
+    <view class="confirm" data-key="room" bindtap="filter">确定</view>
+  </view>
+</view>
+
+
+<!--租金条件筛选  -->
+<view class="screen_view" wx:if="{{showPopup==2}}">
+  <view class="screen_view_con">
+    <view class="price_view">
+      <view class="{{priceIndex == index ? 'active':''}}" wx:for="{{filterData.price}}" wx:key="*this" bindtap="filterSelect" data-property="priceIndex" data-index="{{index}}">{{item.tag_name}}</view>
+    </view>
+  </view>
+  <!--确定或重置筛选条件  -->
+  <view class="selected priceSelected">
+    <input placeholder="最低价" type="number" value="{{fiterSubmitData.diy_price_start}}" bindinput="price" data-pricetype="1"></input>
+    <view class="pricexian">-</view>
+    <input placeholder="最高价" type="number" value="{{fiterSubmitData.diy_price_end}}" data-pricetype="2" bindinput="price"></input>
+    <view class="confirm" data-key="rent" bindtap="filter">确定</view>
+  </view>
+</view>
+
+
+
+<!--更多筛选  -->
+<view class="screen_view more_screen_view" wx:if="{{showPopup==4}}">
+  <view class="screen_view_con">
+    <view class="screen_view_item">
+      <text>出租方式</text>
+      <view>
+        <view wx:for="{{filterData.renttype}}" wx:key="index" class="{{rentTypeIndex == index?'active':''}}" bindtap="filterSelect" data-property="rentTypeIndex" data-index="{{index}}">{{item.tag_name}}</view>
+      </view>
+    </view>
+    <view class="screen_view_item">
+      <text>来源</text>
+      <view>
+        <view wx:for="{{filterData.originFrom}}" wx:key="index" class="{{originFromIndex ==index?'active':''}}" bindtap="filterSelect" data-property="originFromIndex" data-index="{{index}}">{{item.tag_name}}</view>
+      </view>
+    </view>
+    <view class="screen_view_item">
+      <text>物业类型</text>
+      <view>
+        <view wx:for="{{filterData.infotype}}" wx:key="index" class="{{infotypeIndex ==index?'active':''}}" bindtap="filterSelect" data-property="infotypeIndex" data-index="{{index}}">{{item.tag_name}}</view>
+      </view>
+    </view>
+    <view class="screen_view_item">
+      <text>朝向</text>
+      <view>
+        <view wx:for="{{filterData.forward}}" wx:key="index" class="{{forwardIndex ==index?'active':''}}" bindtap="filterSelect" data-property="forwardIndex" data-index="{{index}}">{{item.tag_name}}</view>
+      </view>
+    </view>
+    <view class="screen_view_item">
+      <text>装修</text>
+      <view>
+        <view wx:for="{{filterData.fitment}}" wx:key="index" class="{{fitmentIndex==index?'active':''}}" bindtap="filterSelect" data-property="fitmentIndex" data-index="{{index}}">{{item.tag_name}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="selected">
+    <view class="reset" bindtap="reset" data-key="more">重置</view>
+    <view class="confirm" bindtap="filter" data-key="room">确定</view>
+  </view>
+</view>

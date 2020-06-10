@@ -1,0 +1,12 @@
+<view class="hui-search-container">
+  <view class="hui-search-box flex flex-center">
+    <input placeholder-style="color:#ccc;font-size:28rpx;" placeholder="请输入小区名称" class="flex-item" bindinput='change' value='{{key}}'></input>
+  </view>
+</view>
+<!-- 搜索列表 -->
+<view class="hui-search-list">
+  <view class="hui-search-list-item" wx:for="{{list}}" bindtap='clickAction' wx:key="index" data-index='{{index}}'>
+    <view class="hui-area-name">{{item.name}}</view>
+    <view class="hui-area-addr color-99 size-22">{{item.district}} {{item.location}}</view>
+  </view>
+</view>

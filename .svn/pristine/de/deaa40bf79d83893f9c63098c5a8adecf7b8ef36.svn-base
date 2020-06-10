@@ -1,0 +1,20 @@
+<view class="hui-img-board cl">
+  <view class="hui-img-item fl" data-loading="true">
+    <image mode="aspectFill" src="../../img/test-img.png"></image>
+  </view>
+  <view class="hui-img-item fl" data-loading="false">
+    <image mode="aspectFill" src="../../img/test-img.png"></image>
+  </view>
+  <view class="hui-img-item fl" data-loading="true">
+    <image mode="aspectFill" src="../../img/test-img.png"></image>
+  </view>
+  <view class="hui-img-item fl" data-loading="true">
+    <image mode="aspectFill" src="../../img/test-img.png"></image>
+  </view>
+  <view class="hui-img-item fl" data-loading="true">
+    <image mode="aspectFill" src="../../img/test-img.png"></image>
+  </view>
+  <view class="hui-img-item fl" data-loading="true">
+    <image mode="aspectFill" src="../../img/test-img.png"></image>
+  </view>
+</view>

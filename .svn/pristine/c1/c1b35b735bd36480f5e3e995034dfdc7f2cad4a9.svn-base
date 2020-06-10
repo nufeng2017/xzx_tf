@@ -1,0 +1,82 @@
+var appInstance = getApp();
+var that;
+var offset = 0;
+var pagesize = 20;
+var enableLoadMore = true;  
+Page({
+  data:{
+    priceUnitType: appInstance.getUtil.cacheGet("initConfig").price_unit_map,
+    publishList:[]  //我的发布列表
+  },
+  onLoad(options){
+    that = this
+    this.getPublishRecord(true)
+  },
+
+
+  //上滑加载下一页列表数据
+  onReachBottom: function () {
+      this.getPublishRecord(false)
+  },
+
+// 获取我的发布列表
+  getPublishRecord(isRefresh){
+    if(isRefresh){
+      offset = 0;
+      pagesize = 20
+      enableLoadMore = true
+    }else{
+      if (!enableLoadMore) {
+        this.showHint("暂无更多数据")
+        return
+      }
+      offset += pagesize;
+    }
+    var cacheKey = appInstance.getUtil.getUserinfoKey();
+    let userInfo = appInstance.getUtil.cacheGet(cacheKey)
+    appInstance.getUtil.ajax({
+      path: 'taofang/v1.0/esf/index.php',
+      method: 'GET',
+      isMyPublish:true,
+      data: {
+        method: "getRentHouseList",
+        name: "HousePersonNew",
+        city: appInstance.globalData.city,
+        telno: userInfo.passport_phone,
+        version:"8.0.30",
+        offset:offset,
+        pagesize: pagesize
+      },
+      success: res => {
+        if (res.data.result == 1) {
+            if(res.data.data.length != 0){
+              that.data.publishList.push(res.data.data)
+              that.setData({publishList:that.data.publishList})
+              if (res.data.data.length < pagesize){
+                // 已经全部加载完
+                enableLoadMore = false
+              }
+            }else{
+              // 已经全部加载完
+              enableLoadMore = false
+            }
+        }else{
+          this.showHint(res.data.msg)
+        }
+      },
+      faile: error => {
+        this.showHint("网络异常")
+      }
+    })
+  },
+
+  showHint(title) {
+    wx.showToast({
+      title: title,
+      icon: 'none',
+    })
+  },
+
+
+
+})

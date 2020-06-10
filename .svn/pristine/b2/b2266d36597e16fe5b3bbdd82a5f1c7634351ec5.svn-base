@@ -1,0 +1,52 @@
+<view class='bill_con'>
+    <view class='bill_con_paid'>
+        <view class='fl'>
+            <text class='size-30 black-font'>{{info.charge_name}}</text>
+            <text class='padding_text size-30 color-ff9000'>￥<text>{{info.p_money}}</text>
+            </text>
+            <text class='size-22 color-656565' wx:if="{{info.pay_status == 0}}">请在{{info.p_date}}前完成支付</text>
+        </view>
+        <view class='fr'>
+            <text class='fr-font size-24 color-ff0600'>{{info.pay_status_ch}}</text>
+        </view>
+    </view>
+    <view class='bill_con_detail'>
+        <view wx:if="{{info.period_str}}">
+            <text class='fl'>账期</text>
+            <text class='fr'>{{info.period_str}}</text>
+        </view>
+        <view>
+            <text class='fl'>创建时间</text>
+            <text class='fr'>{{info.add_time}}</text>
+        </view>
+        <view wx:if="{{info.pay_status == 1}}">
+            <text class='fl'>支付时间</text>
+            <text class='fr'>{{info.pay_real_date}}</text>
+        </view>
+        <view wx:if="{{info.note}}">
+            <text class='fl'>账单备注</text>
+            <text class='fr'>{{info.note}}</text>
+        </view>
+    </view>
+</view>
+<view class='doubt' bindtap="call" wx:if='{{info.pay_status == 0}}'>对此账单有疑问？</view>
+<view class="now_paybill  {{isIPX ? 'iphonex' : ''}} " bindtap="confirmPay" wx:if='{{info.pay_status == 0}}'>立即支付</view>
+<navigator url="/pages/web/web?url={{ad.advert_url}}" wx:if="{{ad.advert_id > 0}}">
+<image src="{{ad.advert_image}}" mode="widthFix" class="ad-f"></image>
+</navigator>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

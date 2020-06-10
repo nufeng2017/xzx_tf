@@ -1,0 +1,36 @@
+@import '../../assets/css/app.wxss';
+page{
+  height: 100%;
+}
+.z-wrap{
+  overflow: hidden;
+  height: 100%;
+  padding-top: 290rpx;
+  box-sizing: border-box;
+}
+.z-main{
+  height: 100%;
+}
+.z-page-head{
+  position: fixed;
+  z-index: 1000;
+  top:0;
+  left: 0;
+  width:100%;
+  background: #fff;
+  height: 290rpx;
+}
+.z-container{
+  padding: 0 38rpx;
+  position: relative;
+  z-index: 100;
+  background: #fff;
+}
+.z-filter-tabs{
+  position: relative;
+  z-index: 50;
+}
+.z-scroll-tabs{
+  position: relative;
+  z-index: 10;
+}

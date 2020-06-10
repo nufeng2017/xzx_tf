@@ -1,0 +1,99 @@
+<view class="flex hui-flex-align-center hui-flex-justify hui-page-tips">
+  <view class="hui-txt-tips">
+    <view class="flex hui-flex-align-center">
+      <image src="/taofang-package/img/icon-tips.png" mode="scaleToFill"></image>
+      <view>刷新能让你的信息排名靠前哦！</view>
+    </view>
+  </view>
+  <view class="flex hui-flex-align-center">
+    <view class="hui-more-service size-20 blue-font">更多推广服务</view>
+    <view class="size-20 blue-font">免费刷新攻略</view>
+  </view>
+</view>
+<!-- 发布列表 -->
+<view class="hui-publish-wrap">
+  <!-- 已失效 -->
+  <view class="hui-publish-item hui-invalid">
+    <view class="hui-publish-details">
+      <view class="hui-publish-img">
+        <image src="../../img/test-img.png" mode="aspectFill"></image>
+      </view>
+      <view class="hui-publish-info flex hui-flex-justify flex-column">
+        <view class="hui-publish-title text-overflow color-000 size-30">好房出租238平米合租精装拎包入住</view>
+        <view class="hui-address dark-font size-20">莲花星城 合租 2室1厅1卫</view>
+        <view class="hui-price flex hui-flex-align-center hui-flex-justify">
+          <view class="yellow-font size-30">5000元/月</view>
+          <view>2019-05-15 14:19更新</view>
+        </view>
+      </view>
+    </view>
+    <view class="hui-publish-btn-group flex hui-flex-align-cente">
+      <view class="flex-item hui-republish">再发布</view>
+      <view class="flex-item hui-delete-publish">删除</view>
+    </view>
+  </view>
+  <!-- 审核中 -->
+  <view class="hui-publish-item hui-review">
+    <view class="hui-publish-details">
+      <view class="hui-publish-img">
+        <image src="../../img/test-img.png" mode="aspectFill"></image>
+      </view>
+      <view class="hui-publish-info flex hui-flex-justify flex-column">
+        <view class="hui-publish-title text-overflow color-000 size-30">好房出租238平米合租精装拎包入住</view>
+        <view class="hui-address dark-font size-20">莲花星城 合租 2室1厅1卫</view>
+        <view class="hui-price flex hui-flex-align-center hui-flex-justify">
+          <view class="yellow-font size-30">5000元/月</view>
+          <view>2019-05-15 14:19更新</view>
+        </view>
+      </view>
+    </view>
+    <view class="hui-publish-btn-group flex hui-flex-align-cente">
+      <view class="flex-item hui-refresh">刷新</view>
+      <view class="flex-item hui-change">修改</view>
+      <view class="flex-item hui-share">分享</view>
+      <view class="flex-item hui-delete-publish">删除</view>
+    </view>
+  </view>
+  <!-- 在线 -->
+  <view class="hui-publish-item">
+    <view class="hui-publish-details">
+      <view class="hui-publish-img">
+        <image src="../../img/test-img.png" mode="aspectFill"></image>
+      </view>
+      <view class="hui-publish-info flex hui-flex-justify flex-column">
+        <view class="hui-publish-title text-overflow color-000 size-30">好房出租238平米合租精装拎包入住</view>
+        <view class="hui-address dark-font size-20">莲花星城 合租 2室1厅1卫</view>
+        <view class="hui-price flex hui-flex-align-center hui-flex-justify">
+          <view class="yellow-font size-30">5000元/月</view>
+          <view>2019-05-15 14:19更新</view>
+        </view>
+      </view>
+    </view>
+    <view class="hui-publish-btn-group flex hui-flex-align-cente">
+      <view class="flex-item hui-refresh">刷新</view>
+      <view class="flex-item hui-change">修改</view>
+      <view class="flex-item hui-share">分享</view>
+      <view class="flex-item hui-delete-publish">删除</view>
+    </view>
+  </view>
+  <!-- 未通过 -->
+  <view class="hui-publish-item hui-not-pass">
+    <view class="hui-publish-details">
+      <view class="hui-publish-img">
+        <image src="../../img/test-img.png" mode="aspectFill"></image>
+      </view>
+      <view class="hui-publish-info flex hui-flex-justify flex-column">
+        <view class="hui-publish-title text-overflow color-000 size-30">好房出租238平米合租精装拎包入住</view>
+        <view class="hui-address dark-font size-20">莲花星城 合租 2室1厅1卫</view>
+        <view class="hui-price flex hui-flex-align-center hui-flex-justify">
+          <view class="yellow-font size-30">5000元/月</view>
+          <view>2019-05-15 14:19更新</view>
+        </view>
+      </view>
+    </view>
+    <view class="hui-publish-btn-group flex hui-flex-align-cente">
+      <view class="hui-phone">如有疑问请咨询025-84645315 83247162</view>
+      <view class="flex-item hui-delete-publish">删除</view>
+    </view>
+  </view>
+</view>

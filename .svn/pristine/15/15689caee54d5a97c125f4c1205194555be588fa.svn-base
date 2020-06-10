@@ -1,0 +1,125 @@
+<!--轮播图  -->
+<view id="imgBox" class="shadow">
+  <swiper autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" bindchange="swiperChange">
+    <swiper-item>
+      <image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559543712256&di=12e57e9d4b0db06614a16b0d7f1dd11b&imgtype=0&src=http%3A%2F%2Fwww-api.vdongchina.com%2Fpublic%2Fd%2Ffile%2Fnews%2Fxcxzx%2F2018-01-24%2F4cc50e82efd6b144249b66bb2e016c1a.jpg" class="slide-image" bindtap="checkLgImg"
+        mode="aspectFill" />
+    </swiper-item>
+    <swiper-item>
+      <image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559122161759&di=be3b9f47f7586ed83aa4ea57d23f1ab7&imgtype=0&src=http%3A%2F%2Fl.b2b168.com%2F2018%2F12%2F11%2F17%2F201812111713079114424.jpg" class="slide-image" bindtap="checkLgImg"
+        mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+  <view id="imgsNum">1/10</view>
+</view>
+<!--房源基本信息  -->
+<view class="hui-content-box border-b">
+  <!-- data-icon 1是急售，2验真 -->
+  <view class="hui-details-title" data-icon="1">明城世家 仙林 30万豪装 双学区 双地铁 全新装修只剩一套全新装修只</view>
+  <view class="flex flex-center hui-details">
+    <view class="flex-item">
+      <view>租金<text class="hui-font-color-y">(月付)</text></view>
+      <view class="hui-details-txt">3200元</view>
+    </view>
+    <view class="flex-item">
+      <view>户型</view>
+      <view class="hui-details-txt">3室2厅1卫</view>
+    </view>
+    <view class="flex-item">
+      <view>面积</view>
+      <view class="hui-details-txt">97㎡</view>
+    </view>
+  </view>
+</view>
+<view class="hui-content-box border-b">
+  <view class="hui-characteristic">
+    <view data-color="1">南北通透</view>
+    <view data-color="2">地铁房</view>
+    <view data-color="3">学区房</view>
+  </view>
+  <view class="hui-details-item flex flex-center">
+    <view class="flex-item">
+      <view>
+        <text class="hui-font-color-g">方式</text>
+        <text>整租</text>
+      </view>
+      <view>
+        <text class="hui-font-color-g">装修</text>
+        <text>精装</text>
+      </view>
+      <view>
+        <text class="hui-font-color-g">朝向</text>
+        <text>南</text>
+      </view>
+    </view>
+    <view class="flex-item">
+      <view>
+        <text class="hui-font-color-g">区属</text>
+        <text class="text-overflow">鼓楼区-江东是第三方撒地方</text>
+      </view>
+      <view>
+        <text class="hui-font-color-g">楼层</text>
+        <text>11/16</text>
+      </view>
+      <view>
+        <text class="hui-font-color-g">类型</text>
+        <text>住宅</text>
+      </view>
+    </view>
+  </view>
+  <view class="hui-details-wrap">
+    <text class="hui-font-color-g">发布时间</text>
+    <text>2017/07/31</text>
+    <text class="hui-font-color-g">(2分钟前更新）</text>
+  </view>
+  <view class="hui-details-wrap">
+    <text class="hui-font-color-g">所属小区</text>
+    <text class="hui-font-color-y">凤凰街84号</text>
+  </view>
+  <view class="hui-details-wrap">
+    <text class="hui-font-color-g">周边地铁</text>
+    <text >地铁二号线元通站800米</text>
+  </view>
+</view>
+<view class="hui-content-box border-b-1">
+  <view class="hui-details-module-title">房源描述</view>
+  <view>
+    <view class="hui-house-description">
+      <view>房源均由我们为您精心挑选，逐一核实，内部ER房源编号：3542565455</view>
+      <view> 房源描述】三室两厅一卫，一房朝南，二房朝北，主卧朝南带阳台，南北通透，使用率超赞。易于身心健康！全明格局，采光好，楼层高，阳光充足。三室两厅一卫，一房朝南，二房朝北，主卧朝南带阳台，南北通透，使用率超赞。易于身心健康！阳</view>
+    </view>
+    <view class="hui-check-more">
+      <image src="/img/dropdown.png"></image>
+    </view>
+  </view>
+</view>
+<view class="hui-content-box border-b-1">
+  <view class="hui-details-module-title">配套设施</view>
+  <view class="cl hui-facilities">
+    <view class="fl">
+      <image src="/img/index-icon-1.png" mode="aspectFit"></image>
+      <view>独立卫生间</view>
+    </view>
+    <view class="fl">
+      <image src="/img/index-icon-1.png" mode="aspectFit"></image>
+      <view>独立卫生间</view>
+    </view>
+    <view class="fl">
+      <image src="/img/index-icon-1.png" mode="aspectFit"></image>
+      <view>独立卫生间</view>
+    </view>
+    <view class="fl">
+      <image src="/img/index-icon-1.png" mode="aspectFit"></image>
+      <view>独立卫生间</view>
+    </view>
+    <view class="fl">
+      <image src="/img/index-icon-1.png" mode="aspectFit"></image>
+      <view>独立卫生间</view>
+    </view>
+    <view class="fl">
+      <image src="/img/index-icon-1.png" mode="aspectFit"></image>
+      <view>独立卫生间</view>
+    </view>
+  </view>
+</view>
+<view class="hui-content-box"></view>

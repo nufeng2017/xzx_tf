@@ -1,0 +1,47 @@
+<view class="hui-wrap">
+  <view class="hui-user-info flex hui-flex-justify hui-flex-align-center">
+    <view class="flex hui-flex-align-center">
+      <view class="hui-avatar">
+        <image src="{{headImg}}" mode="aspectFit"></image>
+      </view>
+      <view>{{phoneForShow}}</view>
+    </view>
+    <!-- 去掉 hui-no-authentication-icon就是已认证图标-->
+    <view class="hui-authentication-icon hui-no-authentication-icon"></view>
+  </view>
+  <view class="hui-authentication-pro">
+    <navigator class="hui-authentication-item flex hui-flex-align-center hui-zhima" hover-class="none" url="/taofang-package/pages/authentication/zhima-authentication/zhima-authentication">
+      <view class="flex-item">
+        <view class="hui-authentication-item-title">芝麻信用认证</view>
+        <view class="size-24 dark-font">去认证</view>
+      </view>
+    </navigator>
+    <navigator class="hui-authentication-item flex hui-flex-align-center hui-bank" hover-class="none" url="/taofang-package/pages/authentication/bank-card-authentication/bank-card-authentication">
+      <view class="flex-item">
+        <view class="hui-authentication-item-title">银行卡实名认证</view>
+        <view class="size-24 dark-font yellow-font">已认证</view>
+      </view>
+    </navigator>
+  </view> 
+  <view class="hui-advantage">
+    <view class="hui-advantage-header">实名认证优势</view>
+    <view class="hui-advantage-main cl">
+      <view class="hui-advantage-item fl">
+        <view class="hui-advantage-item-title">专属身份标识</view>
+        <view class="size-22 color-99">让您的房源脱颖而出</view>
+      </view>
+      <view class="hui-advantage-item fl">
+        <view class="hui-advantage-item-title">隐私保护服务</view>
+        <view class="size-22 color-99">避免交易完仍有电话骚扰</view>
+      </view>
+      <view class="hui-advantage-item fl">
+        <view class="hui-advantage-item-title">房源包装推广</view>
+        <view class="size-22 color-99">拍摄VR实景并绘制户型图</view>
+      </view>
+      <view class="hui-advantage-item fl">
+        <view class="hui-advantage-item-title">高级VIP服务</view>
+        <view class="size-22 color-99">一对一量身定制营销方案</view>
+      </view>
+    </view>
+  </view>
+</view>

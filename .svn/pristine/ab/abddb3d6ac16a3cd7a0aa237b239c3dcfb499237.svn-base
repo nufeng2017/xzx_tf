@@ -1,0 +1,664 @@
+
+var app= getApp();
+
+//选择了但没点确定用的零时变量
+let tempRoom='';
+let tempHall = '';
+let temptoilet= '';
+let tempForward = '';
+let tempFloor='';
+let tempFloorStart='';
+let tempFloorEnd='';
+let tempFloorTotal='';
+let tempShopType = '';
+let tempBuildingNum='';
+let tempUnitNum='';
+let tempRoomNum='';
+
+Page({
+  data:{
+    isShowModel:'hide',//是否显示模态框
+    isAuthenticate: false,//是否去认证,调用函数isAuthenticate
+    floorType: [//弹窗选择单层还是跃层
+      { name: '单层', value: '单层', checked: 'true' },
+      { name: '跃层', value: '跃层' }
+    ],
+    chooseFloorType:'单层',
+    keyboardNum:['1','2','3','4','5','6','7','8','9','.','0','cancel'],//弹窗键盘按键
+    houseTypeArr: [['1室', '2室', '3室', '4室', '5室', '6室', '7室', '8室', '9室', '10室'], ['0厅', '1厅', '2厅', '3厅', '4厅', '5厅', '6厅', '7厅', '8厅', '9厅', '10厅'], 
+      ['0卫', '1卫', '2卫', '3卫', '4卫', '5卫', '6卫', '7卫', '8卫', '9卫', '10卫']],
+      signleLayArr:[],
+      duobleLayArr:[],
+    listNum:[[]],
+    
+    publish:false,//是否是发布页面
+    houseType:'',//是住宅、别墅...
+    chooseType:'',//当前选中的是 户型、朝向还是楼层等
+    topArr:[],
+    bottomArr:[],//楼栋号、单元号、室号
+    showArr:[],//弹框显示的头部内容
+    noticeText: '',//请选择厅室数量、请输入楼栋号、请输入房屋面积、请输入房间面积、请输入月租金、请选择楼层...
+    showBoard: false, //是否显示弹出的键盘
+    showSingleOrDou:false,//是否显示单层跃层
+    list:[],//面积月租金
+    moreChoose:'',//选中的主卧...  月付....
+    
+    //========需要提交的数据
+    publishObj: {
+      block_name:'',
+      room:'',
+      hall:'',
+      toilet:'',
+      forward:'',
+      floor: '',       //单层
+      floor_start: '', //跃层start
+      floor_end: '', 
+      shop_type:''
+
+
+    },
+
+
+
+    //========
+
+
+  },
+  onShow(){
+    
+  },
+
+  init(option){
+
+    var houseType = app.getUtil.cacheGet('initConfig').house_type_map;
+    var key = findKey(houseType, option.houseType)
+    console.log(key);
+    switch (parseInt(key)) {//1、住宅2、别墅3、写字楼4、商铺5、厂房仓库6、车库车位7
+      case 1:
+        this.setData({
+          topArr: [{ 'name': '户型', 'value': '', }, { 'name': '朝向', 'value': '' }, { 'name': '楼层', 'value': '' }],
+          bottomArr:[{'name':'楼栋号','value':''},{'name':'单元号','value':''},{'name':'室号','value':''}],
+          houseType: option.houseType
+
+        });
+        break;
+      case 2:
+        this.setData({
+          topArr: [{ 'name': '户型', 'value': '' }, { 'name': '朝向', 'value': '' }, { 'name': '楼层', 'value': '' }],
+          houseType: option.houseType,
+          bottomArr: [{ 'name': '楼栋号', 'value': '' }, { 'name': '单元号', 'value': '' }, { 'name': '室号', 'value': '' }]
+        });
+        break;
+      case 3:
+        this.setData({
+          topArr: [{ 'name': '楼层', 'value': '' }],
+          houseType: option.houseType,
+          bottomArr: [{ 'name': '楼栋号', 'value': '' }, { 'name': '单元号', 'value': '' }, { 'name': '室号', 'value': '' }]
+        })
+
+        break;
+      case 4:
+        this.setData({
+          topArr: [{ 'name': '商业类型', 'value': '' }, { 'name': '楼层', 'value': '' }],
+          houseType: option.houseType,
+          bottomArr: [{ 'name': '楼栋号', 'value': '' }, { 'name': '单元号', 'value': '' }, { 'name': '室号', 'value': '' }]
+        })
+        break;
+      case 5:
+        this.setData({
+          topArr: [{ 'name': '楼层', 'value': '' }],
+          houseType: option.houseType,
+          bottomArr: [{ 'name': '楼栋号', 'value': '' }, { 'name': '单元号', 'value': '' }, { 'name': '室号', 'value': '' }]
+        });
+        break;
+      case 6:
+        this.setData({
+          topArr: [],
+          houseType: option.houseType,
+          bottomArr: [{ 'name': '楼栋号', 'value': '' }, { 'name': '单元号', 'value': '' }, { 'name': '室号', 'value': '' }]
+        });
+        break;
+
+
+    }
+
+    let all= [];
+    for(var i=0;i<3;i++){
+      let arr = [];
+      for (var j = 1; j < 100; j++) {
+        if(i<2){
+          arr.push(j+'层')
+        }else{
+          arr.push('共'+j + '层')
+        }
+      }
+      all.push(arr)
+    }
+
+    this.setData({
+      signleLayArr:[all[0],all[2]],
+      duobleLayArr:all
+    })
+    
+      
+  },
+
+  onLoad(option){
+    //设置标题
+
+    if (option.houseType){
+      wx.setNavigationBarTitle({
+        title: option.houseType,
+      })
+
+      this.init(option)
+      
+    }
+    //是否是发布
+    if(option.publish){
+
+      this.setData({
+        publish:option.publish
+      })
+    }
+    
+    
+
+  }
+,
+//清除零时变量
+  clearTemp(){
+
+    tempRoom = '';
+    tempHall = '';
+    temptoilet = '';
+    tempForward = '';
+    tempFloor = '';
+    tempFloorStart = '';
+    tempFloorEnd = '';
+    tempFloorTotal = '';
+    tempShopType = '';
+    tempBuildingNum = '';
+    tempUnitNum = '';
+    tempRoomNum = '';
+
+  }
+,
+//弹框展现的样式
+  isShowModel(e){
+
+    this.clearTemp();
+    console.log(e)
+    this.setData({
+      isShowModel: e.currentTarget.dataset.modelstatus,
+    })
+
+    let type = e.currentTarget.dataset.type
+    if ((this.data.houseType == '住宅' || this.data.houseType == '别墅')&& ((type == "户型") || (type == "朝向")||(type=="楼层"))){
+      
+      if(type=="户型"){
+        this.setData({
+          showArr: [{ 'name': '户型', 'value': '' }, { 'name': '朝向', 'value': '' }, { 'name': '楼层', 'value': '' }],
+          chooseType: type,
+          showBoard: false,
+          listNum: this.data.houseTypeArr,
+          noticeText: '请选择厅室数量',
+          showSingleOrDou:false
+        });
+        
+
+      }else if(type=="朝向"){
+        this.setData({
+          showArr: [{ 'name': '户型', 'value': '' }, { 'name': '朝向', 'value': '' }, { 'name': '楼层', 'value': '' }],
+          chooseType: type,
+          showBoard: false,
+          listNum: [app.getUtil.cacheGet('initConfig').forward_map],
+          noticeText:'请选择朝向',
+          showSingleOrDou:false
+        });
+        console.log(this.data.listNum);
+
+      }else if(type=="楼层"){
+
+        let arr = this.data.chooseFloorType=='单层'?this.data.signleLayArr:this.data.duobleLayArr
+
+        this.setData({
+          showArr: [{ 'name': '户型', 'value': '' }, { 'name': '朝向', 'value': '' }, { 'name': '楼层', 'value': '' }],
+          chooseType: type,
+          showBoard: false,
+          listNum: arr,
+          noticeText:'请选择楼层',
+          showSingleOrDou:true
+        });
+
+      }
+      
+
+    } else if (this.data.houseType == '写字楼' && type == "楼层"){
+
+      let arr = this.data.chooseFloorType == '单层' ? this.data.signleLayArr : this.data.duobleLayArr
+      this.setData({
+        showArr: [{ 'name': '楼层', 'value': '' }],
+        chooseType: type,
+        showBoard:false,
+        listNum: arr,
+        noticeText: '请选择楼层',
+        showSingleOrDou: true
+      });
+    } else if (this.data.houseType == '商铺' && (type == '商业类型' || type =='楼层')){
+      
+      if(type=='商业类型'){
+        var shop_type_map = app.getUtil.cacheGet('initConfig').shop_type_map
+        console.log(shop_type_map)
+        let arr = []
+        for(let i in shop_type_map){
+          console.log(shop_type_map[i])
+          arr.push(shop_type_map[i])
+        }
+        console.log(arr);
+
+        this.setData({
+          showArr: [{ 'name': '商业类型', 'value': '' }, { 'name': '楼层', 'value': '' }],
+          chooseType: type,
+          showBoard: false,
+          noticeText:'请选择商业类型',
+          showSingleOrDou:false,
+          listNum:[arr]
+        });
+      }else if(type=='楼层'){
+        let arr = this.data.chooseFloorType == '单层' ? this.data.signleLayArr : this.data.duobleLayArr
+        this.setData({
+          showArr: [{ 'name': '商业类型', 'value': '' }, { 'name': '楼层', 'value': '' }],
+          chooseType: type,
+          showBoard: false,
+          noticeText:'请选择楼层',
+          showSingleOrDou:false,
+          listNum:arr
+          
+        });
+      }
+      
+      
+
+    } else if (this.data.houseType == '厂房仓库' && type == '楼层'){
+      let arr = this.data.chooseFloorType == '单层' ? this.data.signleLayArr : this.data.duobleLayArr
+      this.setData({
+        showArr: [{ 'name': '楼层', 'value': '' }],
+        chooseType: type,
+        showBoard:false,
+        noticeText: '请选择楼层',
+        showSingleOrDou: false,
+        listNum: arr
+      });
+    }else if(type=='楼栋号'){
+
+      this.setData({
+        showArr:[{ 'name': '楼栋号', 'value': '' }, { 'name': '单元号', 'value': '' }, { 'name': '室号', 'value': '' }],
+        chooseType:type,
+        showBoard:true,
+        noticeText:'请输入楼栋号（选填）'
+        })
+    }else if(type=='单元号'){
+      this.setData({
+        showArr: [{ 'name': '楼栋号', 'value': '' }, { 'name': '单元号', 'value': '' }, { 'name': '室号', 'value': '' }],
+        chooseType: type,
+        showBoard: true,
+        noticeText:'请输入单元号（选填）'
+      })
+    }else if(type=='室号'){
+      this.setData({
+        showArr: [{ 'name': '楼栋号', 'value': '' }, { 'name': '单元号', 'value': '' }, { 'name': '室号', 'value': '' }],
+        chooseType: type,
+        showBoard: true,
+        noticeText:'请输入室号（选填）'
+
+      })
+    }else if(type=='租客性别'){
+      let sex = app.getUtil.cacheGet('initConfig').sex_map
+      this.setData({
+        showArr:[{'name':'租客性别','value':''}],
+        chooseType:type,
+        showBoard:false,
+        noticeText:'请选择租客性别',
+        listNum:[sex],
+        showSingleOrDou: false
+      })
+    }else if(type=='面积'){
+      let list = app.getUtil.cacheGet('initConfig').rent_type_map
+      this.setData({
+        showArr:[{'name':'面积','value':''}],
+        chooseType:type,
+        showBoard:true,
+        noticeText:'请选择面积',
+        list:list
+      })
+    }else if(type=='月租金'){
+      let list = app.getUtil.cacheGet('initConfig').price_type_map
+      this.setData({
+        showArr: [{ 'name': '月租金', 'value': '' }],
+        chooseType: type,
+        showBoard: true,
+        noticeText: '请填写月租金',
+        list:list
+        
+
+      })
+    }else if(type == "物业费"){
+
+      this.setData({
+        showArr: [{ 'name': '物业费', 'value': '' }],
+        chooseType: type,
+        showBoard: true,
+        noticeText: '请填写物业费'
+      })
+    }else if(type=="装修"){
+      let fit = app.getUtil.cacheGet('initConfig').fitment_map
+      this.setData({
+        showArr:[{'name':'装修','value':''}],
+        chooseType:type,
+        showBoard:false,
+        noticeText:'请选择装修',
+        listNum:[fit]
+      })
+    } else if (type =='可注册公司'){
+      this.setData({
+        showArr: [{ 'name':'可注册公司','value':''}],
+        chooseType:type,
+        showBoard:false,
+        noticeText:'请选择可否注册公司',
+        listNum:[["是","否"]]
+      })
+    }
+
+    
+  },
+
+  //弹框顶部点击切换类型
+  chooseTypeAction(e){
+    console.log(e);
+    console.log(e.currentTarget.dataset.name)
+
+    let type = e.currentTarget.dataset.name
+    
+    if (type=='户型'){
+      this.setData({
+        listNum:this.data.houseTypeArr,
+        noticeText: '请选择厅室数量',
+        chooseType:type,
+        showSingleOrDou: false,
+        showBoard: false
+      })
+    }else if(type=="朝向"){
+      this.setData({
+        listNum: [app.getUtil.cacheGet('initConfig').forward_map],
+        noticeText: '请选择朝向',
+        chooseType: type,
+        showSingleOrDou: false,
+        showBoard: false
+      })
+    }else if(type=="楼层"){
+
+      let arr= this.data.chooseFloorType=="单层"?this.data.signleLayArr:this.data.duobleLayArr
+      this.setData({
+        listNum:arr,
+        noticeText: '请选择楼层',
+        chooseType: type,
+        showSingleOrDou: true,
+        showBoard: false
+      })
+    }else if(type=='楼栋号'){
+      this.setData({
+        showBoard: true,
+        noticeText: '请输入楼栋号（选填）',
+        chooseType: type
+      })
+    }else if(type=="单元号"){
+      this.setData({
+        showBoard: true,
+        noticeText: '请输入单元号（选填）',
+        chooseType: type
+      })
+    }else if(type=='室号'){
+      this.setData({
+        showBoard: true,
+        noticeText: '请输入室号（选填）',
+        chooseType: type
+      })
+    }else if(type=='商业类型'){
+
+      var shop_type_map = app.getUtil.cacheGet('initConfig').shop_type_map
+      let arr = []
+      for (let i in shop_type_map) {
+        console.log(shop_type_map[i])
+        arr.push(shop_type_map[i])
+      }
+      this.setData({
+        showBoard:false,
+        noticeText:'请选择商业类型',
+        listNum:[arr],
+        showSingleOrDou: false,
+        chooseType: type
+
+      })
+    }
+
+  },
+
+  uploadImg(){//上传照片选项
+    wx.showActionSheet({
+      itemList: ['拍照', '从手机相册选择'],
+      success(res) {
+        wx.chooseImage({
+          sourceType: ['camera', 'album'][res.tapIndex],
+          success(res) {
+            // tempFilePath可以作为img标签的src属性显示图片
+            const tempFilePaths = res.tempFilePaths
+          }
+        })
+      }
+    })
+  },
+  isAuthenticate(){
+    wx.showModal({
+      title: '提示',
+      content: '您还不是实名认证用户实名认证可优先通过审核',
+      cancelText: '继续发布',
+      cancelColor: '#333',
+      confirmText: '去认证',
+      confirmColor: '#ff6f29',
+      success(res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+
+  //列表选择
+  bindChange(e){
+    const val = e.detail.value
+    console.log(val);
+    if (this.data.houseType == '住宅' || this.data.houseType == '别墅'){
+
+        if(this.data.chooseType=="户型"){
+          let room =  this.data.houseTypeArr[0][val[0]]
+          let hall = this.data.houseTypeArr[1][val[1]]
+          let toilet = this.data.houseTypeArr[2][val[2]]
+          let allType = room + hall + toilet
+          console.log(allType);
+          tempRoom = room;
+          tempHall = hall;
+          temptoilet = toilet
+          // let proom = "publishObj.room"
+          // let phall = "publishObj.hall"
+          // let pbathroom = "publishObj.bathroom"
+          this.setData({
+            // [proom]:room,
+            // [phall]:hall,
+            // [pbathroom]:bathroom,
+            showArr: [{ 'name': '户型', 'value': allType }, { 'name': '朝向', 'value': tempForward}, {
+              'name': '楼层', 'value': tempFloor }]
+
+          })
+          
+        } else if (this.data.chooseType == "朝向"){
+          let forward = app.getUtil.cacheGet('initConfig').forward_map[val[0]]
+          // let pforward = "publishObj.forward"
+          
+          let allType = tempRoom + tempHall + temptoilet;
+          
+          tempForward = forward
+
+          this.setData({
+            // [pforward]:forward,
+            showArr: [{ 'name': '户型', 'value': allType }, { 'name': '朝向', 'value': forward }, {
+              'name': '楼层', 'value': tempFloor
+            }]
+          })
+
+
+
+        }else if(this.data.chooseType == '楼层'){
+
+          let allType = tempRoom + tempHall + temptoilet;
+          tempFloor = this.data.chooseFloorType == "单层" ? (this.data.signleLayArr[0][val[0]] + '/' + this.data.signleLayArr[1][val[1]]):(this.data.duobleLayArr[0][val[0]]+'-'+this.data.duobleLayArr[1][val[1]]+'/'+this.data.duobleLayArr[2][val[2]])
+
+          this.setData({
+            showArr: [{ 'name': '户型', 'value': allType },
+            { 'name': '朝向', 'value': tempForward }, 
+            {'name': '楼层', 'value': tempFloor}]
+          })
+
+        }
+    } else if (this.data.houseType == '商铺'){
+
+        if(this.data.chooseType == '商业类型'){
+          var shop_type_map = app.getUtil.cacheGet('initConfig').shop_type_map
+          let arr = []
+          for (let i in shop_type_map) {
+            console.log(shop_type_map[i])
+            arr.push(shop_type_map[i])
+          }
+
+          tempShopType =  arr[val[0]]
+
+          this.setData({
+            showArr:[{'name':'商业类型','value':tempShopType},{'name':'楼层','value':tempFloor}]
+          })
+
+
+        }else if(this.data.chooseType == "楼层"){
+          tempFloor = this.data.chooseFloorType == "单层" ? (this.data.signleLayArr[0][val[0]] + '/' + this.data.signleLayArr[1][val[1]]) : (this.data.duobleLayArr[0][val[0]] + '-' + this.data.duobleLayArr[1][val[1]] + '/' + this.data.duobleLayArr[2][val[2]])
+
+          this.setData({
+            showArr: [{ 'name': '商业类型', 'value': tempShopType }, { 'name': '楼层', 'value': tempFloor }]
+          })
+
+        }
+    }
+  },
+
+//键盘点击事件
+  keyBoardAction(e){
+    let value = e.currentTarget.dataset.val;
+    if(value=='cancel'){
+      this.setData({
+        isShowModel: 'hide',
+      })
+
+      tempBuildingNum = '';
+      tempUnitNum = '';
+      tempRoomNum = '';
+
+      return;
+    }
+
+    if(this.data.chooseType == '楼栋号'){
+        tempBuildingNum += value
+      
+      this.setData({
+        showArr: [{ 'name': '楼栋号', 'value': tempBuildingNum }, { 'name': '单元号', 'value': tempUnitNum }, { 'name': '室号', 'value': tempRoomNum }]
+      })
+
+    }else if(this.data.chooseType == '单元号'){
+      tempUnitNum += value
+      this.setData({
+        showArr: [{ 'name': '楼栋号', 'value': tempBuildingNum }, { 'name': '单元号', 'value': tempUnitNum }, { 'name': '室号', 'value': tempRoomNum }]
+      })
+    }else if(this.data.chooseType == '室号'){
+      tempRoomNum += value
+      this.setData({
+        showArr: [{ 'name': '楼栋号', 'value': tempBuildingNum }, { 'name': '单元号', 'value': tempUnitNum }, { 'name': '室号', 'value': tempRoomNum }]
+      })
+    }
+
+  },
+
+  keyBoardCancel(){
+    console.log('cancel')
+  },
+
+  keyBoardSure(){
+    console.log('sure')
+  },
+
+//类表确定
+  listSureAction(){
+
+  },
+
+  radioChange(e){
+
+    
+    if (e.detail.value =='单层'){
+
+      this.setData({
+        chooseFloorType: e.detail.value,
+        listNum:this.data.signleLayArr,
+        floorType: [//弹窗选择单层还是跃层
+          { name: '单层', value: '单层', checked: 'true' },
+          { name: '跃层', value: '跃层' }
+        ]
+
+      })
+
+    }else{
+      this.setData({
+        chooseFloorType: e.detail.value,
+        listNum:this.data.duobleLayArr,
+        floorType: [//弹窗选择单层还是跃层
+          { name: '单层', value: '单层'},
+          { name: '跃层', value: '跃层', checked: 'true'}
+        ]
+
+      })
+    }
+    
+    console.log(e);
+
+  },
+
+  moreChooseAction(e){
+
+    console.log(e.currentTarget.dataset.value)
+    this.setData({
+      moreChoose:e.currentTarget.dataset.value
+    })
+  }
+,
+  nextStep(){
+    wx.navigateTo({
+      url: '/taofang-package/pages/publish-form/publish-step-2/publish-step-2'
+    })
+
+  }
+});
+
+//创建一个方法，返回value值对应的key
+
+function findKey(obj, value, compare = (a, b) => a === b) {
+
+  return Object.keys(obj).find(k => compare(obj[k], value))
+}

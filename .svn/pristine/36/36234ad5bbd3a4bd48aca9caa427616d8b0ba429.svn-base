@@ -1,0 +1,105 @@
+/**my.wxss**/
+page{
+    background: #efeff4;
+    font-size: 30rpx;
+}
+
+.my-container .login-bar{
+    height: 180rpx;
+    background: white;
+    display: flex;
+    align-items: center;
+    margin-bottom: 19rpx;
+}
+.my-container .head-img{
+    height: 100rpx;
+    width: 100rpx;
+    border-radius: 50rpx;
+    display: inline-block;
+    margin: 0 30rpx;
+}
+.my-container .login-info{
+    display: inline-block;
+}
+.my-container .items{
+    background: white;
+}
+.my-container .items .item{
+    height: 100rpx;
+    padding-left: 25rpx;
+}
+.my-container .items .item + .item .border{
+  border-top: 1rpx solid #ebebeb;
+}
+.my-container .items .item .border{
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+}
+.my-container .items .icon{
+    max-width: 46rpx;
+    max-height: 46rpx;
+    margin-right: 25rpx;
+}
+.my-container .items .text{
+    flex-grow: 6
+}
+.my-container .items .num{
+    margin-right: 20rpx;
+    color: #a6a6a6;
+}
+.my-container .items .arrow{
+    max-width: 16rpx;
+    max-height: 25rpx;
+    margin-right: 25rpx;
+}
+.my-container .logout{
+    width: 690rpx;
+    height: 88rpx;
+    box-sizing: border-box;
+    margin: 60rpx auto;
+    background: #fbfafc;
+}
+.my-container .payment{
+    background: white;
+    display: flex;
+    align-items: center;
+    margin-bottom: 19rpx;
+    justify-content:space-between;
+}
+.my-container .payment > view{
+    display:flex;
+    flex-direction:column;
+    text-align: center;
+    align-items:center;
+    width: 50%;
+    color: #333;
+    font-size: 22rpx;
+    position: relative;
+    line-height: 40rpx;
+    margin:  23rpx 0 17rpx 0;
+}
+.my-container .payment > view image{
+    width: 52rpx;
+    height: 52rpx;
+    display: block;
+    margin: auto;
+}
+.my-container .payment > view text{
+    padding-top: 6rpx;
+    display: inline-block;
+}
+.my-container .payment > view view.tips{
+    position: absolute;
+    right: 40%;
+    top: -16rpx;
+    width: auto;
+    text-align: center;
+    min-width: 32rpx;
+    height: 32rpx;
+    line-height: 32rpx;
+    font-size: 24rpx;
+    color: #ffffff;
+    background-color: #ff2600;
+    border-radius: 16rpx;
+}

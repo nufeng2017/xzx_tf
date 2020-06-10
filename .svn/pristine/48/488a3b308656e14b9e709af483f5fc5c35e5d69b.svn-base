@@ -1,0 +1,10 @@
+Page({
+  data:{
+    isShowModel: 'hide',//是否显示模态框
+  },
+  isShowModel(e){
+    this.setData({
+      isShowModel: e.currentTarget.dataset.modelstatus,
+    })
+  }
+});

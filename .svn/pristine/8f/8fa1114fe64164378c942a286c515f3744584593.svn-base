@@ -1,0 +1,44 @@
+<view class="size-24 color-f87e44 hui-mb">温馨提示：自2018年9月29日起365租房现对经营性租赁房源要求取得营业执照后进行验证发布。</view>
+<!-- 发布类别列表 -->
+<view class="hui-publish-type-wrap">
+  <view class="hui-publish-item flex hui-flex-align-center" catchtap='doPublish' data-housetype='住宅'>
+    <view>
+      <view>住宅</view>
+      <view class="color-99 size-24">整套房子，一个房间</view>
+    </view>
+  </view>
+  <view class="hui-publish-item flex hui-flex-align-center" catchtap='doPublish' data-housetype='别墅'>
+    <view>
+      <view>别墅</view>
+      <view class="color-99 size-24">联排、独栋、双拼等</view>
+    </view>
+  </view>
+  <view class="hui-publish-item flex hui-flex-align-center" catchtap='doPublish' data-housetype='商铺'>
+    <view>
+      <view>商铺</view>
+      <view class="color-99 size-24">卖场、底商、连锁店、百货、柜台等</view>
+    </view>
+  </view>
+  <view class="hui-publish-item flex hui-flex-align-center" catchtap='doPublish' data-housetype='写字楼'>
+    <view>
+      <view>写字楼</view>
+      <view class="color-99 size-24">办公写字楼、商务中心、商住公寓等</view>
+    </view>
+  </view>
+  <view class="hui-publish-item flex hui-flex-align-center" catchtap='doPublish' data-housetype='厂房仓库'>
+    <view>
+      <view>厂房仓库</view>
+      <view class="color-99 size-24">厂房、土地、仓库等</view>
+    </view>
+  </view>
+  <view class="hui-publish-item flex hui-flex-align-center" catchtap='doPublish' data-housetype='车库车位'>
+    <view>
+      <view>车库车位</view>
+      <view class="color-99 size-24">车库、车位、停车场等</view>
+    </view>
+  </view>
+</view>
+<view class="hui-authentication">
+  <view class="size-24 color-9aa4b3">你还不是实名认证用户，认证后可优先审核通过</view>
+  <navigator class="blue-font size-24" hover-class="none" url="/pages/city/city">立即认证</navigator>
+</view>

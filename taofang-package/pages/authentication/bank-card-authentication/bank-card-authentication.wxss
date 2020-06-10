@@ -1,0 +1,19 @@
+.hui-form-1 .hui-form-1-item label{
+  width: 244rpx;
+}
+.hui-form-code-btn{
+  height: 58rpx;
+  width:158rpx;
+  border-radius: 8rpx;
+  border:1rpx solid #ffa229;
+  background: #ffedbb;
+  line-height: 58rpx;
+  text-align: center;
+  font-size:24rpx;
+  color:#333;
+  margin-left: 15rpx;
+}
+checkbox-group{
+  margin-top: 34rpx !important;
+  margin-bottom: 76rpx !important;
+}

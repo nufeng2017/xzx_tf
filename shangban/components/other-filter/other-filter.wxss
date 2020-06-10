@@ -1,0 +1,34 @@
+.z-component-other-filter{
+  background: #fff;
+  padding: 0 38rpx;
+  position: relative;
+  padding-bottom: 125rpx;
+}
+.z-component-other-filter-content{
+  overflow-y: auto;
+  height: 600rpx;
+}
+.z-component-other-filter-item-title{
+  padding: 44rpx 0 30rpx;
+  width:100%;
+  font-size: 30rpx;
+  font-weight: 900;
+  line-height: 1;
+}
+.z-component-other-filter-item-content-btn{
+  border-radius: 4rpx;
+  background: #f3f3f3;
+  font-size: 28rpx;
+  color:#000;
+  height: 72rpx;
+  line-height: 72rpx;
+  box-sizing: border-box;
+  padding: 0 16rpx;
+  min-width: 150rpx;
+  text-align: center;
+  margin: 0 10rpx 10rpx 0;
+}
+.z-component-other-filter-item-content-btn.z-component-other-filter-item-content-btn-1{
+  color:#fd994b;
+  background: #ffe6c7;
+}

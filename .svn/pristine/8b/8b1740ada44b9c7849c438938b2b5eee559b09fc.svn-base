@@ -1,0 +1,189 @@
+//index.js
+var appInstance = getApp();
+var that;
+Page({
+  data: {
+    priceUnitMap: {
+      "1": "元/月",
+      "2": "元/天*平方米"
+    },
+    rentHouseList: {}, //房东直租列表
+    houseList: {}, //为你推荐列表
+    city: '', //当前定位城市
+    cityname: '', //当前定位城市
+    searchHistory: [], //搜索历史
+    adList: [], //广告页信息
+    floatAdList:[]//浮动的广告信息
+  },
+  onShareAppMessage: function(res) {
+    var title = '365淘房租房';
+    var path = '/pages/index/index?city=' + appInstance.globalData.city;
+    return appInstance.getShareReturn(title, path);
+  },
+  onLoad: function() {
+    that = this;
+  },
+  onShow: function() {
+    var that = this;
+    if (!this.data.city || this.data.city != appInstance.globalData.city) {
+      this.setData({
+        city: appInstance.globalData.city,
+        cityname: appInstance.globalData.cityname,
+        selected: {},
+        color: {},
+        picker_index: '0'
+      });
+      appInstance.getConfig().then(function(config) {
+        that.getHouse();
+      });
+    }
+
+    /*
+      记录搜索历史
+    */
+    that.recordHistory();
+    that.getAdList();
+  },
+
+  /*
+    查看历史记录中的房源
+  */
+  checkHouse(e) {
+    wx.navigateTo({
+      url: '/pages/list/list?selected={"itemname":"' + e.currentTarget.dataset.value + '"}'
+    })
+  },
+
+  /*
+    清空历史记录
+  */
+  clearHistory() {
+    var that = this;
+    var cacheKey = 'historyword_' + appInstance.globalData.city;
+    appInstance.getUtil.cacheRemove(cacheKey);
+    that.setData({
+      searchHistory: []
+    });
+  },
+  recordHistory() {
+    var value = wx.getStorageSync('historyword_' + appInstance.globalData.city);
+    if (value) {
+      this.setData({
+        searchHistory: value
+      });
+    }
+  },
+  getHouse: function() {
+    var that = this;
+    var data = {
+      'city': appInstance.globalData.city
+    };
+    appInstance.getUtil.apiRequest('5aa75c753326b', 'GET', data, function(res) {
+      if (res.data.code == '1') {
+        var houseList = res.data.data;
+        houseList.forEach(function(val, index, arr) {
+          arr[index]['special'] = appInstance.formatSpecial(val.special, 4, val.c_business_key, val.house_comefrom);
+        });
+        that.setData({
+          houseList: res.data.data
+        });
+      }
+    });
+
+    appInstance.getUtil.ajax({
+      path: '5cf60d5b56c88',
+      method: 'GET',
+      check: true,
+      accessToken: true,
+      data: {
+        city: appInstance.globalData.city,
+      },
+      success: res => {
+        if (res.data.code == 1) {
+          let list = res.data.data
+          for (var index in list) {
+            list[index].priceInt = parseFloat(list[index].price)
+          }
+          that.setData({
+            rentHouseList: res.data.data
+          });
+        } else {
+          that.showHint(res.data.msg)
+        }
+      },
+      fail: error => {
+        that.showHint("网络异常")
+      }
+    })
+  },
+
+  getAdList() {
+    // 固定广告
+    if (that.data.adList.length == 0) {
+      appInstance.getUtil.ajax({
+        path: '5b67f002726f2',
+        method: 'GET',
+        check: true,
+        accessToken: true,
+        data: {
+          city: appInstance.globalData.city,
+          advert_type: '11' //10 ：微信小程序-浮动广告    11: 微信小程序-固定广告
+        },
+        success: res => {
+          if (res.data.code == 1) {
+            that.setData({
+              adList: res.data.data
+            });
+          } else {
+            that.showHint(res.data.msg)
+          }
+        },
+        fail: error => {
+          that.showHint("网络异常")
+        }
+      })
+    }
+    //浮动广告
+    if (that.data.floatAdList.length == 0) {
+      appInstance.getUtil.ajax({
+        path: '5b67f002726f2',
+        method: 'GET',
+        check: true,
+        accessToken: true,
+        data: {
+          city: appInstance.globalData.city,
+          advert_type: '10' //10 ：微信小程序-浮动广告    11: 微信小程序-固定广告
+        },
+        success: res => {
+          if (res.data.code == 1) {
+            that.setData({
+              floatAdList: res.data.data
+            });
+          } else {
+            that.showHint(res.data.msg)
+          }
+        },
+        fail: error => {
+          that.showHint("网络异常")
+        }
+      })
+    }
+  },
+
+  // 前往广告页
+  goAdPage(e) {
+    let url = e.currentTarget.dataset.url;
+    let encodeUrl = appInstance.getUtil.base64.encode(url);
+    wx.navigateTo({
+      url: '/pages/web/web?url=' + encodeUrl +"&needDecode=true",
+    })
+  },
+
+  showHint(title) {
+    wx.hideToast()
+    wx.showToast({
+      title: title,
+      icon: 'none',
+    })
+  },
+})

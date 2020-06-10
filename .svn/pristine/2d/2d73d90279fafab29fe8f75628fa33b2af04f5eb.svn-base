@@ -1,0 +1,155 @@
+//index.js
+//获取应用实例
+var appInstance = getApp();
+Page({
+  data: {
+    "headImg": "../../img/default-avatar.png",
+    "loginName": "",
+    "isLogin": false,
+    "myPublishNum": 0, //我的发布 的数量
+    "collectionNum": 0,
+    "orderNum": 0,
+    "gy_lease_num": 0,
+    "gy_unpaid_num": 0,
+    "isPay": false,
+    "ad": {},
+    isShowVerified:false
+  },
+  onLoad: function() {
+    var that = this;
+    var isPay = appInstance.getUtil.apiConfig.pay;
+    this.setData({
+      isPay: isPay
+    });
+    // appInstance.getUtil.adcom(appInstance.globalData.city, appInstance.getUtil.otherConfig.adId, function(res) {
+    //   if (res[0]) that.setData({
+    //     ad: res[0]
+    //   });
+    // });
+  },
+  onShow: function() {
+    var cacheKey = appInstance.getUtil.getUserinfoKey();
+    let userInfo = appInstance.getUtil.cacheGet(cacheKey);
+    let that = this;
+    if (userInfo) {
+      let data = {
+        'city': appInstance.globalData.city
+      };
+      appInstance.getUtil.apiRequest('58d46faac03b6', 'GET', data, function(res) {
+        let avatar = res.data.data.avatar || "../../img/default-avatar.png";
+        if (res.data.code == '1') {
+          that.setData({
+            "collectionNum": res.data.data.collect_count,
+            "orderNum": res.data.data.appointment_count,
+            "headImg": avatar,
+            "loginName": res.data.data.phone,
+            "isLogin": true
+          })
+        }else{
+          that.setData({
+            "loginName": '登录/注册',
+          })
+        }
+      },true);
+      if (appInstance.getUtil.apiConfig.pay) {
+        this.setData({
+          isPay: true
+        });
+      } else {
+        this.setData({
+          isPay: false
+        });
+      }
+      if (this.data.isPay) {
+        appInstance.getUtil.gongyuAjax('getLeaseCountForUser', 'GET', {}, function(res) {
+          if (res.result == '1') {
+            that.setData({
+              "gy_lease_num": parseInt(res.data.new_lease_num),
+              "gy_unpaid_num": parseInt(res.data.unpaid_num)
+            })
+          }
+        })
+      };
+      // 刷新我的发布数
+      var cacheKey = appInstance.getUtil.getUserinfoKey();
+      let userInfo = appInstance.getUtil.cacheGet(cacheKey)
+      appInstance.getUtil.ajax({
+        path: '5cef84bcad88f',
+        method: 'GET',
+        isHideLoad: true,
+        check: true,
+        accessToken: true,
+        data: {
+          city: appInstance.globalData.city,
+          telno: userInfo.passport_phone
+        },
+        success: res => {
+          if (res.data.code == 1) {
+            this.setData({
+              myPublishNum: parseInt(res.data.data)
+            })
+          } else {}
+        },
+        fail: error => {}
+      })
+      
+      appInstance.getUtil.checkAuthentication(appInstance.globalData.city, function(result) {
+        that.setData({ isShowVerified: !result.auth})
+      })
+      
+    }else{
+      this.setData({ 
+        isShowVerified:false,
+        loginName: '登录/注册'
+      })
+    }
+  },
+  checkLogin: function(event) {
+    let navUrl = event.currentTarget.dataset.url;
+
+    // 有效代码↓
+    if (this.data.isLogin) {
+      if (navUrl) {
+        wx.navigateTo({
+          url: navUrl
+        })
+      }
+    } else {
+      wx.navigateTo({
+        url: "/pages/login/login"
+      })
+    }
+  },
+  logout: function() {
+    let that = this;
+    this.setData({ isShowVerified: false })
+    wx.showModal({
+      title: '退出登录',
+      content: '是否确定退出？',
+      confirmColor: "#ffa229",
+      success: function(res) {
+        if (res.confirm) {
+          var data = {
+            'city': appInstance.globalData.city
+          };
+          appInstance.getUtil.apiRequest('58cf73180ed51', 'GET', data, function(res) {
+            if (res.data.code == '1') {
+              var cacheKey = appInstance.getUtil.getUserinfoKey();
+              appInstance.getUtil.cacheRemove(cacheKey);
+              appInstance.getUtil.cacheRemove('changeUid');
+              that.setData({
+                "headImg": "../../img/default-avatar.png",
+                "loginName": "登录/注册",
+                "isLogin": false,
+                "gy_lease_num": 0,
+                "gy_unpaid_num": 0
+              });
+            }
+          },true);
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  }
+})

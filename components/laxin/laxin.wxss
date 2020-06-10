@@ -1,0 +1,91 @@
+.z-laxin{
+  position: fixed;
+  z-index: 10000;
+  background: rgba(0,0,0,0.5);
+  width:100%;
+  height: 100%;
+  left: 0;
+  top:0;
+}
+.z-laxin .z-laxin-content{
+  position: relative;
+  width:480rpx;
+  height: 710rpx;
+}
+.z-laxin .z-bg{
+  width:100%;
+  height: 100%;
+}
+.flex{
+	-webkit-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    display: -webkit-box !important;
+    display: -o-box !important;
+    display: -moz-box !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    display:-o-flex !important;
+    display:-moz-flex !important;
+}
+.flex-center{
+	justify-content: center;
+	-moz-justify-content: center;
+	-o-justify-content: center;
+	-ms-justify-content: center;
+	align-items: center;
+	-moz-align-items: center;
+	-o-align-items: center;
+	-ms-align-items: center;
+	-webkit-box-align: center;
+	-webkit-box-pack:center;
+	-o-box-align: center;
+	-moz-box-align: center;
+	-o-box-pack:center;
+	-moz-box-pack:center;
+}
+.z-laxin .z-close-btn{
+  width:64rpx;
+  height: 64rpx;
+  position: absolute;
+  right: 4rpx;
+  top:-89rpx;
+}
+.z-content-box{
+  padding: 0 36rpx;
+  position: absolute;
+  top:298rpx;
+  left: 0;
+  box-sizing: border-box;
+  width:100%;
+  color:#fff;
+  line-height: 1;
+}
+.z-content-box .z-content-tips{
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 900;
+  margin-bottom: 28rpx;
+}
+.z-content-box .z-content-tips text{
+  color:#ffea78;
+}
+.z-content-box input{
+  font-size: 24rpx;
+  height: 73rpx;
+  padding:0 20rpx;
+  width:100%;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 8rpx;
+  color:#333;
+  margin-bottom: 18rpx;
+}
+.z-content-box .z-form image{
+  width:100%;
+  height: 73rpx;
+  margin-bottom: 24rpx;
+}
+.z-content-box .z-notice{
+  font-size: 20rpx;
+  line-height: 28rpx;
+}

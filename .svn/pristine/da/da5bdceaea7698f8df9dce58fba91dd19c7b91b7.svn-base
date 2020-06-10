@@ -1,0 +1,178 @@
+// taofang-package//pages/house-list/house-list.js
+var appInstance = getApp();
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    showPopup:'0',//弹窗是否显示 0消失，1位置过滤窗口出现，2租金，3户型，4筛选，5排序
+    filterData:{},//过滤配置项数据
+    positionMenu:'0',//位置选项菜单0区域 1地铁
+    positionField: [{ "0": "district", "1": "streets" }, { "0": "railway", "1":"railPosition"}],//过滤条件位置配置字段
+    positionField1: [{ "0": "district", "1": "streetid" }, { "0": "railway", "1": "railPosition" }],//过滤条件位置上传字段
+    positionData:[],//区域或地铁的数据
+    positionDataIndex:0,//区域或地铁数据选择序列
+    positionChildDataIndex: {},//区域或地铁子选项数据选择序列
+    priceIndex:0,//租金序列号
+    fiterSubmitData:{//需要提交的过滤条件数据
+      district: '',//区域
+      streetid: '',//街道
+      railway: '',//地铁
+      railPosition: '',//地铁站点
+      price: '',//租金
+      diy_price_start: '',//自定义价格
+      diy_price_end: '',//自定义价格
+      infotype: '',//物业类型
+      room: '',//户型
+      forward: '',//朝向
+      fitment: '',//装饰
+      originFrom: '',//来源
+      renttype: ''//出租方式
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.screenConfig();//筛选条件配置
+  },
+  /*
+    筛选条件配置
+  */
+  screenConfig() {
+    var that =this;
+    appInstance.getUtil.ajax({
+      data: {
+        city: appInstance.globalData.city
+      },
+      isHideLoad: true,
+      method: 'GET',
+      path: 'api/tf-app/get-rent-profile',
+      success(res) {
+        console.log('筛选配置', res);
+        if (res.data.result === '1'){
+          that.configFilterCondition(res.data.data);
+        } else {
+          wx.wx.showToast({
+            title: res.data.msg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      }
+    });
+  },
+  configFilterCondition(data){
+    this.setData({
+      filterData:data,
+      positionData: data.district
+    });
+  },
+  /*
+    选择区域及地铁监听函数
+  */
+  showCondition(e){
+    this.setData({
+      positionMenu: e.currentTarget.dataset.index,
+      positionData: this.data.filterData[this.data.positionField[e.currentTarget.dataset.index]["0"]],
+      positionDataIndex:'',
+      positionChildDataIndex: {}
+
+    });
+  },
+  /*
+    选择地铁或区域位置选项监听函数
+  */ 
+  selectPositionIndex(e){
+    this.setData({
+      positionDataIndex: e.currentTarget.dataset.index
+    });
+  },
+  /*
+    选择街道监听函数
+  */
+  selectStreets(e){
+    var o = this.data.positionChildDataIndex;
+    if (o[e.currentTarget.dataset.id]){
+      delete o[e.currentTarget.dataset.id];
+      this.setData({
+        positionChildDataIndex: o
+      });
+      return;
+    }
+    o[e.currentTarget.dataset.id] =1;
+    var num = 0;
+    for (var i in o){
+      num++;
+    }
+    if (num > 3){
+      delete o[e.currentTarget.dataset.id];
+      wx.showToast({
+        title: '最多只能选3个街道',
+        icon: 'none'
+      });
+      return;
+    }
+    this.setData({
+      positionChildDataIndex: o
+    });
+  },
+  /*
+    确定过滤选项
+  */
+  filter(e){
+    var fiterSubmitData = this.data.fiterSubmitData;
+    if (e.currentTarget.dataset.key === 'position') {//位置过滤条件
+      fiterSubmitData.district = fiterSubmitData.streetid = fiterSubmitData.railway = fiterSubmitData.railPosition = '';
+      fiterSubmitData[this.data.positionField1[this.data.positionMenu]['0']]
+        = this.data.positionData[this.data.positionDataIndex].tag_id;
+      fiterSubmitData[this.data.positionField1[this.data.positionMenu]['1']] 
+        = this.objToStr(this.data.positionChildDataIndex);
+    }
+    if (e.currentTarget.dataset.key === 'rent') {//租金过滤条件
+      fiterSubmitData.price = fiterSubmitData.diy_price_start = fiterSubmitData.diy_price_end = '';
+      
+    }
+    this.setData({
+      fiterSubmitData: fiterSubmitData,
+      showPopup:'0'
+    });
+  },
+  /*遍历对象返回字符串*/
+  objToStr(o){
+    var arr = [];
+    for (var key in o ){
+      arr.push(key); 
+    }
+    return arr.join();
+  },
+  /*
+    重置过滤选项
+  */
+  reset(e){
+    if (e.currentTarget.dataset.key === 'position'){//重置位置过滤条件
+      this.setData({
+        positionMenu: 0,
+        positionData: this.data.filterData.district,
+        positionDataIndex: 0,
+        positionChildDataIndex: {}
+      });
+    }
+  },
+  /*
+    是否显示弹窗
+  */
+  isShowFilterWin(e){
+    this.setData({
+      showPopup: e.currentTarget.dataset.popup == this.data.showPopup ? '0' : e.currentTarget.dataset.popup
+    });
+  },
+  /*租金选项监听*/
+  priceSelect(e){
+    this.setData({
+      priceIndex: e.currentTarget.dataset.index
+    });
+  }
+})

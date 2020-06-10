@@ -1,0 +1,36 @@
+<view class='paid_bill cl' wx:if="{{info.title}}">
+    <view class='fl'>
+        <image src="/img/payment/fileicon.png" />
+    </view>
+    <view class='fl'>
+        <text>{{info.title}}</text>
+    </view>
+</view>
+<view class='paid_way' wx:if="{{info.detail}}">
+    <view class="paid_way_list showAllThings">
+        <view class='items' wx:for="{{info.detail}}" wx:key="bid"  wx:if="{{!isShowallThings && index > 2?false:true}}">
+            <view class='fl'>
+                <text class="size-30 black-font">{{item.charge_name}}</text>
+                <text class="size-22 color-656565">账期：{{item.p_period_start}}至{{item.p_period_end}}</text>
+            </view>
+            <view class='fr size-30 color-ff9000'>
+                ￥{{item.p_money}}
+            </view>
+        </view>
+    </view>
+    <view class="seeMoreway" wx:if="{{hasShowallThings}}" bindtap="showMore">{{isShowallThings == true ? '点击收起' : '展开更多'}}</view>
+    <view class="total_paid">共计<text class='size-30 color-ff9000'>￥{{info.money}}</text></view>
+</view>
+<view class='paid_type'>
+    <view>
+        支付方式
+    </view>
+    <view class='paid_type_item'>
+        <image src="/img/payment/wechat.png" />
+        <text>微信支付</text>
+    </view>
+</view>
+<view class="footer_btn {{isIPX ? 'iphonex':''}}" bindtap="pay">立即支付</view>
+<navigator url="/pages/web/web?url={{ad.advert_url}}" wx:if="{{ad.advert_id > 0}}">
+<image src="{{ad.advert_image}}" mode="widthFix" class="ad-f"></image>
+</navigator>

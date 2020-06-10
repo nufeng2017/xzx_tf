@@ -1,0 +1,55 @@
+var appInstance = getApp();
+Page({
+  data: {},
+
+
+
+  formSubmit: function(e) {
+    let userName = e.detail.value.userName
+    let userIDCard = e.detail.value.userIDCard
+    if(!userName){
+      this.showHint("请填写姓名")
+      return
+    }else if(!userIDCard){
+      this.showHint("请填写身份证号码")
+      return
+    }
+    var cacheKey = appInstance.getUtil.getUserinfoKey();
+    let userInfo = appInstance.getUtil.cacheGet(cacheKey)
+    appInstance.getUtil.ajax({
+      path: '5ceb4d64c14cc',
+      method: 'POST',
+      check:true,
+      accessToken:true,
+      passport_uid: userInfo.passport_uid,
+      data: {
+        cert_name: userName,
+        cert_no: userIDCard,
+        userId: userInfo.passport_uid,
+        city: appInstance.globalData.city
+      },
+      success: res => {
+       
+        if (res.data.result == 1) {
+          let url = res.data.data
+          let encodeUrl = appInstance.getUtil.base64.encode(url);
+          wx.navigateTo({
+            url: '/pages/web/web?url=' + encodeUrl+"&needDecode="+true,
+          })
+        } else{
+          that.showHint(res.data.msg)
+        }
+      },
+      fail: error => {
+        that.showHint("网络异常")
+      }
+    })
+  },
+
+  showHint(title){
+    wx.showToast({
+      title: title,
+      icon: 'none',
+    })
+  }
+});

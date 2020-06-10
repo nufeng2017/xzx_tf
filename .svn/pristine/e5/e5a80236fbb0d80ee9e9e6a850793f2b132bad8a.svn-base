@@ -1,0 +1,20 @@
+.z-component-count-down:after,.z-component-count-down:after,.z-component-count-down{
+  border: none;
+  background:transparent;
+  outline: none;
+}
+.z-component-count-down{
+  color:#3399ff;
+  font-size: 24rpx;
+  border:1rpx solid #3399ff;
+  height: 60rpx;
+  line-height: 60rpx;
+  width:175rpx;
+  padding: 0;
+  text-align: center;
+  border-radius: 50rpx;
+}
+.z-component-count-down[disabled]{
+  color:#3399ff !important;
+  background: #fff !important;
+}

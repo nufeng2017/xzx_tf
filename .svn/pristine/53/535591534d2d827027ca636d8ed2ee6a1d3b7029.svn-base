@@ -1,0 +1,80 @@
+<scroll-view scroll-y="{{true}}">
+  <view class="hui-tips size-22">房源照片发满6张以上，可让房源电话暴增50%，助您快速成交！</view>
+  <!-- 发布房源图片按钮 -->
+  <view class="hui-upload-img-bg">
+    <image src="/img/page-default-img.png" mode="aspectFill"></image>
+    <!-- 从未上传照片时的按钮 -->
+    <view class="hui-upload-img-btn-1 flex flex-column flex-center">上传照片</view>
+    <!-- 上传照片后的按钮 -->
+    <view class="hui-upload-img-btn-2 hui-none">编辑图片</view>
+  </view>
+  <!-- 表单 -->
+  <view class="hui-form">
+    <view class="hui-page-title flex flex-center">基本信息</view>
+    <view class="hui-form-large-item">
+      <view class="hui-form-item-title size-24 dark-font">小区名称</view>
+      <view class="hui-form-item-block">
+        <input placeholder="请输入小区名称" placeholder-class="hui-placeholder-style-1"></input>
+        <view class="hui-show-area">雨花区-板桥</view>
+      </view>
+    </view>
+    <view class="hui-form-small-item-container cl">
+      <view class="hui-form-small-item">
+        <view class="hui-form-item-title size-24 dark-font">户型</view>
+        <view class="hui-form-item-block">
+          <input placeholder="请输入" placeholder-class="hui-placeholder-style-1" disabled="{{true}}"></input>
+        </view>
+      </view>
+      <view class="hui-form-small-item">
+        <view class="hui-form-item-title size-24 dark-font">朝向</view>
+        <view class="hui-form-item-block">
+          <input placeholder="请输入" placeholder-class="hui-placeholder-style-1" disabled="{{true}}"></input>
+        </view>
+      </view>
+      <view class="hui-form-small-item">
+        <view class="hui-form-item-title size-24 dark-font">楼层</view>
+        <view class="hui-form-item-block">
+          <input placeholder="请输入" placeholder-class="hui-placeholder-style-1" disabled="{{true}}"></input>
+        </view>
+      </view>
+    </view>
+    <view class="hui-form-small-item-container cl hui-border-top-none">
+      <view class="hui-form-small-item">
+        <view class="hui-form-item-title size-24 dark-font">楼栋号</view>
+        <view class="hui-form-item-block">
+          <input placeholder="选填" placeholder-class="hui-placeholder-style-1" disabled="{{true}}"></input>
+        </view>
+      </view>
+      <view class="hui-form-small-item">
+        <view class="hui-form-item-title size-24 dark-font">单元号</view>
+        <view class="hui-form-item-block">
+          <input placeholder="选填" placeholder-class="hui-placeholder-style-1" disabled="{{true}}"></input>
+        </view>
+      </view>
+      <view class="hui-form-small-item">
+        <view class="hui-form-item-title size-24 dark-font">室号</view>
+        <view class="hui-form-item-block">
+          <input placeholder="选填" placeholder-class="hui-placeholder-style-1" disabled="{{true}}"></input>
+        </view>
+      </view>
+    </view>
+    <view class="flex flex-center hui-tips-1">楼栋门牌仅限网站审核使用，不会对外展示，请放心填写！</view>
+    <view class="hui-page-title flex flex-center">租凭信息</view>
+    <view class="hui-other-item-container">
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify">
+        <view class="hui-form-item-title size-24 dark-font">租赁方式</view>
+        <view class="cl hui-rent-type hui-form-item-block">
+          <view class="fl">整租</view>
+          <view class="fl">合租</view>
+        </view>
+      </view>
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify">
+        <view class="hui-form-item-title size-24 dark-font">租客性别</view>
+        <view class="cl hui-form-item-block">
+          <view class="fl">整租</view>
+          <view class="fl">合租</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

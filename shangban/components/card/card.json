@@ -1,0 +1,8 @@
+{
+  "component":true,
+  "usingComponents": {
+    "van-rate": "/shangban/@vant/weapp/rate/index",
+    "image-loader":"/components/image-loader",
+    "popup-box":"/shangban/components/popup-box/popup-box"
+  }
+}

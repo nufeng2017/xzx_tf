@@ -1,0 +1,97 @@
+<!-- 轮播 -->
+<view class="z-component-swiper-view" bindtap="checkImg">
+  <swiper 
+    indicator-dots="{{false}}"
+    class="z-component-swiper"
+    bindchange="changeSwiper"
+    current="{{active}}"
+  >
+    <!-- 视频 -->
+    <swiper-item 
+      wx:for="{{mediaData}}" 
+      wx:key="index"
+      wx:if="{{item.type==2 && pageType==2}}"
+    >
+      <view class="z-component-swiper-item" >
+        <video 
+          src="{{item.url}}" 
+          class="z-component-swiper-item-video"
+        ></video>
+      </view>
+    </swiper-item>
+
+    <!-- 图片 -->
+    <swiper-item 
+      wx:for="{{mediaData}}" 
+      wx:key="index"
+      wx:if="{{item.type==1}}"
+    >
+      <view 
+        class="z-component-swiper-item z-component-swiper-img-item" 
+      >
+        <view wx:if="{{index==0&&pageType==1&&videoTotal>0}}" class="z-component-swiper-play-icon"></view>
+        <image-loader  original-image="{{item.url}}" mode="aspectFill" wx:if="{{pageType==1}}" default-image="/shangban/assets/img/default-img.png"/>
+        <movable-area scale-area="{{true}}" style="height: 100%; width:100%;">
+          <movable-view 
+            style="height: 100%; width:100%; background: #000;" 
+            direction="all"
+            scale="{{true}}"
+            wx:if="{{pageType==2}}"
+            scale-min="1" 
+            scale-max="3"
+          >
+            <image-loader  original-image="{{item.url}}" mode="aspectFit"/>
+          </movable-view>
+        </movable-area>
+      </view>
+    </swiper-item>
+
+    <!-- 地图 -->
+    <swiper-item wx:if="{{detailType == 1}}">
+      <view class="z-component-swiper-item" catchtap="checkMap">
+        <image src="https://api.map.baidu.com/staticimage/v2?ak=8pPZDVUsaYtgIryS2L6QRu6xOhLwDxYZ&width=600&height=412.8&center={{location.longitude}},{{location.latitude}}&markers={{location.longitude}},{{location.latitude}}&zoom=16&markerStyles=l&dpiType=ph" mode="aspectFit"></image>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 控制器 -->
+  <view class="z-component-swiper-contrl-box">
+    <view class="z-component-swiper-contrl" style="{{detailType==2?'background:none':''}}">
+      <view 
+        class="z-component-swiper-contrl-item {{active<imgsFirstIndex?'z-component-swiper-contrl-item-active':''}}"
+        wx:if="{{isHasVideo}}"
+        data-index="{{0}}"
+        catchtap="changeVideoImg"
+      >视频{{(pageType==2&&active<imgsFirstIndex)?'('+(active+1)+'/'+videoTotal+')':''}}</view>
+      <view 
+        class="z-component-swiper-contrl-item {{active>=imgsFirstIndex&&active!=mediaData.length?'z-component-swiper-contrl-item-active':''}}"
+        data-index="{{imgsFirstIndex}}"
+        style="{{detailType==2?'background:none':''}}"
+        catchtap="changeVideoImg"
+      >图片{{active>=imgsFirstIndex&&active!=mediaData.length?'(' + (pageType==2?active-videoTotal+1:videoTotal>0?active:active+1) + '/' + (videoTotal>0&&pageType==1?imgTotal-1:imgTotal) +')':''}}</view>
+      <view 
+        class="z-component-swiper-contrl-item {{active ==mediaData.length?'z-component-swiper-contrl-item-active':''}}"
+        data-index="{{mediaData.length}}"
+        catchtap="changeVideoImg"
+        wx:if="{{detailType==1}}"
+      >周边</view>
+    </view>
+  </view>
+</view>
+
+<!-- 顶部控制器 -->
+<scroll-view 
+  class="z-component-swiper-top-contrl" 
+  wx:if="{{pageType==2&&imgType.length>0}}"
+  scroll-x="{{true}}"
+  scroll-into-view="{{scrollTo}}"
+>
+  <view 
+    wx:for="{{imgType}}" 
+    wx:key="index" 
+    data-index="{{imgTypeFirstIndex[item.title]}}"
+    class="z-component-swiper-top-contrl-item"
+    id="{{'z'+item.id}}"
+    bindtap="changeVideoImg"
+  >{{item.title}}{{'('+item.num+')'}}</view>
+</scroll-view>

@@ -1,0 +1,73 @@
+<view class='title'>
+    <view class="{{title.sign_status == 1 ? 'active' : '' }}" bindtap="changeSelect" data-index='1'>
+        <text>未签约</text>
+    </view>
+    <view class="{{title.sign_status == 2 ? 'active' : '' }}" bindtap="changeSelect" data-index='2'>
+        <text>已签约</text>
+    </view>
+</view>
+<view class='list'>
+    <!-- 未签约-->
+    <view wx:if="{{title.sign_status == 1}}">    
+        <view class='not-found' wx:if="{{list.length == 0}}">
+          <image src='/img/404-2.png'></image>
+          <text class='text'>没有搜索到符合要求的数据</text>
+        </view>
+        <view class='items' wx:if="{{list.length > 0}}" wx:for="{{list}}" wx:key="house_list">
+            <view class='house_part'>
+                <view>
+                    <image src="{{item.images}}" />
+                </view>
+                <view>
+                    <text>{{item.title}}</text>
+                    <!-- <text><text wx:if="{{item.roomstr}}">{{item.roomstr}}</text><text wx:if="{{item.acreage}}">{{item.acreage}}㎡</text></text> -->
+                    <text><text wx:if="{{item.housedetail}}">{{item.housedetail}}</text><text wx:if="{{item.orientation}}">{{item.orientation}}</text></text>
+                    <!-- <text wx:if="{{item.distance_subway}}">{{item.distance_subway}}</text> -->
+                    <text class='rental' wx:if="{{item.rental}}">{{item.rental}}<text>元/月</text></text>                    
+                </view>
+            </view>
+            <view class='handle_part'>
+                <view>
+                    <text class="{{item.sign_type_ch == '电子合同' ? 'dianzi' : 'paper'}}">{{item.sign_type_ch}}</text>
+                    <text>{{item.sign_status_ch}}</text>
+                </view>
+                <navigator url="/pages/payment/paydetail/paydetail?ct_id={{item.ct_id}}">
+                  <button wx:if="{{item.sign_status == '1'}}">去确认</button>
+                </navigator>
+            </view>
+        </view>
+    </view>
+    <!-- 已签约-->
+    <view wx:if="{{title.sign_status == 2}}">  
+        <view class='not-found' wx:if="{{list.length == 0}}">
+          <image src='/img/404-2.png'></image>
+          <text class='text'>没有搜索到符合要求的数据</text>
+        </view>
+        <view class='items' wx:if="{{list.length > 0}}" wx:for="{{list}}" wx:key="house_list">
+            <view class='house_part'>
+                <view>
+                    <image src="{{item.images}}" />
+                </view>
+                <view>
+                    <text>{{item.title}}</text>
+                    <!-- <text><text wx:if="{{item.roomstr}}">{{item.roomstr}}</text><text wx:if="{{item.acreage}}">{{item.acreage}}㎡</text></text>  -->
+                    <text><text wx:if="{{item.housedetail}}">{{item.housedetail}}</text><text wx:if="{{item.orientation}}">{{item.orientation}}</text></text>
+                    <!-- <text wx:if="{{item.distance_subway}}">{{item.distance_subway}}</text>  -->
+                    <text class='rental' wx:if="{{item.rental}}">{{item.rental}}<text>元/月</text></text>
+                </view>
+            </view>
+            <view class='handle_part'>
+                <view>
+                    <text class="{{item.sign_type_ch == '电子合同' ? 'dianzi' : 'paper'}}">{{item.sign_type_ch}}</text>
+                    <text>{{item.sign_status_ch}}</text>
+                </view>
+                <navigator url="/pages/payment/paydetail/paydetail?ct_id={{item.ct_id}}">
+                    <button class="checkpay">查看租约</button>
+                </navigator>
+            </view>
+        </view>
+    </view>
+</view>
+<navigator url="/pages/web/web?url={{ad.advert_url}}" wx:if="{{ad.advert_id > 0}}">
+<image src="{{ad.advert_image}}" mode="widthFix" class="ad-f"></image>
+</navigator>

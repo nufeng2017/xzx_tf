@@ -1,0 +1,15 @@
+<import src="/template/popup.wxml" />
+	<view wx:for="{{info.sign_img_arr}}" wx:for-item="image" wx:key='*this' class="previewimg">
+		<image class="htimg" src="{{image}}" data-src="{{image}}" bindtap="previewImage" mode='widthFix'></image>
+	</view>
+<view class="footer {{isIPX ? 'iphonex':''}}">
+    <radio-group bindchange="radioChange">
+        <label class="radio fl">
+            <radio value="true" />
+            <text>同意<text></text></text>
+        </label>
+        <view class='xieyi'><navigator url="/pages/web/web?url=https://m.aizuna.com/Home/Lease/rules.html">《365淘房租房协议》</navigator></view>
+        <view class='btn fr' bindtap='signContract'>签署合同</view>
+    </radio-group>
+</view>
+<template is="{{popup.temp}}" data="{{popup}}" />

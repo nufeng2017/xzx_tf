@@ -1,0 +1,7 @@
+<image src="/img/m_pay.png" style="width:100%;" mode="widthFix"></image>
+<!--跳转到首页  -->
+<navigator url='/pages/index/index' open-type='reLaunch' hover-class="none" wx:if="{{is_show_index}}">
+  <view class='toIndex'>
+    <image src='/img/toindex.png'></image>
+  </view>
+</navigator>

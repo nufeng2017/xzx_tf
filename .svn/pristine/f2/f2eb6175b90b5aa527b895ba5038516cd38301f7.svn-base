@@ -1,0 +1,41 @@
+let node = [{
+  nodeName: '#img'
+}, {
+  nodeName: '#canvasImg'
+}]
+Page({
+  data: {
+
+  },
+  onLoad() {
+  },
+  onShow() {
+    let that = this;
+    setTimeout(function(){
+      that.getNodeInfo(node);
+    },200);
+  },
+  getNodeInfo(arr) {
+    let that = this;
+    arr.forEach(function (e) {
+      wx.createSelectorQuery().select(e.nodeName).boundingClientRect(function (rect) {
+        e.nodeInfo = rect;
+      }).exec();
+    });
+    setTimeout(function(){
+      that.showImg();
+    },200);
+  },
+  showImg(){
+    var x = 0,y;
+    var imgWidth = node[0].nodeInfo.width;
+    console.log(node)
+    var imgHeight = node[0].nodeInfo.height;
+    var canvasWidth = node[1].nodeInfo.width;
+    var canvasHeight = node[1].nodeInfo.height;
+    y = canvasHeight / 2 - imgHeight / 2 ;
+    const ctx = wx.createCanvasContext('canvasImg');
+    ctx.drawImage('../../img/test-img.png', x, y, imgWidth, imgHeight);
+    ctx.draw()
+  }
+});

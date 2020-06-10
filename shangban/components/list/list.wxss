@@ -1,0 +1,10 @@
+.z-components-list{
+  height: 100%;
+}
+.z-components-list-content{
+  width:100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: normal;
+}

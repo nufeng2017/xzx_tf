@@ -1,0 +1,21 @@
+.z-component-hidden-txt{
+  width:100%;
+  position: relative;
+  word-break: break-all;
+  white-space: normal;
+}
+.z-component-hidden-txt-btn{
+  height: 38rpx;
+  line-height:38rpx;
+  color:#3399ff;
+  font-size: 24rpx;
+  text-align: right;
+  position: absolute;
+  bottom:0;
+  right: 0;
+  width:100rpx;
+  background: #fff;
+}
+.z-component-hidden-txt-show{
+  padding-bottom: 38rpx;
+}

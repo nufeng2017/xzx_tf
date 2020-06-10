@@ -1,0 +1,3 @@
+<button class="z-component-count-down" bindtap="countDown" disabled="{{start?true:false}}">
+  {{start?time+'s':text}}
+</button>

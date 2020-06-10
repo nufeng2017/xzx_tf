@@ -1,0 +1,117 @@
+<view class="flex hui-flex-align-center hui-flex-justify hui-page-tips">
+  <view class="hui-txt-tips">
+    <view class="flex hui-flex-align-center">
+      <image src="/taofang-package/img/icon-tips.png" mode="scaleToFill"></image>
+      <view>刷新能让你的信息排名靠前哦！</view>
+    </view>
+  </view>
+  <view class="flex hui-flex-align-center">
+    <navigator class="hui-more-service size-20 blue-font  {{isAuthentication?'':'right-line'}}" url="/pages/web/web?url=https://m.aizuna.com/Home/Zt/show_zt">更多推广服务</navigator>
+    <view class="size-20 blue-font" hidden='{{isAuthentication}}' catchtap='refreshHint'>免费刷新攻略</view>
+  </view>
+</view>
+
+<wxs src="../../xmlJs/xmlUtils.wxs" module="xmlUtil"></wxs>
+<!-- tab按钮 -->
+<view class="hui-tab-group flex flex-center">
+  <view class="hui-tab flex-item {{tabIndex == 0 ?  'hui-tab-active' : ''}}" bindtap="changeTab" data-index="0">出租</view>
+  <view class="hui-tab flex-item {{tabIndex == 1 ?  'hui-tab-active' : ''}}" bindtap="changeTab" data-index="1">求租</view>
+</view>
+<!-- 发布列表 -->
+<view class="hui-publish-wrap" wx:if="{{tabIndex == 0}}">
+  <block wx:if="{{publishList.length > 0}}">
+    <block wx:for="{{publishList}}" wx:key="*this">
+      <view class="hui-publish-item  {{item.status == 0?'hui-review':item.status == 1?'':item.status == 2?'hui-invalid':'hui-not-pass'}}">
+
+        <!-- 上半部分 start-->
+        <view class="hui-publish-details" catchtap='itemClick' data-index='{{index}}'>
+          <view class="hui-publish-img">
+            <image src="{{item.pic?item.pic:'../../img/small.jpg'}}" mode="aspectFill"></image>
+          </view>
+          <view class="hui-publish-info flex hui-flex-justify flex-column">
+            <view class="hui-publish-title text-overflow color-000 size-30">{{item.title}}</view>
+            <view class="hui-address dark-font size-20">{{item.blockname+" "+(item.renttype == "1"?"整租":"合租")+" "+(item.room==0&&item.hall==0&&item.toilet==0?'':item.room+"室"+item.hall+"厅"+item.toilet+"卫")}}</view>
+            <view class="hui-price flex hui-flex-align-center hui-flex-justify">
+              <view class="yellow-font size-30">{{item.price+priceUnitMap[item.priceunit]}}</view>
+              <view>{{xmlUtil.formatDate(item.updatetime)}}更新</view>
+            </view>
+          </view>
+        </view>
+        <!-- 上半部分 end-->
+        <!-- 下半部分 start -->
+        <view class="hui-publish-btn-group flex hui-flex-align-cente">
+          <block wx:if="{{item.status == 0}}">
+            <!-- 发布中 -->
+            <view class="flex-item hui-refresh" catchtap='itemRefresh' data-index="{{index}}">刷新</view>
+            <view class="flex-item hui-change" catchtap='itemEdit' data-index="{{index}}">修改</view>
+            <view class="flex-item hui-share" catchtap='itemShare' data-index="{{index}}">分享</view>
+            <view class="flex-item hui-delete-publish" catchtap='itemDelete' data-index="{{index}}">删除</view>
+          </block>
+          <block wx:elif="{{item.status == 1}}">
+            <!-- 已激活 -->
+            <view class="flex-item hui-refresh" catchtap='itemRefresh' data-index="{{index}}">刷新</view>
+            <view class="flex-item hui-change" catchtap='itemEdit' data-index="{{index}}">修改</view>
+            <view class="flex-item hui-share">
+              <button data-index="{{index}}" open-type='share'>分享</button>
+            </view>
+            <view class="flex-item hui-delete-publish" catchtap='itemDelete' data-index="{{index}}">删除</view>
+          </block>
+          <block wx:elif="{{item.status == 2}}">
+            <!-- 失效-->
+            <view class="flex-item hui-republish" catchtap='itemRepublication' data-index="{{index}}">再发布</view>
+            <view class="flex-item hui-delete-publish" catchtap='itemDelete' data-index="{{index}}">删除</view>
+          </block>
+          <block wx:elif="{{item.status == 3}}">
+            <!-- 未通过-->
+            <view class="hui-phone">如有疑问请咨询
+              <label catchtap='makePhone' data-phone='{{xmlUtil.splitPhone(item.person_tel)[0]}} '>{{xmlUtil.splitPhone(item.person_tel)[0]}}</label>
+              <label class='left-margin-20 ' catchtap='makePhone' data-phone='{{xmlUtil.splitPhone(item.person_tel)[1]}} '>{{xmlUtil.splitPhone(item.person_tel)[1]}}</label>
+            </view>
+            <view class="flex-item hui-delete-publish" catchtap='itemDelete' data-index="{{index}}">删除</view>
+          </block>
+        </view>
+        <!-- 下半部分 end -->
+      </view>
+
+    </block>
+  </block>
+
+  <view wx:elif="{{publishList.length == 0 && dataRequested}}" class='not-found-1 '>
+    <image src='/taofang-package/img/list-empty.png'></image>
+    <view catchtap='doPublish'>去发布</view>
+  </view>
+</view>
+
+
+<!-- 求租列表 -->
+<view class="hui-publish-wrap" wx:if="{{tabIndex == 1}}">
+  <view class="hui-house-info-item" wx:for="{{rentList}}" wx:key="*this">
+    <view class="hui-house-info-title">{{item.infotype}}·{{item.newrent_housetype}}</view>
+    <view class="hui-house-info">
+      <view class="hui-house-info-box">
+        <text>意向区域：</text>
+        <view class="hui-house-info-specific">
+          <view wx:for="{{item.street}}" wx:key="*this">{{item}}</view>
+        </view>
+      </view> 
+      <view class="hui-house-info-box">
+        <text>意向地铁：</text>
+        <view class="hui-house-info-specific">
+          <view wx:for="{{item.station}}" wx:key="*this">{{item}}</view>
+        </view>
+      </view> 
+      <view class="hui-house-info-box">
+        <text>联 系 人 ：</text>
+        <view class="hui-house-info-specific">{{item.realname}}</view>
+      </view> 
+      <view class="hui-house-info-box">
+        <text>手 机 号 ：</text>
+        <view class="hui-house-info-specific">{{item.phone}}</view>
+      </view>
+    </view>
+    <view class="flex hui-flex-justify hui-flex-align-center hui-change-time">
+      <view class="color-ccc">发布时间：{{item.time}}更新</view>
+      <view class="hui-delete-btn" bindtap="deleteItem" data-id="{{item.id}}"><image src="/img/empty.png"></image>删除</view>
+    </view>
+  </view>
+</view>

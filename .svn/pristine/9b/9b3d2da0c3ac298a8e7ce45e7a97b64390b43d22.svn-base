@@ -1,0 +1,21 @@
+{
+  "usingComponents": {
+    "van-grid": "/shangban/@vant/weapp/grid/index",
+    "van-grid-item": "/shangban/@vant/weapp/grid-item/index",
+    "view-item": "/shangban/components/view-item/view-item",
+    "img-txt": "/shangban/components/img-txt/img-txt",
+    "swiper-view":"/shangban/components/swiper-view/swiper-view",
+    "detail-head": "/shangban/components/detail-head/detail-head",
+    "cell": "/shangban/components/cell/cell",
+    "detail-item": "/shangban/components/detail-item/detail-item",
+    "detail-item-box": "/shangban/components/detail-item-box/detail-item-box",
+    "detail-entry": "/shangban/components/detail-entry/detail-entry",
+    "map-line": "/shangban/components/map-line/map-line",
+    "btn-groups":"/shangban/components/btn-groups/btn-groups",
+    "card": "/shangban/components/card/card",
+    "load-page": "/shangban/components/load-page/load-page",
+    "hidden-txt": "/shangban/components/hidden-txt/hidden-txt",
+    "bottom-win": "/shangban/components/bottom-win/bottom-win"
+  },  
+  "navigationBarTitleText": "楼盘详情"
+}

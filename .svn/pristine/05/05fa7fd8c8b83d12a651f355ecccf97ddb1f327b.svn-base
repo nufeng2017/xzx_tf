@@ -1,0 +1,41 @@
+<view class="hui-img-board cl">
+  <view class='hui-img-item fl' wx:for="{{imgUrls}}">
+  <!-- class="hui-img-item fl"  -->
+    <view wx:if="{{item.isUploaded}}">
+      <navigator class="hui-img-box" hover-class="none" url="/taofang-package/pages/edit-img/edit-img?imgUrl={{item.url}}&imgIndex={{index}}">
+        <image mode="aspectFill" src="{{item.url}}"></image>
+      </navigator>
+      <!-- <view class="hui-img-item-delete-btn"></view> -->
+    </view>
+
+    <!-- 正在上传的图片 -->
+    <!-- class="hui-img-item fl" -->
+    <view  wx:else>
+      <view class="hui-img-loading flex flex-center flex-column">上传中</view>
+      <!-- <navigator class="hui-img-box hui-none" hover-class="none" url="/taofang-package/pages/edit-img/edit-img">
+      <image mode="aspectFill" src="../../img/test-img.png"></image>
+    </navigator> -->
+      <!-- <view class="hui-img-item-delete-btn"></view> -->
+    </view>
+      <view class="hui-img-item-delete-btn" catchtap='deleteImg' data-index = "{{index}}"></view>
+  </view>
+  <!-- 上传完成的图片 -->
+
+  <!-- 添加图片 -->
+  <view class="hui-img-item hui-img-upload-btn flex flex-center flex-column" bindtap="uploadImg">
+    <view>上传照片 最多9张</view>
+  </view>
+</view>
+
+<view class="hui-txt-tips">
+  <view class="flex hui-flex-align-center">
+    <image src="/taofang-package/img/icon-tips.png" mode="scaleToFill"></image>
+    <view>上传图片小技巧： </view>
+  </view>
+  <view class="hui-txt-tips-other">1.点击图片可旋转，图片默认第一张为封面图片，请使用横拍照片，且照片为高清无任何水印大图，展示效果更佳。</view>
+  <view class="hui-txt-tips-other">2.上传照片数量超过6张可以提升电话量，最多可上传9张。</view>
+</view>
+
+<view class="hui-btn-wrap">
+  <button catchtap='doComplete'>完成</button>
+</view>

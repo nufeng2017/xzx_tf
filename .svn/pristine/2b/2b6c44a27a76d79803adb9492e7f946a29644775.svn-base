@@ -1,0 +1,36 @@
+<!-- 名片 -->
+<view class="z-component-card z-flex z-flex-line-center">
+  <view class="z-component-card-info">
+    <view class="z-component-card-img">
+      <image-loader original-image="{{info.userInfo.smallphoto}}" default-image="/shangban/assets/img/default-avatar.png" mode="aspectFill"/>
+    </view>
+    <view class="z-component-card-content z-flex z-flex-direction z-flex-align-center">
+      <view class="z-component-card-name z-flex z-flex-line-center">
+        {{info.contactor}}
+        <view class="z-component-card-rel" wx:if="{{info.userInfo.is_certification&&info.userInfo.is_certification==1&&infofrom==1}}">
+          <image src="./img/rel-icon.png"></image>
+        </view>
+        <view 
+          class="z-component-card-zz" 
+          wx:if="{{info.userInfo.agencyInfo&&info.userInfo.agencyInfo.business_license_img&&infofrom==5}}"
+          bindtap="checkImg"
+        >
+          <image src="./img/zz-icon.png"></image>
+        </view>
+      </view>
+      <view class="z-component-card-middle-info">{{infofrom==5?info.userInfo.agencyInfo?info.userInfo.agencyInfo.agentname:'':'个人'}}</view>
+      <view wx:if="{{infofrom==5}}" class="z-component-card-middle-star">
+        <van-rate value="{{info.userInfo.starlevel}}" size="20rpx" disabled="{{true}}" disabled-color="#ff7500" custom-class="z-custom-class"/>
+      </view>
+    </view>
+  </view>
+  <view class="z-component-card-btns z-flex z-flex-justify">
+    <view class="z-component-card-btn" bindtap="call"><image src="./img/phone.png"></image></view>
+    <view class="z-component-card-btn"><image src="./img/msg.png"></image></view>
+  </view>
+</view>
+
+<!-- 营业执照 -->
+<popup-box show="{{show}}" bind:close="checkImg" title="查看营业执照">
+  <view slot="popup-body" class="z-component-card-zz-img"><image src="{{info.userInfo.agencyInfo.business_license_img}}" mode="scaleToFill"></image></view>
+</popup-box>

@@ -1,0 +1,16 @@
+
+
+var queryItem = function (arr, item) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] == item) {
+      return true
+    }
+  }
+  return false
+}
+
+
+// 导出对外暴露的属性
+module.exports = {
+  queryItem: queryItem
+}

@@ -1,0 +1,19 @@
+<view class="z-component-search {{newStyle?'':'z-component-search-style-1'}} flex" bindtap="search">
+  <view class="z-component-search-input-box flex-item" >
+    <view class="z-serch-icon flex flex-center">
+      <image src="{{newStyle?'./img/search.png':'./img/search-1.png'}}"></image>
+    </view>
+    <input 
+  
+      placeholder="{{placeholderTxt}}" 
+      placeholder-style="color:#9a9a9a"
+      disabled="{{disInput}}"
+      bindinput="inputTxt"
+      value="{{value}}"
+      confirm-type ="search"
+      bindconfirm="confirm"
+    />
+  </view>
+  <view class="z-component-search-cancel" wx:if="{{!disInput}}" catchtap="goBack">取消</view> 
+  <view class="z-component-search-cancel z-component-search-msg" catchtap="interIM" wx:if="{{showIm}}"><image src="./img/message.png" class="z-component-search-msg-img"></image></view> 
+</view>

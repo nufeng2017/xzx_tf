@@ -1,0 +1,11 @@
+<!--taofang-package/pages/page-route/page-route.wxml-->
+<view class="loadingMain">
+  <view class="house365logo"></view>
+  <view class="loading">
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+  </view>
+</view>

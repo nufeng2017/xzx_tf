@@ -1,0 +1,92 @@
+// pages/web/web.js
+var appInstance = getApp();
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    url: '',
+    shareObj: {
+      description : "365租房·福利社|打卡赚积分，抽奖赢全棉四件套、咖啡券、现金红包..",
+      title: "还有666元现金大奖哦！",
+      url: "/pages/web/web", // 分享链接
+      img: "https://m.aizuna.com/Public/activity/lottery/img/wxshare.png",
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    var that = this;
+    setTimeout(function(){
+      that.setData({ url: 'https://m.aizuna.com/activity/lottery/dist/#/' });
+    },500);
+    
+  },
+
+  // 分享
+  onShareAppMessage(options) {
+    let shareObj = this.data.shareObj;
+    if (shareObj) {
+      return {
+        title: shareObj.title,
+        desc: shareObj.description,
+        path: shareObj.url,
+        imageUrl: shareObj.img,
+        success: function (res) {
+          console.log(res)
+        }
+      }
+    }
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+  
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+  
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+  
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+  
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+  
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+  
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+  
+  }
+})

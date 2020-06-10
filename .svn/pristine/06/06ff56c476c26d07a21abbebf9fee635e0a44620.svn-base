@@ -1,0 +1,43 @@
+/**
+ * 详情头部分享，咨询，收藏
+ */
+var appInstance = getApp();
+import { keep } from '../../network/keep.js';
+Component({
+  properties: {
+    detail:Object
+  },
+  options: {
+    multipleSlots: true, // 在组件定义时的选项中启用多slot支持
+    styleIsolation: 'apply-shared'
+  },
+  methods: {
+    keep(){//收藏事件
+      var cacheKey = appInstance.getUtil.getUserinfoKey();
+      var data = appInstance.getUtil.cacheGet(cacheKey);
+      if (data) {
+        keep({
+          city: appInstance.globalData.city,
+          client:'azn_xcx',
+          version:'v1.0',
+          v: 'v1.0',
+          id: this.data.detail.id,
+          api_key:'azn_xcx',
+          phone:17366009087,
+          tbl: 'rent'
+        }).then((res) => {
+
+        });
+      } else {
+        wx.navigateTo({
+          url: '/pages/login/login'
+        });
+      }
+    },
+    message(){
+      wx.navigateTo({
+        url: '/IM/pages/index/index?chatTo=' + this.data.detail.IM_info.accid,
+      })
+    }
+  }
+})

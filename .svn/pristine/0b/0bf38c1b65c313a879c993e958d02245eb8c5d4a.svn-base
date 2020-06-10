@@ -1,0 +1,200 @@
+<!--轮播图  -->
+<view id="imgBox" class="{{loadOver ? 'shadow' : ''}}">
+  <swiper autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" bindchange="swiperChange" >
+    <swiper-item wx:for="{{housePics}}">
+      <image src="{{item.filename}}"
+        class="slide-image" bindtap="checkLgImg" bindload="loadOver" mode="aspectFill" />
+    </swiper-item>
+    
+  </swiper>
+  <view id="imgsNum">{{current}}/{{housePics.length}}</view>
+  <image src="/img/big.png" class="overImg" mode="scaleToFill" style="{{loadOver ? 'display:none' : 'display:block'}}"></image> 
+</view>
+<!--房源基本信息  -->
+<view class="hui-content-box border-b">
+  <!-- data-icon 1是急售，2验真 -->
+  <view class="hui-details-title" data-isreal="{{isreal}}" data-istag="{{istag}}">{{address}}</view>
+  <view class="flex flex-center hui-details">
+    <view class="flex-item">
+      <view>租金
+        <text class="hui-font-color-y">({{payment}})</text>
+      </view>
+      <view class="hui-details-txt">{{price}}{{priceUnit}}</view>
+    </view>
+    <view class="flex-item">
+      <view>户型</view>
+      <view class="hui-details-txt">{{room}}室{{hall}}厅{{toilet}}卫</view>
+    </view>
+    <view class="flex-item">
+      <view>面积</view>
+      <view class="hui-details-txt">{{buildarea}}㎡</view>
+    </view>
+  </view>
+</view>
+<view class="hui-content-box border-b">
+  <view class="hui-characteristic">
+    <view data-color="1">{{renttype}}</view>
+    <view data-color="2">{{fitment}}</view>
+    <view data-color="3">{{forward}}</view>
+  </view>
+  <view class="hui-details-item flex flex-center">
+    <view class="flex-item">
+      <view>
+        <text class="hui-font-color-g">方式</text>
+        <text>{{renttype}}</text>
+      </view>
+      <view>
+        <text class="hui-font-color-g">装修</text>
+        <text>{{fitment}}</text>
+      </view>
+      <view>
+        <text class="hui-font-color-g">朝向</text>
+        <text>{{forward}}</text>
+      </view>
+    </view>
+    <view class="flex-item">
+      <view>
+        <text class="hui-font-color-g">区属</text>
+        <text class="text-overflow">{{district}}-{{streetName}}</text>
+      </view>
+      <view>
+        <text class="hui-font-color-g">楼层</text>
+        <text>{{lastFloor}}</text>
+      </view>
+      <view>
+        <text class="hui-font-color-g">类型</text>
+        <text>{{infoType}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="hui-details-wrap">
+    <text class="hui-font-color-g">发布时间</text>
+    <text>{{creattime}}</text>
+    <text class="hui-font-color-g">({{updatetime_ch}}）</text>
+  </view>
+  <view class="hui-details-wrap">
+    <text class="hui-font-color-g">所属小区</text>
+    <text class="hui-font-color-y">{{blockshowname}}</text>
+  </view>
+  <view class="hui-details-wrap" wx:if="{{around!=''}}">
+    <text class="hui-font-color-g" >周边地铁</text>
+    <text>{{around}}</text>
+  </view>
+</view>
+<view class="hui-content-box border-b">
+  <view class="hui-details-module-title">房源描述</view>
+  <view>
+    <view class="hui-house-description {{isShowHouseDescription?'max-height':''}}" id="house-description">
+
+      <rich-text nodes="{{remark}}"></rich-text>
+      <!-- <view>房源均由我们为您精心挑选，逐一核实，内部ER房源编号：3542565455</view>
+      <view> 房源描述】三室两厅一卫，一房朝南，二房朝北，主卧朝南带阳台，南北通透，使用率超赞。易于身心健康！全明格局，采光好，楼层高，阳光充足。三室两厅一卫，一房朝南，二房朝北，主卧朝南带阳台，南北通透，使用率超赞。易于身心健康！阳</view> -->
+    </view>
+    <view class="hui-check-more" wx:if="{{houseDesArr}}" bindtap='showHouse'>
+      <image src="{{!isShowHouseDescription?'/img/dropdown.png':'/img/dropup.png'}}"></image>
+    </view>
+  </view>
+</view>
+<view class="hui-content-box border-b-1">
+  <view class="hui-details-module-title">配套设施</view>
+  <view class="cl hui-facilities">
+    <view class="fl" wx:for="{{selectEqu}}">
+      <image src="{{item.value}}" mode="aspectFit"></image>
+      <view>{{item.name}}</view>
+    </view>
+    
+  </view>
+</view>
+<navigator class="hui-content-box border-b flex hui-flex-align-center hui-report" hover-class="none">
+  <view class="flex-item">
+    <text>我要举报</text>
+    <text class="hui-report-tips">房源含无效、虚假信息</text>
+  </view>
+  <view class="hui-report-icon" bindtap="report">举报</view>
+</navigator>
+<view class="border-b">
+  <view class="hui-content-box ">
+    <view class="hui-details-module-title">小区地址
+      <text>{{detail_address}}</text>
+    </view>
+  </view>
+  <view class="hui-map">
+    <image src="https://api.map.baidu.com/staticimage/v2?ak=8pPZDVUsaYtgIryS2L6QRu6xOhLwDxYZ&width=400&height=120&center={{longitude}},{{latitude}}&markers={{longitude}},{{latitude}}&zoom=16&markerStyles=s" bindtap="position"></image>
+    <view class="hui-map-icon flex flex-center">导航</view>
+  </view>
+  <view>
+    <view class="hui-periphery hui-content-box otherDes {{isShowOther ?'max-height':''}}" id="threeLineView">
+      <view class="hui-bus" wx:if="{{bus!=''}}">
+        <text>公交：</text>{{bus}} </view>
+      <view class="hui-subway" wx:if="{{subway!=''}}">
+        <text>地铁：</text>{{subway}}</view>
+      <view class="hui-other" wx:if="{{b_other!=''}}">
+        <text>其他配套：</text>{{b_other}} </view>
+    </view>
+    <view class="hui-check-more" wx:if="{{otherDesArrow}}" bindtap='showMoreLess'>
+      <image src="{{!isShowOther?'/img/dropdown.png':'/img/dropup.png'}}"></image>
+    </view>
+  </view>
+</view>
+<view class="hui-content-box border-b-1">
+  <view class="hui-details-module-title flex hui-flex-align-center hui-flex-justify">
+    <view>同小区房源</view>
+    <navigator class="hui-details-module-title-arrow flex hui-flex-align-center hui-flex-justify" url='/taofang-package/pages/house-list/house-list?keyword={{blockshowname}}'>全部（{{goodHouseRecommend.length}}）</navigator>
+  </view>
+</view>
+<view class="hui-list-container">
+  <navigator class="hui-list-item flex flex-center" hover-class="none" data-isreal="{{item.isreal}}" data-istag='{{item.istag}}' wx:for="{{goodHouseRecommend}}" url="/taofang-package/pages/details-page/details-page?id={{item.id}}">
+    <view class="hui-list-item-img">
+      <image src="{{item.pic1}}"></image>
+    </view>
+    <view class="flex-item flex flex-column hui-flex-justify hui-list-item-info-box">
+      <view class="hui-list-item-title text-overflow">{{item.address}}</view>
+      <view class="hui-list-item-info">{{item.renttype}} {{item.room}}室{{item.hall}}厅 {{item.buildarea}}㎡ {{item.fitment}}</view>
+      <view class="hui-list-item-info-1 flex hui-flex-align-center hui-flex-justify">
+        <view>{{item.streetName}} {{item.blockshowname}}</view>
+        <view class="hui-list-item-price">{{item.price}}
+          <text>{{item.priceUnit}}</text>
+        </view>
+      </view>
+      <view class="hui-list-item-info-2">
+        <view class="hui-istag" wx:if="{{item.owner_real!='0'}}">实名认证</view>
+      </view>
+    </view>
+  </navigator>
+  <!-- <navigator class="hui-list-item flex flex-center" hover-class="none" data-istag="1">
+    <view class="hui-list-item-img">
+      <image src="../../img/test-img.png"></image>
+    </view>
+    <view class="flex-item flex flex-column hui-flex-justify hui-list-item-info-box">
+      <view class="hui-list-item-title text-overflow">花好月苑3室2厅1卫整租120平米</view>
+      <view class="hui-list-item-info">整租 3室2厅 120㎡ 精装</view>
+      <view class="hui-list-item-info-1 flex hui-flex-align-center hui-flex-justify">
+        <view>雨花新村 花好月苑</view>
+        <view class="hui-list-item-price">1600
+          <text>元/月</text>
+        </view>
+      </view>
+      <view class="hui-list-item-info-2">
+        <view class="hui-istag">实名认证</view>
+      </view>
+    </view>
+  </navigator> -->
+</view>
+<view class="hui-statement">
+  免责声明：本网站所展示的楼盘所有资料及图表仅作平台交流之用，非商业广告，不声明或保证其内容即时、正确、可靠。 上述信息仅供参考，项目的具体信息以开发商公示为准。其中，学区资料来源于政府最新学区规划，具体以教育局下发的正式文件为准。 购房者在进行房产交易时应自行核验相关证明材料，房屋交易的纠纷及后果均与本站无关。
+</view>
+<cover-view class="flex hui-bottom-info">
+  <cover-view class="flex-item flex flex-center">
+    <cover-image src="{{headPic!=''?headPic:'../../img/test-img.png'}}" class="hui-avatar"></cover-image>
+    <cover-view>
+      <cover-view data-star="1" class="hui-bottom-info-name">
+        {{trueName}}
+        <cover-image src="../../img/star.png"></cover-image>
+      </cover-view>
+      <cover-view class="hui-bottom-info-addr" wx:if="{{infofrom=='5'}}">{{agentname}}</cover-view>
+    </cover-view>
+    <!-- 边框 -->
+    <cover-view class="hui-border"></cover-view>
+  </cover-view>
+  <cover-view class="flex-item" bindtap='call'>电话咨询</cover-view>
+</cover-view>

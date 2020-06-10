@@ -1,0 +1,742 @@
+let app = getApp();
+let localName;
+const topArr = ['户型','朝向','楼层','商铺类型','商铺性质','性质'];
+let floor = [];//楼层
+let floorTotal = [];//共计楼层
+let room = [];//室
+let hall = [];//厅
+let toilet = [];//卫生间
+let sex = [];//性别
+let fitment_name = [];
+for (let i = 1; i <= 99; i++) {
+  floor.push(`${i}层`);
+  floorTotal.push(`共${i}层`)
+  if (i - 1 < 11){
+    hall.push(`${i-1}厅`);
+    toilet.push(`${i-1}卫`);
+  }
+  if (i - 1 < 10){
+    room.push(`${i}室`);
+  }
+}
+let forward = [];
+let isOver = true;//滚动选择框是否滚动完毕
+const renttype = {'整租':'1','合租':'2'};
+let car = {};
+let shop_type = {};
+let defaultPublishObj = {};//默认数据
+Page({
+  data: {
+    iniconfig:'',//配置项
+    listNum:[],//滚动选择窗口数据
+    value:[2,1,1],//滚动选择默认选项
+    houseType:'',//房源类型
+    publish:'',//是否是编辑
+    houseTypeKey:'',//存储值
+    isFaceStreet:['否','是'],
+    isShowModel: 'hide',//是否显示模态框
+    topArr: [],//上层选项
+    bottomArr: ['楼栋号','单元号','室号'],//底层选项
+    showArr:[],//弹窗选项
+    popupType:'1',//滚动式弹窗还是键盘是弹窗
+    keyboardNum: ['1', '2', '3', '4', '5', '6', '7', '8', '9','.', '0','cancel'],
+    itemType:'',//点击表单选项的名称
+    floor:'',//选中是上层选项还是下层选项
+    office_building:['新房', '二手房'],
+    office_building1: ['商铺新房', '二手商铺'],
+    showData:{//展示在页面的数据
+      '楼栋号': 'building_num',
+      '单元号': 'unit_num',
+      '室号': 'room_num',
+      '面积': 'build_area',
+      '户型': ['room', 'hall','toilet'],
+      '朝向': ['forward_name'],
+      '单层': ['floor','floor_total'],
+      '跃层': ['floor_start', 'floor_end', 'floor_total'],
+      '独栋': ['floor_total'],
+      '月租金':'price',
+      '装修': ['fitment_name'],
+      '租客性别': ['sex'],
+      '商铺性质': ['office_building'],
+      '性质': ['office_building'],
+      '商铺类型': ['shop_type'],
+      '物业费':'fee',
+      '临街': ['frontage'],
+      '可注册公司': ['register_company'],
+      '可分割': ['division'],
+    },
+    radioItem: [{ name: '单层', value: '1' }, { name: '跃层', value: '2'}],
+    radioItem1: [{ name: '单层', value: '1' }, { name: '跃层', value:'2'}, { name: '独栋', value: '3' }],
+    radioItem2: [{ name: '按月', value: '1' }, { name: '按天', value: '2'}],
+    rentWay:['整租','合租'],
+    carPos:['车位','车库'],
+    publishObj: {
+      city: app.globalData.city,
+      scenario: 'api',
+      uid: app.getUtil.cacheGet("changeUid"),
+      house_type: '',      //房屋类型 1
+      block_name: '',
+      district: '',      //区属
+      street_id: '',      //版块
+      street: '',
+      room: '',        //户型室
+      hall: '',        //户型厅
+      toilet: '',      //户型卫
+      floor: '',       //单层
+      floor_start: '', //跃层start
+      floor_end: '',   //跃层end
+      floor_total: '',  //共计层
+      floor_type: '1',//1单层，2多层，3独栋
+      building_num: '',   //楼栋门牌-栋
+      unit_num: '',       //楼栋门牌-单元
+      room_num: '',       //楼栋门牌-室
+      shop_type: '',//商业类型
+      office_building:'1',//商铺性质
+      floor_is_yc:false,//是否跃层
+      house_property: {
+        owner_contract_type: '',       //证件类型 4
+        owner_land_right_number: '',  //丘权号
+        owner_name: '',               //产权人姓名
+        owner_contract_number: '',    //证件号码
+        owner_identity_card_number: '',    //产权人身份证
+        owner_pics: []                 //照片
+      },
+      rent_type: '1',    //出租方式 1整租、2合租
+      room_type: '',     //卧室类型
+      sex: '',        //租宅性别
+      build_area: '',  //户型面积
+      price: '',       //租金
+      price_unit: '1',  //租金单位
+      price_type: '',  //付款方式
+      fitment_name: '', //装修类型
+      forward_name: '', //装修朝向
+      fee: '',          //物业费
+      house_mating: [], //房源配套
+      car_attr: '1',//1.车位，2.车库
+      title: '',       //标题
+      detail_content: '',     //详情介绍
+      house_pics: [],  //房源照片
+      contact: '',     //联系人
+      phone:'',       //手机号码
+      frontage:false,//是否临街
+      division: false,//可分割
+      register_company: false, //可注册公司
+    },
+  },
+  onLoad(options){
+    let topArr = this.topContent(options.houseType);
+    defaultPublishObj = JSON.parse(JSON.stringify(this.data.publishObj));
+    defaultPublishObj.house_type = this.resetObj(wx.getStorageSync('initConfig').house_type_map)[options.houseType];
+    this.setData({
+      topArr: topArr,
+      publish:options.publish,
+      houseType:options.houseType,
+      iniconfig: wx.getStorageSync('initConfig'),
+      ['publishObj.house_type']: this.resetObj(wx.getStorageSync('initConfig').house_type_map)[options.houseType],
+      houseTypeKey: '发布_' + options.houseType
+    });
+    this.initPage(options);
+  },
+  topContent(houseType){//判断此房源类型有哪些选项
+    switch (houseType){
+      case '住宅':
+        return [topArr[0], topArr[1], topArr[2]];
+      case '写字楼':
+        return [topArr[5], topArr[2]];
+      case '商铺':
+        return [topArr[4], topArr[3], topArr[2]];
+      case '厂房仓库':
+        return [topArr[2]];
+      case '别墅':
+        return [topArr[0], topArr[1], topArr[2]];
+    }
+  },
+  initPage(options){//初始化页面
+    this.initData();
+    if (options.publish === 'false'){//看是否是编辑页面,通过不同途径填充页面数据
+      this.getAjaxData(options);
+    } else if (options.publish === 'true'){
+      this.getLocalData(options);
+    }
+  },
+  initData(){
+    var iniconfig = wx.getStorageSync('initConfig');
+    sex = iniconfig.sex_map;
+    fitment_name = iniconfig.fitment_map;
+    forward = iniconfig.forward_map;
+    car = this.resetObj(iniconfig.car_attr_map);
+    shop_type = this.resetObj(iniconfig.shop_type_map);
+    wx.setNavigationBarTitle({
+      title: this.data.houseType,
+    })
+  },
+  resetObj(obj){
+    var o = {};
+    for (var key in obj){
+      o[obj[key]] = key;
+    }
+    return o;
+  },
+  getLocalData(){
+    let key = '发布_' + this.data.houseType;
+    console.log(key)
+    let localData = wx.getStorageSync(key);
+    let uid = app.getUtil.cacheGet("changeUid");
+    if (localData){
+      for (var i = 0; i < localData.length; i++) {
+        if (uid === localData[i].uid) {
+          this.setData({
+            publishObj: localData[i]
+          });
+        } 
+      }
+    }
+  },
+  getAjaxData(options){
+    console.log('请求数据')
+    var that = this;
+    app.getUtil.ajax({
+      path: '5cecf9143ece2',
+      method: "GET",
+      check: true,
+      data: { 'rid': options.id, 'city': app.globalData.city, 'no_cache': '1' },
+      success(res){
+        that.setPublishObj(res.data.data, options);
+      }
+    });
+  },
+  setPublishObj(data, options){//提交和返回数据不一样，需要重新赋值
+   console.log(data)
+    var o = this.data.publishObj;
+    o.id = data.id;
+    o.house_type = data.infotype;
+    o.block_name=data.blockshowname;
+    o.district = data.district;
+    o.street_id = data.streetid;
+    o.street = data.streetName;
+    o.forward = data.forward;
+    o.room = data.room;
+    o.hall = data.hall;
+    o.toilet = data.toilet;
+    o.floor_type = data.floor_type;
+    if (o.floor_type == 1){
+      o.floor = data.floor;
+      o.floor_total = data.totalfloor;
+    } else if (o.floor_type == 2){
+      o.floor_start = data.subfloor;
+      o.floor_end = data.floor;
+      o.floor_total = data.totalfloor;
+    } else {
+      o.floor_total = data.totalfloor;
+    }
+    o.fitment_name = data.fitment;
+    o.building_num = data.buildingnum;
+    o.room_num = data.roomnum;
+    o.unit_num = data.unitnum;
+    o.office_building = data.office_building;
+    o.division = data.division == '0' ? false : true;
+    o.house_property = data.house_property;
+    o.rent_type = renttype[data.renttype];
+    o.price = data.price;
+    o.contact = data.contactor;
+    o.forward_name = data.forward;
+    o.price_unit = data.priceunit;
+    o.price_type = data.payment;
+    o.house_mating = data.equipmentArr;
+    o.detail_content = data.remark;
+    o.phone = data.telno;
+    o.build_area=data.buildarea;
+    o.register_company=data.registered=='0'?false:true;
+    o.title=data.address;
+    o.frontage = data.frontage == '0' ? false : true;
+    o.house_pics = [];
+    o.sex=data.rentremark;
+    o.fee = parseFloat(data.strata_fee) + '';
+    o.car_attr = data.infotype == 6 ? car[data.housekind]:'';
+    o.shop_type = data.infotype == 4 ? shop_type[data.housekind]:'';
+    o.room_type = data.rentroom;     //卧室类型
+    for (var i = 0; i < data.rentImages.length;i++){
+      o.house_pics.push(data.rentImages[i].filename);
+    }
+    let topArr = this.topContent(data.infoType);
+    this.setData({
+      topArr: topArr,
+      publishObj:o,
+      houseType: data.infoType,
+      houseTypeKey: '发布_' + data.infoType,
+      ['publishObj.rent_id']: options.id
+    });
+  },
+  uploadImg() {//上传照片选项
+    let that = this
+    wx.showActionSheet({
+      itemList: ['拍照', '从手机相册选择'],
+      success(res) {
+        let sourceType = ['camera'];
+        if (res.tapIndex == 1) {
+          sourceType[0] = "album"
+        }
+        wx.chooseImage({
+          sizeType: ['original', 'compressed'],
+          sourceType: sourceType,
+          success(res) {
+            let tempFilePaths = res.tempFilePaths;
+            let arr = [];
+            app.getUtil.uploadImages({
+              city: app.globalData.city,
+              path: tempFilePaths,
+              uploadSuccess: r => {
+                let data = JSON.parse(r.data);
+                if (data.code == "1") {
+                  arr.push(data.data.water_url)
+                }
+              },
+              complete(i) {
+                that.setData({
+                  ["publishObj.house_pics"]: arr
+                });
+                that.saveData();
+                wx.navigateTo({
+                  url: '/taofang-package/pages/house-img/house-img',
+                });
+              }
+            })
+          }
+        })
+      }
+    })
+  },
+  isShowModel(e){//弹窗展示
+    if (!isOver){//滚动没结束不能关闭弹窗
+      return;
+    }
+    let o = {
+      isShowModel : e.currentTarget.dataset.modelstatus,
+      itemType: e.currentTarget.dataset.type,
+      floor: e.currentTarget.dataset.floor,
+      popupType: e.currentTarget.dataset.popuptype,
+    };
+    if (o.floor){
+      o.showArr = this.data[o.floor + 'Arr'];
+    } else {
+      o.showArr = [o.itemType];
+    }
+    this.howShowPopup(o);
+  },
+  howShowPopup(o){
+    if (o.isShowModel!=='hide'){
+      let obj = this.setPickerViewData(o);
+      Object.assign(o, obj);
+    }
+    this.checkValueOk();//再次检查数值是否正确
+    this.setData({
+      isShowModel: o.isShowModel,
+      popupType: o.popupType,
+      showArr: o.showArr,
+      itemType: o.itemType,
+      floor: o.floor,
+      listNum:o.listNum,
+      value:o.value
+    });
+  },
+  setPickerViewData(o){//装填滚动选择窗口的数据
+    if (o.itemType !== '楼层'){
+      var value = this.getDefaultVal(o.itemType);
+    } else {
+      var value1 = this.floorType(o.itemType);
+    }
+    switch (o.itemType){
+      case '户型':
+        return { listNum: [room, hall, toilet], value: value};
+      case '朝向':
+        return { listNum: [forward], value: value};
+      case '楼层':
+        return value1;
+      case '装修':
+        return { listNum: [fitment_name], value: value };
+      case '租客性别':
+        return { listNum: [sex], value: value };
+      case '商铺性质':
+        return { listNum: [this.data.office_building1], value: value };
+      case '性质':
+        return { listNum: [this.data.office_building], value: value };
+      case '商铺类型':
+        return { listNum: [this.data.iniconfig.shop_type_map], value: value };
+      case '临街':
+        return { listNum: [this.data.isFaceStreet], value: value };
+      case '可注册公司':
+        return { listNum: [this.data.isFaceStreet], value: value };
+      case '可分割':
+        return { listNum: [this.data.isFaceStreet], value: value };
+    }
+  },
+  floorType(type){
+    let obj = this.data.publishObj;
+    if (+obj.floor_type === 1){//单层
+      var value = this.getDefaultVal('单层');
+      return { listNum: [floor.slice(0, obj.floor_total ? obj.floor_total:1), floorTotal], value:value };
+    } else if (+obj.floor_type === 2){//跃层
+      var value = this.getDefaultVal('跃层');
+      if (value[1] < value[0]){
+        value[0] = value[1];
+      }      
+      return { listNum: [floor.slice(0, obj.floor_start ? obj.floor_total - 1 : 1), floor.slice(1, obj.floor_end ? obj.floor_total: 2), floorTotal.slice(1)], value: value};
+    } else if (+obj.floor_type === 3){//独栋
+      var value = this.getDefaultVal('独栋');
+      console.log(value)
+      return { listNum: [floorTotal], value: value };
+    }
+  },
+  getDefaultVal(type){//获得滚动窗口默认值
+    console.log(type)
+    let obj = this.data.publishObj;
+    let items = this.data.showData[type];
+    if (type === '朝向' || type === '装修' || type === '租客性别' || type === '商铺类型'){
+      return [1];
+    }
+    if (type === '商铺性质' || type === '性质') {
+      return [parseInt(obj[items[0]])-1];
+    }
+    let arr = [];
+    for (let i = 0 ; i < items.length ; i ++){
+      if ((type === '户型' && i === 0) || type === '单层' || type === '独栋') {
+        arr.push(obj[items[i]] - 1 < 0 ? 0 : obj[items[i]]-1);
+        continue;
+      }
+      if (type === '跃层') {
+        if (i ===0){
+          arr.push(obj[items[i]] - 1 < 0 ? 0 : obj[items[i]] - 1);
+        } else if (i ===1 || i===2){
+          arr.push(obj[items[i]] - 2 < 0 ? 0 : obj[items[i]] - 2);
+        }
+        continue;
+      }
+      arr.push(obj[items[i]]);
+    }
+    return arr;
+  },
+  checkValueOk(){//再次检查数值是否正确
+    var publishObj = this.data.publishObj;
+    var reg = /\.$/;
+    publishObj.build_area = typeof publishObj.build_area ==='string'?publishObj.build_area.replace(reg,''):'';
+    publishObj.price = typeof publishObj.price === 'string' ?publishObj.price.replace(reg, ''):'';
+    publishObj.fee = typeof publishObj.fee === 'string' ?publishObj.fee.replace(reg, ''):'';
+    this.setData({
+      publishObj: publishObj
+    });
+    this.saveData();
+  },
+  keyBoardAction(e){//键盘点击事件
+    let val = e.currentTarget.dataset.val;
+    let p = this.data.showData[this.data.itemType];
+    let nowVal = this.data.publishObj[p];
+    if (val === 'cancel'){
+      this.isShowModel(e);
+    } else if (val === 'delete'){
+      var value = nowVal.slice(0,nowVal.length-1);
+    } else {
+      if ((nowVal + val).length > 8){
+        return;
+      }
+      var value = nowVal + val;
+    }
+    value = this.isLegitimateValue(value);
+    this.setData({
+      [`publishObj.${p}`]: value
+    });
+    this.saveData();
+  },
+  isLegitimateValue(value){//检查是否是合法数值
+    var reg = /^[0|\.]*|\.\.+|\.\S+\./g;
+    var reg1 = /\.*/g
+    if (this.data.itemType === '面积' || this.data.itemType === '月租金' || this.data.itemType === '物业费'){
+      return typeof value ==='string'?value.replace(reg, ''):'';
+    } else {
+      return typeof value === 'string' ? value.replace(reg1, '') : '';
+    }
+  },
+  keyBoardSure(){//键盘确定事件，如果有未选的转跳到未选项，如果没有关闭弹窗
+    var obj = this.data.publishObj;
+    var obj1 = this.data;
+    for (let i = 0; i < this.data.showArr.length ; i++){
+      if (this.data.showArr[i] === '楼层'){
+        var isEmpty = obj.floor_total?true:false;
+      } else {
+        var val = this.data.showData[this.data.showArr[i]];
+        var p = Array.isArray(val)?val[0]:val;
+        var isEmpty = obj[p]!=='' ? true : false;
+      }
+      if (!isEmpty){
+        obj1.itemType = this.data.showArr[i];
+        this.howShowPopup(obj1);
+        return;
+      }
+    }
+    this.canClose();//检查是否能关闭弹窗
+  },
+  canClose(){
+    if (this.data.itemType === '面积' && this.data.publishObj.rent_type == 2 && this.data.houseType !== '商铺' && this.data.houseType !== '写字楼' && this.data.houseType !== '厂房仓库') {
+      if (this.data.publishObj.room_type === '' || this.data.publishObj.build_area === ''){
+        this.tips('请填写完毕');
+        return;
+      } 
+    }
+    if (this.data.itemType === '月租金') {
+      if (this.data.publishObj.price_type === '' || this.data.publishObj.price === ''){
+        this.tips('请填写完毕');
+        return;
+      }
+    }
+    this.checkValueOk();
+    this.setData({
+      isShowModel: 'hide'
+    });
+  },
+  tips(str){
+    wx.showToast({
+      title: str,
+      icon: 'none'
+    })
+  },
+  bindChange(e){//滚动选项事件
+    if (e.type === 'change'){
+      let val = e.detail.value;
+      let p = this.data.showData[this.data.itemType];
+      let o = this.data.publishObj;
+      if (this.data.itemType == '楼层'){
+        this.changeOtherWay(val,o);
+        return;
+      }
+      for (let i = 0 ; i < val.length ; i ++){
+        if (this.data.itemType === '朝向' || this.data.itemType === '装修' || this.data.itemType === '租客性别'){
+          o[p[i]] = this.data.listNum[0][val[i]];
+          break;
+        }
+        if (this.data.itemType === '商铺性质' || this.data.itemType === '性质' || this.data.itemType === '商铺类型') {
+          o[p[i]] = val[i]+1;
+          break;
+        }
+        if (this.data.itemType === '可注册公司' || this.data.itemType === '临街' || this.data.itemType === '可分割') {
+          o[p[i]] = val[i]==0?false:true;
+          break;
+        }
+        if (p[i] ==='room'){
+          o[p[i]] = val[i] +1;
+          continue;
+        }
+        o[p[i]] = val[i];
+      }
+      this.setData({
+        publishObj:o
+      });
+      this.saveData();
+    }
+  },
+  changeOtherWay(val, publishObj){
+    var o  = {
+      floor:'',
+      floor_start:'',
+      floor_end:'',
+      floor_total:''
+    };
+    if (this.data.itemType === '楼层'){
+      if (publishObj.floor_type == 1){
+        var p = this.data.showData['单层'];
+      } else if (publishObj.floor_type == 2){
+        var p = this.data.showData['跃层'];
+      } else {
+        var p = this.data.showData['独栋'];
+      }
+    }
+    for (let i = 0; i < val.length; i++) {
+      if (publishObj.floor_type == 1|| publishObj.floor_type == 3){//单层或独栋
+        if (p[i] == 'floor'){
+          o[p[i]] = val[i]+1;
+        }
+        if (p[i] == 'floor_total') {
+          o[p[i]] = val[i]+1;
+          console.log(val[i] + 1)
+        }
+        continue;
+      } else if (publishObj.floor_type == 2){//跃层
+        if (p[i] == 'floor_start') {
+          o[p[i]] = val[i] + 1;
+        }
+        if (p[i] == 'floor_end' || p[i] == 'floor_total') {
+          o[p[i]] = val[i] + 2;
+        }
+        continue;
+      } 
+      o[p[i]] = val[i];
+    }
+    Object.assign(publishObj,o);
+    this.setData({
+      publishObj: publishObj
+    });
+    this.saveData();
+  },
+  startChange(){
+    isOver = false;
+  },
+  endChange() {
+    isOver = true;
+    if (this.data.itemType === '楼层'){
+      var o = this.setPickerViewData({ itemType: this.data.itemType });
+      var publishObj = this.data.publishObj;
+      if (publishObj.floor_type == 2){
+        for (var i = 0; i < o.value.length; i++) {
+          if (this.data.showData['跃层'][i] == 'floor_start') {
+            publishObj[this.data.showData['跃层'][i]] = o.value[i] + 1;
+          }
+          if (this.data.showData['跃层'][i] == 'floor_end' ||this.data.showData['跃层'][i] == 'floor_total') {
+            publishObj[this.data.showData['跃层'][i]] = o.value[i] + 2;
+          }
+          continue;
+        }
+      } 
+
+      this.setData({
+        listNum: o.listNum,
+        value: o.value,
+        publishObj: publishObj
+      });
+    }
+    this.saveData();
+  },
+  radioChange(e){//单选框事件
+    let type = e.currentTarget.dataset.type;
+    let value = e.detail.value;
+    if (type === '楼层'){
+      var path = 'publishObj.floor_type';
+      var path1 = 'publishObj.floor_is_yc';
+    } 
+    this.setData({
+      [path]: value,
+      [path1]:value==2?true:false,
+      ['publishObj.floor']: '',
+      ['publishObj.floor_start']: '',
+      ['publishObj.floor_end']: '',
+      ['publishObj.floor_total']: value == 3 ? 1 : '',
+    });
+    var o = this.setPickerViewData({ itemType: this.data.itemType});
+    this.setData({
+      listNum:o.listNum,
+      value:o.value
+    });
+  },
+  radioChange1(e){
+    let value = e.detail.value;
+    this.setData({
+      ['publishObj.price_unit']:value
+    });
+    this.saveData();
+  },
+  chooseRentType(e){//选择车位车库，整租合租事件
+    var val = e.currentTarget.dataset.value;
+    if (this.data.houseType === '车库车位'){
+      var path = 'publishObj.car_attr';
+    } else {
+      var path = 'publishObj.rent_type';
+    }
+    this.setData({
+      [path]:val
+    });
+    this.saveData();
+  },
+  moreChooseAction(e){//弹窗tab事件
+    var val = e.currentTarget.dataset.value;
+    if (this.data.itemType === '面积'){
+      var path = 'publishObj.room_type';
+    }
+    if (this.data.itemType === '月租金') {
+      var path = 'publishObj.price_type';
+    }
+    this.setData({
+      [path]: val
+    });
+    this.saveData();
+  },
+  nextStep(){
+    var str = this.checkData();
+    if (typeof str === 'string'){
+      if (str ==='房源图片'){
+        this.tips('请上传房源图片');
+      }else{
+        this.tips('请填写'+str);
+      }
+      return;
+    }
+    wx.navigateTo({
+      url: '/taofang-package/pages/publish-form/publish-step-2/publish-step-2',
+    });
+  },
+  checkData(){//检查数据是否填写完毕
+    var obj = this.data.publishObj;
+    var arr = [
+      { value:'house_pics',str:'房源图片'},
+      { value:'block_name',str:'小区名称'},
+      { value: 'room', str: '户型' },
+      { value: 'forward_name', str: '朝向' },
+      { value: 'floor_total', str: '楼层' },
+      { value: 'build_area', str: '面积' },
+      { value: 'sex', str: '性别' },
+      { value: 'price', str: '租金' },
+      { value: 'fitment_name', str: '装修' },
+      { value: 'shop_type', str: '商铺类型' },
+      { value: 'fee', str: '物业费' },
+    ];
+    if (this.data.publishObj.house_type == 1 || this.data.publishObj.house_type == 2){//住房
+      // var mustItem = [0,1,2,3,4,6,7];
+      var mustItem = [0, 1, 2, 3, 4,5, 7, 8];
+      if (obj.rent_type ==2){
+        // var mustItem = [0, 1, 2, 3, 4,5,6,7];
+        var mustItem = [0, 1, 2, 3, 4, 5, 6, 7,8];
+      }
+    }
+    if (this.data.publishObj.house_type == 4) {//商铺
+      // var mustItem = [0, 3, 4, 6, 7,8,9];
+      var mustItem = [0,1, 4, 5, 7, 8, 9, 10];
+    }
+    if (this.data.publishObj.house_type == 3) {//写字楼
+      // var mustItem = [0, 3, 4, 6, 7, 9];
+      var mustItem = [0,1, 4, 5, 7, 8, 10];
+    }
+    if (this.data.publishObj.house_type == 5) {//厂房仓库
+      // var mustItem = [0, 3, 4, 6];
+      var mustItem = [0,1, 4, 5, 7];
+    }
+    if (this.data.publishObj.house_type == 6) {//车位
+      // var mustItem = [0, 4, 6];
+      var mustItem = [0,1, 5, 7];
+    }
+    for (var i =0 ;i < mustItem.length;i++){
+      if (obj[arr[mustItem[i]].value] === '' || obj[arr[mustItem[i]].value].length==0){
+        return arr[mustItem[i]].str;
+      }
+    }
+    return true;
+  },
+  saveData(){//把未提交的对象存储到本地
+    let key= '发布_' + this.data.houseType;
+    let localData = wx.getStorageSync(key);
+    if (Array.isArray(localData) && localData.length>0){
+      for (var i = 0; i < localData.length; i++) {
+        if (this.data.publishObj.uid === localData[i].uid){
+          localData[i] = this.data.publishObj;
+        } else {
+          localData.push(this.data.publishObj);
+        }
+      }
+    } else {
+      localData = [this.data.publishObj];
+    }
+    wx.setStorageSync(key, localData);
+  },
+  reset(){//重置数据
+    console.log(defaultPublishObj)
+    this.setData({
+      publishObj: JSON.parse(JSON.stringify(defaultPublishObj))
+    });
+    this.saveData();
+  }
+});

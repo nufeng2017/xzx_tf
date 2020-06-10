@@ -1,0 +1,66 @@
+page{
+    background: #f4f4f4;
+    font-size: 30rpx;
+}
+.bill_con{
+    background: #fff;
+}
+.bill_con_paid{
+    overflow: hidden;
+    padding: 12rpx 30rpx 12rpx 40rpx;
+}
+.bill_con_paid .fl > text{
+    display: block;
+    line-height: 40rpx;
+}
+.bill_con_paid .fl text.size-30.black-font{
+  font-weight: bold;
+}
+.bill_con_paid .fl .padding_text{
+    padding: 14rpx 0 14rpx 0;
+}
+.bill_con_paid .fl > text text{
+    font-size: 48rpx;
+}
+.bill_con_paid .fr{
+    margin-top: 40rpx;
+}
+.bill_con_detail{
+    padding: 30rpx 0 50rpx 0;
+    margin-left: 40rpx;
+    border-top: 1rpx solid #e5e5e5;
+}
+.bill_con_detail > view{
+    line-height: 70rpx;
+    height: 70rpx;
+    overflow: hidden;
+}
+.bill_con_detail > view text.fl{
+    float: left;
+    font-size: 28rpx;
+    color: #4c4c4c;
+}
+.bill_con_detail > view text.fr{
+    float: right;
+    font-size: 30rpx;
+    color: #333;
+    padding-right: 30rpx;
+}
+.doubt {
+    text-align: center;
+    color: #4b96ff;
+    font-size: 24rpx;
+    margin-top: 46rpx;
+}
+.now_paybill {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 98rpx;
+    line-height: 98rpx;
+    text-align: center;
+    background: #ffa229;
+    color: #fff;
+    font-size: 32rpx;
+}

@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-popup": "/shangban/@vant/weapp/popup/index",
+    "area-filter":"/shangban/components/area-filter/area-filter",
+    "top-sheet": "/shangban/components/top-sheet/top-sheet",
+    "other-filter": "/shangban/components/other-filter/other-filter"
+  }
+}

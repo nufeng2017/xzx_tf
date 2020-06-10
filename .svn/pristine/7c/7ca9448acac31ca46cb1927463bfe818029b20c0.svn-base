@@ -1,0 +1,43 @@
+.z-components-filter-tabs{
+  color:#000;
+  font-size: 30rpx;
+  position: relative;
+  height: 90rpx;
+  line-height: 90rpx;
+  padding-right: 98rpx;
+  padding-left: 38rpx;
+  z-index: 100;
+  background: #fff;
+}
+.z-components-filter-sort{
+  width:60rpx;
+  height: 100%;
+  position: absolute;
+  top:0;
+  right:38rpx;
+  text-align: right;
+}
+.z-components-filter-sort image{
+  width:26rpx;
+  height: 24rpx;
+  display: inline-block;
+}
+.z-components-filter-tabs::after{
+  content: '';
+  height: 1px;
+  background: #e5e5e5;
+  transform: scaleY(0.5);
+  position: absolute;
+  width:100%;
+  left: 0;
+  bottom: 0;
+}
+.z-components-filter-tab{
+  text-align: center;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 10rpx;
+}
+.z-components-filter-tab.z-components-filter-tab--active{
+  color:#ffa229;
+}

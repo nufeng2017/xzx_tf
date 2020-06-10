@@ -1,0 +1,133 @@
+<!--商办详情页-->
+<!-- 轮播 -->
+<view class="z-swiper">
+  <swiper-view media="{{mediaData}}" page-type="1" location="{{location}}" detail-type="{{detailType}}" />
+  <btn-groups detail="{{detail}}" wx:if="{{detailType==2}}" />
+</view>
+
+<!-- 严选标记 -->
+<view style="height:80rpx;" wx:if="{{detail.is_money_house == 1}}"><image src="/shangban/assets/img/yx.png"></image></view>
+
+<!-- 内容 -->
+<view class="z-wrap">
+  <detail-head detail-type="{{detailType}}" location="{{location}}" info="{{detail}}" />
+
+  <!-- 本楼盘房源 -->
+  <view class="z-content-block" wx:if="{{detail.rent_list.length>0}}">
+    <cell border="{{false}}" show-arrow="{{false}}">
+      <view slot="title" class="z-view-title">本楼盘房源</view>
+    </cell>
+    <view class="z-check-more-box">
+      <scroll-view class="z-scroll-box" scroll-x="{{true}}" style="{{detail.rent_list_is_more?'padding-right:76rpx':''}}">
+        <img-txt wx:for="{{detail.rent_list}}" wx:key="index" info="{{item}}" url="{{'../../pages/detail/detail?id='+item.id + '&detailtype=2'}}" wx:if="{{index<6}}" />
+      </scroll-view>
+      <view class="z-check-more" wx:if="{{detail.rent_list_is_more}}" bindtap="enterList">
+        <view class="z-flex flex-column">查看更多
+          <image src="./img/arrow.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 楼盘简介 -->
+  <view class="z-content-block">
+    <cell border="{{false}}" show-arrow="{{false}}" wx:if="{{detailType==1}}">
+      <view slot="title" class="z-view-title">楼盘简介</view>
+    </cell>
+    <view class="z-introduce-item">
+      <detail-item-box detail-type="{{detailType}}">
+        <detail-item wx:for="{{averagePrice}}" wx:key="index" info="{{item}}" detail-type="{{detailType}}" />
+      </detail-item-box>
+    </view>
+    <cell border="{{false}}" show-arrow="{{false}}" wx:if="{{detailType==2}}">
+      <view slot="title" class="z-view-title">房源概况</view>
+      <view slot="right" class="z-zixun" bindtap="checkLp">咨询详情</view>
+    </cell>
+    <view class="z-detail-entry">
+      <detail-entry info="{{detail}}" detail-type="{{detailType}}" />
+    </view>
+  </view>
+
+  <!-- 基础服务 -->
+  <view class="z-content-block ">
+    <cell border="{{false}}" show-arrow="{{false}}">
+      <view slot="title" class="z-view-title">{{detailType==1?'基础服务':'房源描述'}}</view>
+    </cell>
+
+    <!-- 发布人1个人、5中介 -->
+    <card wx:if="{{detailType==2}}" info="{{detail}}" infofrom="{{detail.infofrom}}" />
+
+    <view class="z-detail-intro" wx:if="{{detailType==2}}" >
+      <hidden-txt text-num="{{65}}" line-height="{{38}}" text="{{detail.remark}}" />
+    </view>
+    <van-grid column-num="5" border="{{false}}">
+      <van-grid-item icon="{{item.url||item.imageurl}}" text="{{item.enum_name||item.name}}" wx:for="{{detail.office_service || detail.equipment_pic}}" wx:key="index" class="{{item.is_has||item.is_line==0?'z-has':''}}" />
+    </van-grid>
+  </view>
+
+  <!-- 所属楼盘 -->
+  <view class="z-content-block" wx:if="{{detail.officeBlock.office_bid}}">
+    <cell border="{{false}}" show-arrow="{{false}}">
+      <view slot="title" class="z-view-title">所属楼盘</view>
+      <view slot="right" bindtap="checkLpDetail" data-id="{{detail.officeBlock.office_bid}}">查看详情</view>
+    </cell>
+    <view class="z-owner-lp">
+      <view-item title="{{detail.officeBlock.blockname}}" characteristic="{{detail.officeBlock.label}}" is-video="{{false}}" img="{{detail.officeBlock.img_url}}" url="{{'../../pages/detail/detail?detailtype=1&id='+detail.officeBlock.office_bid}}">
+        <view slot="content" class="z-components-address">{{detail.officeBlock.address}}</view>
+        <view slot="price" class="z-view-item-price">
+          <text class="z-view-item-price1">{{detail.officeBlock.rent_price}}<text class="z-price-unit">{{detail.officeBlock.priceunit}}</text></text>
+        </view>
+      </view-item>
+    </view>
+  </view>
+</view>
+
+<!-- 地图 -->
+<view class="z-map">
+  <image src="https://api.map.baidu.com/staticimage/v2?ak=8pPZDVUsaYtgIryS2L6QRu6xOhLwDxYZ&width=750&height=360&center={{location.longitude}},{{location.latitude}}&markers={{location.longitude}},{{location.latitude}}&zoom=16&markerStyles=l&dpiType=ph" mode="aspectFit"
+    catchtap="checkMap"></image>
+  <view class="z-map-line">
+    <map-line detail="{{detailType==1?detail.subway_distance:detail.blockInfo.subway_distance}}" detail-type="{{detailType}}" blockname="{{detail.blockname}}" address="{{detail.address}}" location="{{location}}"/>
+  </view>
+</view>
+
+<!-- 附近楼盘 -->
+<view class="z-wrap" style="position:relative;top:-68rpx;padding-top:20rpx;">
+
+  <!-- 举报 -->
+  <cell border="{{false}}" wx:if="{{detailType==2}}" show-arrow="{{false}}" class="z-report">
+    <view slot="title" class="z-report-title z-flex z-flex-line-center"><image src="./img/ruzhu-icon.png"></image><text class="z-report-title-big">我要举报</text><text class="z-report-title-small">房源含无效、虚假信息</text></view>
+    <view slot="right" class="z-report-right z-flex z-flex-line-center" bindtap="report"><image src="./img/report-icon.png"></image>举报</view>
+  </cell>
+  <cell border="{{false}}" wx:if="{{detail.office_list.length>0||detail.nearHouseRecommend.length>0}}"  show-arrow="{{detail.office_list_is_more||detail.nearHouseTotal>5}}">
+    <view slot="title" class="z-view-title">{{detailType==1?'附近楼盘':'附近写字楼'}}</view>
+    <view slot="right" class="z-cell-right" bindtap="checkLp" wx:if="{{detail.office_list_is_more||detail.nearHouseTotal>5}}">查看全部</view>
+  </cell>
+  <view class="z-nearby-lp" wx:if="{{detail.office_list.length>0||detail.nearHouseRecommend.length>0}}">
+    <view-item 
+      wx:for="{{detailType==1?detail.office_list:detail.nearHouseRecommend}}" 
+      wx:key="index" 
+      title="{{item.blockname||item.title}}" 
+      characteristic="{{item.type_arr||item.label}}" 
+      address="{{detailType==1?item.subway_distance[0]:item.subway_distance}}" 
+      is-video="{{false}}" 
+      img="{{item.cover_url||item.img_url}}" 
+      url="{{'../../pages/detail/detail?detailtype='+detailType+'&id='+(item.office_id||item.house_id)}}" 
+      is-rent="{{item.istag}}" 
+      is-money-house="{{item.is_money_house}}"
+    >
+      <view slot="content" class="z-components-address">{{detailType==1?item.area:item.buildarea+'㎡ · '+item.district+(item.streetname?'-'+item.streetname:'')+' · '+item.blockshowname}}</view>
+      <view slot="price" class="z-view-item-price">
+        <text class="z-view-item-price1" wx:if="{{detailType==1}}">{{item.price}}<text class="z-price-unit">{{item.price_unit}}</text></text>
+        <text class="z-view-item-price1" wx:if="{{detailType==2}}">{{item.price_day}}<text class="z-price-unit">{{item.priceunit_day}}</text></text>
+        <text class="z-view-item-price2" wx:if="{{detailType==2}}">{{item.price_month}}<text class="z-price-unit">{{item.priceunit_month}}</text></text>
+      </view>
+    </view-item>
+  </view>
+</view>
+
+<!-- 加载页 -->
+<load-page show="{{showLoad}}" />
+
+<!-- 底部栏 -->
+<bottom-win wx:if="{{detailType==2}}" info="{{detail}}" infofrom="{{detail.infofrom}}"/>

@@ -1,0 +1,339 @@
+/**index.wxss**/
+
+.house_into {
+  margin: 0 38rpx;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hui-house-link {
+  padding-top: 46rpx;
+  margin-bottom: 14rpx;
+}
+
+.house_into navigator {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40rpx;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -o-flex: 1;
+  -moz-flex: 1;
+  flex: 1;
+}
+
+.house_into navigator image {
+  width: 52rpx;
+  height: 52rpx;
+  margin: auto;
+}
+
+.house_into navigator text {
+  font-size: 26rpx;
+  color: #333;
+  text-align: center;
+  padding-top: 17rpx;
+}
+
+.list_title {
+  margin: 0 38rpx;
+  padding-bottom: 37rpx;
+  position: relative;
+}
+
+.list_title > text {
+  font-size: 36rpx;
+  line-height: 1;
+}
+
+.list_title .list_title_morehouse {
+  font-size: 26rpx;
+  color: #9f9f9f;
+}
+
+.list_title .list_title_morehouse image {
+  width: 11rpx;
+  height: 20rpx;
+  padding-left: 10rpx;
+}
+
+.list_item_out {
+  border-top: 1rpx solid #e5e5e5;
+  margin: 0 0 0 38rpx;
+}
+
+/*弹窗  */
+
+.popup {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+.popup-content {
+  width: 79%;
+}
+
+.popup-btn {
+  margin: 0 auto;
+  margin-top: 0.9rem;
+  width: 41%;
+  height: auto;
+  display: block;
+}
+
+.gift-img {
+  width: 100%;
+}
+
+.popup .close-btn {
+  margin: 0 auto;
+  width: 8%;
+  margin-top: 1.6rem;
+  display: block;
+}
+
+.gift-btn {
+  width: 17%;
+  position: fixed;
+  bottom: 16%;
+  right: 20rpx;
+  z-index: 999;
+}
+
+
+
+/* 精选好房 */
+
+.hui-sel-best-house-item-box {
+  line-height: 1;
+  margin: 0 38rpx 70rpx;
+
+}
+
+.hui-sel-best-house-item {
+  box-sizing: border-box;
+  padding: 0rpx 0 0 38rpx;
+  width: 330rpx;
+  height: 140rpx;
+  margin: 0 0rpx 14rpx 0;
+  border-radius: 10rpx;
+  background: url(https://aznapi.house365.com/public/static/images/index1.png) no-repeat center;
+  background-size: 100% 100%;
+  border:1rpx solid #eee;
+}
+
+.hui-sel-best-house-item .hui-advantage {
+  color: #59a288;
+  font-size: 24rpx;
+  margin-top: 12rpx;
+}
+
+.hui-sel-best-house-item:nth-child(2) .hui-advantage {
+  color: #947d9e;
+}
+
+.hui-sel-best-house-item:nth-child(3) .hui-advantage {
+  color: #cd8e8e;
+}
+
+.hui-sel-best-house-item:nth-child(4) .hui-advantage {
+  color: #88783f;
+}
+.hui-sel-best-house-item:nth-child(1) {
+  padding-top: 40rpx;
+}
+.hui-sel-best-house-item:nth-child(2) {
+  background-image: url(https://aznapi.house365.com/public/static/images/index2.png);
+  margin-left: 14rpx;
+  justify-content: center;
+	-moz-justify-content: center;
+	-o-justify-content: center;
+	-ms-justify-content: center;
+}
+
+.hui-sel-best-house-item:nth-child(3) {
+  background-image: url(https://aznapi.house365.com/public/static/images/index3.png);
+  margin-left: 14rpx;
+  justify-content: center;
+	-moz-justify-content: center;
+	-o-justify-content: center;
+	-ms-justify-content: center;
+}
+
+.hui-sel-best-house-item:nth-child(4) {
+  margin-right: 0rpx;
+  background-image: url(https://aznapi.house365.com/public/static/images/index4.png);
+}
+
+/* 看房团 */
+
+.hui-advertisement {
+  margin: 0 38rpx 22rpx;
+  height: 180rpx;
+  border-radius: 10rpx;
+  /* background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559122161759&di=be3b9f47f7586ed83aa4ea57d23f1ab7&imgtype=0&src=http%3A%2F%2Fl.b2b168.com%2F2018%2F12%2F11%2F17%2F201812111713079114424.jpg) no-repeat center;
+  background-size: 100% 100%; */
+}
+.hui-advertisement image{
+  width: 100%
+}
+/* 搜索历史 */
+
+.hui-history {
+  margin: 0 38rpx;
+}
+
+.hui-history .hui-history-title {
+  width: 60rpx;
+  font-size: 20rpx;
+  color: #a6a6a6;
+  padding-bottom: 45rpx;
+}
+
+.hui-history image {
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 25rpx;
+  padding-bottom: 45rpx;
+}
+
+.hui-history .hui-history-board {
+  padding-bottom: 45rpx;
+  white-space: nowrap;
+  overflow-x: auto;
+  height: 38rpx;
+}
+
+.hui-history .hui-history-board view {
+  padding: 0 15rpx;
+  height: 38rpx;
+  line-height: 38rpx;
+  border-radius: 50rpx;
+  background: #f7f7f7;
+  font-size: 20rpx;
+  color: #a6a6a6;
+  display: inline-block;
+  margin-right: 18rpx;
+  vertical-align: top;
+}
+
+/* 首页搜索框 */
+
+.hui-index-search {
+  border-radius: 50rpx;
+  margin: 0 38rpx;
+  height: 72rpx;
+  padding: 17rpx 0 17rpx 36rpx;
+  box-sizing: border-box;
+  background: #f7f7f7;
+}
+
+.hui-index-search image {
+  width: 26rpx;
+  height: 26rpx;
+  margin-right: 15rpx;
+}
+
+.hui-index-search .location {
+  height: 100%;
+  font-size: 24rpx;
+  color: #333;
+  padding-right: 15rpx;
+  border-right: 1rpx solid #e6e6e6;
+  margin-right: 19rpx;
+}
+
+.hui-index-search .location:after {
+  content: '';
+  width: 12rpx;
+  height: 7rpx;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAHCAYAAAA8sqwkAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NEJCQjAxRUY4MUU5MTFFOUJFODNDMTcwQUI4N0I3RkMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NEJCQjAxRjA4MUU5MTFFOUJFODNDMTcwQUI4N0I3RkMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0QkJCMDFFRDgxRTkxMUU5QkU4M0MxNzBBQjg3QjdGQyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0QkJCMDFFRTgxRTkxMUU5QkU4M0MxNzBBQjg3QjdGQyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsfzW5wAAAB3SURBVHjaYkxLS2NkYGDYD8T2DITBEqZZs2b9BzJcgfg+AcUHgTiOEcYD2iQDpB7j0cANNPwbE4wH5DwBUpY4FGuBFIMYzMiiZ8+efWJsbPwJyHRHEvYCKj4O4zBhMW0C1L1gTwIVb0eWxNCAFAhLQJ5ElwcIMACueyNWHaeQGAAAAABJRU5ErkJggg==) no-repeat center;
+  background-size: 100% 100%;
+  margin-left: 7rpx;
+}
+
+/* 365快租，房博士链接 */
+
+.hui-other-link {
+  margin: 0 38rpx 66rpx;
+}
+
+.hui-other-link navigator {
+  width: 329rpx;
+  height: 140rpx;
+  background: #f2f7f9;
+  border-radius: 10rpx;
+}
+
+.hui-other-link navigator:first-child {
+  margin-right: 15rpx;
+}
+
+.hui-other-link navigator image {
+  width: 93rpx;
+  height: 93rpx;
+  margin-right: 14rpx;
+}
+
+.hui-other-link navigator .zuboshi, .hui-other-link navigator .kuaizu {
+  font-size: 30rpx;
+  color: #f60;
+  line-height: 1;
+  margin-bottom: 10rpx;
+}
+
+.hui-other-link navigator .zuboshi {
+  color: #4289f2;
+}
+
+/* 房源列表 */
+
+.hui-house-list-wrap {
+  margin: 0 0 66rpx 38rpx;
+}
+
+.hui-house-list-container {
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.hui-house-list-container .hui-house-list-item-wrap {
+  text-align: left;
+  margin-right: 13rpx;
+  display: inline-block;
+  width: 332rpx;
+  height: auto;
+  overflow: hidden;
+}
+
+.hui-house-list-container .hui-house-list-item-wrap image {
+  width: 100%;
+  height: 240rpx;
+  margin-bottom: 18rpx;
+  border-radius: 10rpx;
+}
+
+.hui-house-list-container .hui-house-list-item-wrap .hui-house-list-item-addr {
+  color: #656565;
+  font-size: 22rpx;
+  margin-bottom: 15rpx;
+  margin-top: 15rpx;
+}
+
+.hui-house-list-container .hui-house-list-item-wrap .hui-price {
+  font-size: 30rpx;
+  color: #ff9000;
+}
+
+.hui-house-list-container .hui-house-list-item-wrap .hui-price text {
+  font-size: 22rpx;
+}

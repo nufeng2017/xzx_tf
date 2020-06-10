@@ -1,0 +1,9 @@
+<view class="z-compoent-cell my-class  {{border?'z-component-cell-border':''}}">
+  <view class="z-compoent-cell-item">
+    <slot name="title"></slot>
+  </view>
+  <view class="z-compoent-cell-item z-compoent-cell-item-right">
+    <slot name="right"></slot>
+    <view class="z-arrow-box" wx:if="{{showArrow}}"><image src="./img/arrow.png" class="z-compoent-cell-arrow"></image></view>
+  </view>
+</view>

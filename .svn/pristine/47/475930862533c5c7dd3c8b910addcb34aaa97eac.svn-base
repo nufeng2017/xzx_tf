@@ -1,0 +1,324 @@
+var appInstance = getApp();
+var that;
+var isSliding = false;
+var publish = true;
+var lastPage;
+var publishObj;
+var houseTypeKey;
+Page({
+  data: {
+    isShowModel: 'hide', //是否显示模态框
+
+    tempValue: 0, //当前临时滑动到的证件类型index
+    certificateTypeArr: ["房屋所有权证", "不动产权证书", "商品房预（现）售合同"],
+    /**
+     * imgUrls:[{
+     *  url:"",//图片url
+     *  isUploaded:false  //是否被上传  true :上传成功
+     * // imgPath:"" //图片的本地路径，仅在该图片是本地上传时有值
+     * }]
+     */
+    imgUrls: [], //已经上传或正在上传的图片数组
+    /** sampleImgUrls:[{
+       url:"",  
+       title:"",
+       isSelected:false  //是否是默认预览的图片
+     }]*/
+    sampleImgUrls: [{
+      url: "http://newrent.house365.com/css/publish/images/bdc.png",
+      title: "不动产权证",
+      isSelected: true
+    }, {
+      url: "http://newrent.house365.com/css/publish/images/syq.png",
+      title: "房屋所有权证",
+      isSelected: false
+    }],
+    value: [], //当前选择的证件类型index
+    owner_contract_number: '', //证件号码
+    owner_land_right_number: '', //丘权号
+    owner_name: '', //产权人姓名
+    owner_identity_card_number: '', //产权人身份证
+  },
+
+  onLoad(options) {
+    that = this
+    let pages = getCurrentPages();
+    lastPage = pages[pages.length - 2]; //上一个页面
+    publishObj = lastPage.data.publishObj
+    publish = lastPage.data.publish //true：发布 false:编辑
+    houseTypeKey = lastPage.data.house_TypeK // 缓存数据的key
+    this.initData()
+  },
+
+
+  initData() {
+    if (publishObj && publishObj.house_property) {
+      for (var index in publishObj.house_property.owner_pics) {
+        this.data.imgUrls.push({
+          url: publishObj.house_property.owner_pics[index],
+          isUploaded: true
+        })
+      }
+      if (publishObj.house_property.owner_contract_type) {
+        this.setData({
+          value: [parseInt(publishObj.house_property.owner_contract_type)],
+          owner_contract_number: publishObj.house_property.owner_contract_number,
+          owner_land_right_number: publishObj.house_property.owner_land_right_number,
+          owner_name: publishObj.house_property.owner_name,
+          owner_identity_card_number: publishObj.house_property.owner_identity_card_number,
+          imgUrls: this.data.imgUrls
+        })
+      } else {
+        this.setData({
+          owner_contract_number: publishObj.house_property.owner_contract_number,
+          owner_land_right_number: publishObj.house_property.owner_land_right_number,
+          owner_name: publishObj.house_property.owner_name,
+          owner_identity_card_number: publishObj.house_property.owner_identity_card_number,
+          imgUrls: this.data.imgUrls
+        })
+      }
+
+
+    }
+  },
+
+  // 页面被关闭时
+  onUnload: function() {
+    if (publish) {
+      let cacheArr = appInstance.getUtil.cacheGet(houseTypeKey)
+      let hasCache = false
+      let cachePublishObj;
+      for (var index in cacheArr) {
+        if (publishObj.uid == cacheArr[index].uid) {
+          cachePublishObj = cacheArr[index]
+          hasCache = true;
+          break
+        }
+      }
+      if (hasCache) {
+        if (this.data.value.length == 1) {
+          // 证件类型
+          cachePublishObj.house_property.owner_contract_type = this.data.value[0].toString()
+        }
+        // 证件号码
+        cachePublishObj.house_property.owner_contract_number = this.data.owner_contract_number
+        // 丘权号
+        cachePublishObj.house_property.owner_land_right_number = this.data.owner_land_right_number
+        // 产权人姓名
+        cachePublishObj.house_property.owner_name = this.data.owner_name
+        // 产权人身份证号
+        cachePublishObj.house_property.owner_identity_card_number = this.data.owner_identity_card_number
+        let tempPicUrl = [];
+        for (var index in this.data.imgUrls) {
+          if (this.data.imgUrls[index].isUploaded) {
+            tempPicUrl.push(this.data.imgUrls[index].url)
+          }
+        }
+        // 图片url
+        cachePublishObj.house_property.owner_pics = tempPicUrl
+        // 保存到缓存中
+        appInstance.getUtil.cachePut(houseTypeKey, cacheArr)
+      }
+    }
+  },
+
+
+
+  // 对象深拷贝
+  copyObj(a) {
+    var c = {};
+    c = JSON.parse(JSON.stringify(a));
+    return c;
+  },
+
+  isShowModel(e) {
+    this.setData({
+      isShowModel: e.currentTarget.dataset.modelstatus,
+    })
+  },
+
+  previewSample(e) {
+    for (var index in this.data.sampleImgUrls) {
+      if (parseInt(index) == e.currentTarget.dataset.index) {
+        this.data.sampleImgUrls[index].isSelected = true;
+      } else {
+        this.data.sampleImgUrls[index].isSelected = false;
+      }
+    }
+    this.setData({
+      sampleImgUrls: this.data.sampleImgUrls
+    })
+    wx.navigateTo({
+      url: '/taofang-package/pages/edit-img/edit-img?pageMode=1&previewImgArr=' + JSON.stringify(this.data.sampleImgUrls),
+    })
+  },
+
+
+  listSureAction() {
+    if (!isSliding) {
+      this.data.value = [this.data.tempValue]
+      this.setData({
+        value: this.data.value,
+        isShowModel: ''
+      })
+    }
+
+  },
+
+  bindChange(event) {
+    let selectArr = event.detail.value;
+    console.log(selectArr[0])
+    this.setData({
+      tempValue: selectArr[0]
+    })
+  },
+
+  bindpickstart() {
+    isSliding = true
+  },
+
+  bindpickend() {
+    isSliding = false
+  },
+
+  bindinput(event) {
+    console.log(event)
+    let content = event.detail.value
+    switch (event.currentTarget.id) {
+      case "certificateNo":
+        // 证件号码
+        this.data.owner_contract_number = content
+        break
+      case "qiuquanNo":
+        // 丘权号
+        this.data.owner_land_right_number = content
+        break
+      case "ownerName":
+        // 产权人姓名
+        this.data.owner_name = content
+        break
+      case "ownerIDCard":
+        // 产权人身份证号
+        this.data.owner_identity_card_number = content
+        break
+    }
+  },
+
+  formSubmit: function(e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    let value = e.detail.value
+    if (this.data.value.length == 1) {
+      // 证件类型
+      publishObj.house_property.owner_contract_type = this.data.value[0].toString()
+    }
+    // 证件号码
+    publishObj.house_property.owner_contract_number = value.certificateNo
+    // 丘权号
+    publishObj.house_property.owner_land_right_number = value.qiuquanNo
+    // 产权人姓名
+    publishObj.house_property.owner_name = value.ownerName
+    // 产权人身份证号
+    publishObj.house_property.owner_identity_card_number = value.ownerIDCard
+    let tempPicUrl = [];
+    for (var index in this.data.imgUrls) {
+      if (this.data.imgUrls[index].isUploaded) {
+        tempPicUrl.push(this.data.imgUrls[index].url)
+      }
+    }
+    // 图片url
+    publishObj.house_property.owner_pics = tempPicUrl
+    lastPage.setData({
+      publishObj: publishObj
+    })
+    wx.navigateBack({
+      detail: 1
+    })
+  },
+
+
+
+  uploadImg() { //上传照片选项
+    if (that.data.imgUrls.length == 9) {
+      wx.showToast({
+        title: '上传图片最多9张！',
+        icon: 'none',
+        duration: 2000
+      })
+    } else {
+      wx.showActionSheet({
+        itemList: ['拍照', '从手机相册选择'],
+        success(res) {
+          let sourceType = ['camera']
+          if (res.tapIndex == 1) {
+            sourceType[0] = "album"
+          }
+          wx.chooseImage({
+            sizeType: ['original', 'compressed'],
+            sourceType: sourceType,
+            count: 9 - that.data.imgUrls.length,
+            success(res) {
+              // tempFilePath可以作为img标签的src属性显示图片
+              let tempFilePaths = res.tempFilePaths
+              //当前已经上传或正在上传的图片数量
+              let currentImgCount = that.data.imgUrls.length
+              var index = 0
+              for (index in tempFilePaths) {
+                that.data.imgUrls.push({
+                  url: "",
+                  isUploaded: false
+                })
+                that.uploadImgToServer(currentImgCount + parseInt(index), tempFilePaths[index])
+              }
+            },
+            fail(e) {
+              console.log(e)
+            },
+            complete(e) {
+              console.log(e)
+            }
+          })
+        }
+      })
+    }
+
+  },
+
+  /**
+   * @param imgIndex 该图片在数组中的位置
+   * @param imgPath 图片的本地路径
+   * 
+   */
+  uploadImgToServer(imgIndex, imgPath) {
+    appInstance.getUtil.uploadImages({
+      city: appInstance.globalData.city,
+      path: [imgPath],
+      uploadSuccess: r => {
+        console.log(r)
+        let data = JSON.parse(r.data);
+        if (data.status == "success" && data.pic_url) {
+          let imgInfo = that.data.imgUrls[imgIndex]
+          imgInfo.url = data.pic_url
+          imgInfo.isUploaded = true
+          that.setData({
+            imgUrls: that.data.imgUrls
+          })
+        }
+      },
+      uploadFail: function(r) {
+        console.log(r);
+      },
+      complete() {
+
+      }
+    })
+  },
+
+  deleteImg(e) {
+    let imgIndex = e.currentTarget.dataset.index;
+    let imgArr = that.data.imgUrls
+    imgArr.splice(imgIndex, 1)
+    that.setData({
+      imgUrls: imgArr
+    })
+  },
+});

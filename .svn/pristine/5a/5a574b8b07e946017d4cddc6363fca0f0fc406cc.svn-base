@@ -1,0 +1,267 @@
+<scroll-view scroll-y>
+  <view class="hui-tips size-22">房源照片发满6张以上，可让房源电话暴增50%，助您快速成交！</view>
+  <!-- 发布房源图片按钮 -->
+  <view class="hui-upload-img-bg">
+    <image src= "{{publishObj.house_pics.length>0?publishObj.house_pics[0]:'/taofang-package/img/page-default-img.png'}}" mode="aspectFill"></image>
+    <!-- 从未上传照片时的按钮 -->
+    <view class="hui-upload-img-btn-1 flex flex-column flex-center" bindtap="uploadImg" wx:if="{{publishObj.house_pics.length==0}}">上传照片</view>
+    <!-- 上传照片后的按钮 -->
+
+    <navigator class="hui-upload-img-btn-2" hover-class="none" url="/taofang-package/pages/house-img/house-img" wx:if="{{publishObj.house_pics.length>0}}">编辑图片</navigator>
+  </view>
+  <!-- 表单 -->
+  <view class="hui-form">
+    <view class="hui-page-title flex flex-center">基本信息</view>
+    <view class="hui-form-large-item">
+      <view class="hui-form-item-title size-24 dark-font">小区名称</view>
+      <navigator class="hui-form-item-block" hover-class="none" url="/taofang-package/pages/search/search">
+        <input placeholder="请输入小区名称" placeholder-class="hui-placeholder-style-1" disabled="{{true}}" value='{{publishObj.block_name}}'></input>
+        <view class="hui-show-area {{publishObj.district!=''?'':'hui-none'}}" >{{publishObj.district}}-{{publishObj.street}}</view>
+      </navigator>
+    </view>
+    <view class="hui-form-small-item-container flex flex-center">
+    <block wx:for="{{topArr}}">
+      <view class="hui-form-small-item flex-item" bindtap="isShowModel" data-modelstatus = "show"   data-type='{{item.name}}'>
+        <view class="hui-form-item-title size-24 dark-font">{{item.name}}</view>
+        <view class="hui-form-item-block">
+          <input placeholder="请输入" placeholder-class="hui-placeholder-style-1" disabled="{{true}}" value='{{item.value}}'></input>
+        </view>
+      </view>
+      </block>
+    
+      <!-- <view class="hui-form-small-item flex-item">
+        <view class="hui-form-item-title size-24 dark-font">朝向</view>
+        <view class="hui-form-item-block">
+          <input placeholder="请输入" placeholder-class="hui-placeholder-style-1" disabled="{{true}}"></input>
+        </view>
+      </view> -->
+      <!-- <view class="hui-form-small-item flex-item">
+        <view class="hui-form-item-title size-24 dark-font">楼层</view>
+        <view class="hui-form-item-block">
+          <input placeholder="请输入" placeholder-class="hui-placeholder-style-1" disabled="{{true}}"></input>
+        </view>
+      </view> -->
+    </view>
+    <view class="hui-form-small-item-container flex flex-center hui-border-top-none">
+    <block wx:for="{{bottomArr}}">
+      <view class="hui-form-small-item flex-item" bindtap="isShowModel" data-modelstatus = "show"   data-type='{{item.name}}'>
+        <view class="hui-form-item-title size-24 dark-font">{{item.name}}</view>
+        <view class="hui-form-item-block">
+          <input placeholder="选填" placeholder-class="hui-placeholder-style-1" disabled="{{true}}" value='{{item.value}}'></input>
+        </view>
+      </view>
+    </block>
+      <!-- <view class="hui-form-small-item flex-item">
+        <view class="hui-form-item-title size-24 dark-font">单元号</view>
+        <view class="hui-form-item-block">
+          <input placeholder="选填" placeholder-class="hui-placeholder-style-1" disabled="{{true}}"></input>
+        </view>
+      </view>
+      <view class="hui-form-small-item flex-item">
+        <view class="hui-form-item-title size-24 dark-font">室号</view>
+        <view class="hui-form-item-block">
+          <input placeholder="选填" placeholder-class="hui-placeholder-style-1" disabled="{{true}}"></input>
+        </view>
+      </view> -->
+    </view>
+    <view class="flex flex-center hui-tips-1">楼栋门牌仅限网站审核使用，不会对外展示，请放心填写！</view>
+    <view class="hui-page-title flex flex-center">租赁信息</view>
+    <view class="hui-other-item-container">
+      
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify {{houseType !='车库车位'?'':'hui-none'}}">
+        <view class="hui-form-item-title size-24 dark-font ">租赁方式</view>
+        <view class="cl hui-rent-type hui-form-item-block">
+          <block wx:for="{{rentType}}">
+            <view class="fl size-28 {{publishObj.rent_type == item.value?'hui-select-this':''}}" data-value='{{item.value}}' bindtap='chooseRentType'>{{item.name}}</view>
+          </block>
+        </view>
+      </view>
+
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify {{houseType =='车库车位'?'':'hui-none'}}">
+        <view class="hui-form-item-title size-24 dark-font ">车位属性</view>
+        <view class="cl hui-rent-type hui-form-item-block">
+        <block wx:for="{{carAttr}}">
+          <view class="fl size-28 {{publishObj.car_attr == item.value?'hui-select-this':''}}" data-value='{{item.value}}' bindtap='carAttr'>{{item.name}}</view>
+          
+        </block>
+        </view>
+      </view>
+
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify {{(houseType=='住宅'||houseType=='别墅')&&publishObj.rent_type=='2'?'':'hui-none'}}" bindtap="isShowModel" data-modelstatus = "show"   data-type='租客性别'>
+        <view class="hui-form-item-title size-24 dark-font">租客性别</view>
+        <view class="hui-form-item-block">
+          <input placeholder="请选择男女" placeholder-class="hui-placeholder-style-2" disabled="{{true}}" value='{{publishObj.sex}}'></input>
+        </view>
+      </view>
+
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify" bindtap="isShowModel" data-modelstatus = "show"   data-type='面积'>
+        <view class="hui-form-item-title size-24 dark-font">面积</view>
+        <view class="hui-form-item-block flex hui-flex-align-center">
+        <view class="hui-sel-icon {{(houseType=='住宅'||houseType=='别墅')&&publishObj.room_type!=''?'':'hui-none'}}">{{publishObj.room_type}}</view>
+          <text class="hui-placeholder-style-2" style="{{publishObj.build_area!=''? 'color:#333;':''}}">{{publishObj.build_area!=''?publishObj.build_area:'请输入'}}</text><text class="color-99 size-28">平米</text>
+        </view>
+      </view>
+
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify" bindtap="isShowModel" data-modelstatus = "show"   data-type='月租金'>
+        <view class="hui-form-item-title size-24 dark-font">租金</view>
+        <view class="hui-form-item-block flex hui-flex-align-center">
+          <view class="hui-sel-icon {{publishObj.price_type!=''?'':'hui-none'}}">{{publishObj.price_type}}</view>
+          <text class="hui-placeholder-style-2" style="{{publishObj.price!=''?'color:#333;':''}}">{{publishObj.price!=''?publishObj.price:'请输入'}}</text><text class="color-99 size-28">{{publishObj.price_unit=='2' ? '元/天*平方米':'元/月'}}</text>
+        </view>
+      </view>
+
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify {{(houseType=='商铺'||houseType=='写字楼')?'':'hui-none'}}" bindtap="isShowModel" data-modelstatus = "show"   data-type='物业费'>
+        <view class="hui-form-item-title size-24 dark-font">物业费</view>
+        <view class="hui-form-item-block flex hui-flex-align-center">
+          <input placeholder="请输入" placeholder-class="hui-placeholder-style-2" disabled="{{true}}" value="{{publishObj.fee}}"></input><text class="color-99 size-28">元/月*平米</text>
+        </view>
+      </view>
+
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify {{(houseType=='住宅'||houseType=='别墅'||houseType=='写字楼'||houseType=='商铺')?'':'hui-none'}}" bindtap="isShowModel" data-modelstatus = "show"   data-type='装修'>
+        <view class="hui-form-item-title size-24 dark-font">装修</view>
+        <view class="hui-form-item-block">
+          <input placeholder="请选择" placeholder-class="hui-placeholder-style-2" disabled="{{true}}" value='{{publishObj.fitment_name}}'></input>
+        </view>
+      </view>
+
+      <view class="hui-form-item flex hui-flex-align-center hui-flex-justify {{houseType=='写字楼'?'':'hui-none'}}" bindtap="isShowModel" data-modelstatus = "show"   data-type='可注册公司'>
+        <view class="hui-form-item-title size-24 dark-font">可注册公司</view>
+        <view class="hui-form-item-block">
+          <input placeholder="请选择" placeholder-class="hui-placeholder-style-2" disabled="{{true}}" value='{{publishObj.showRegister}}'></input>
+        </view>
+      </view>
+
+    </view>
+  </view>
+  <view class="hui-owner-details flex hui-flex-align-center hui-flex-justify">
+    <view class="hui-owner-details-txt flex hui-flex-align-center">
+      <view>
+        <view class="hui-owner-details-title dark-font size-30">房屋权属信息（选填）</view>
+        <view class="hui-owner-details-tips size-20 color-9aa4b3">通过权属认证的房源，成交速度可能翻倍哦！</view>
+      </view>
+    </view>
+    <navigator class="hui-add-owner-details blue-font size-24 flex hui-flex-align-center" hover-class="none" url="/taofang-package/pages/publish-form/owner-house-info/owner-house-info">添加</navigator>
+  </view>
+</scroll-view>
+<!-- 底部按钮 -->
+<view class="hui-next-step flex hui-flex-align-center">
+  <view class="hui-reset flex flex-center size-24 dark-font flex-column" bindtap='reset'>重置</view>
+  <view class="hui-next-step-btn flex-item size-36" bindtap="nextStep">下一步</view>
+</view>
+<!-- 弹窗 -->
+<view class="hui-popup-container {{isShowModel==='show'? '' : 'hui-none'}}">
+  <view class="hui-popup-header">
+    <!-- 弹窗tab -->
+    <view class="hui-popup-header-tab flex flex-center">
+
+    <block wx:for="{{showArr}}">
+      <view class="flex-item hui-popup-header-tab-item flex flex-center flex-column  {{chooseType==item.name?'hui-sel-1':''}}" bindtap="chooseTypeAction" data-name="{{item.name}}">
+        <view class="dark-font size-24">{{item.name}}</view>
+        <input placeholder="请填写" placeholder-class="hui-placeholder-style-1" disabled="{{true}}" class="size-36 black-font" value='{{item.value}}'></input>
+      </view>
+    </block>
+      <!-- <view class="flex-item hui-popup-header-tab-item flex flex-center flex-column">
+        <view class="dark-font size-24">朝向</view>
+        <input placeholder="请填写" placeholder-class="hui-placeholder-style-1" disabled="{{true}}" class="size-36 black-font"></input>
+      </view>
+      <view class="flex-item hui-popup-header-tab-item flex flex-center flex-column hui-sel-1-1">
+        <view class="dark-font size-24">楼层</view>
+        <input placeholder="请填写" placeholder-class="hui-placeholder-style-1" disabled="{{true}}" class="size-36 black-font"></input>
+      </view> -->
+    </view>
+    <!-- 弹窗tips  -->
+    <view class="hui-popup-tips  {{(showSingleOrDou&&!showBoard||chooseType=='月租金'&&(houseType=='商铺'||houseType=='写字楼'))?'hui-popup-tips-style-1':''}}" >
+      <view class="hui-popup-txt"  >{{noticeText}}</view>
+      <!-- 单层跃层 -->
+      <radio-group class="hui-popup-group" bindchange="radioChange" wx:if="{{showSingleOrDou&&!showBoard}}">
+        <label class="hui-popup-radio" wx:for="{{floorType}}" wx:key="{{index}}">
+          <radio value="{{item.name}}" checked="{{item.checked}}" color="#ff6f29"/>
+          {{item.value}}
+        </label>
+      </radio-group>
+      <!-- 按月按天 -->
+      <radio-group class="hui-popup-group" bindchange="radioChange" wx:if="{{chooseType=='月租金'&&(houseType=='商铺'||houseType=='写字楼')&&showBoard}}">
+        <label class="hui-popup-radio" wx:for="{{unitType}}" wx:key="{{index}}">
+          <radio value="{{item.name}}" checked="{{item.checked}}" color="#ff6f29"/>
+          {{item.value}}
+        </label>
+      </radio-group>
+
+      <view class="hui-popup-btn" bindtap='listSureAction' wx:if="{{!showBoard}}">确定</view>
+    </view>
+    <!-- 弹窗tab2 -->
+    <view class="hui-popup-header-tab-1 flex flex-center {{(houseType=='住宅'||houseType=='别墅')&&chooseType=='面积'&&publishObj.rent_type=='2'||chooseType=='月租金'?'':'hui-none'}}" >
+    <block wx:for="{{list}}"> 
+
+      <view class="flex-item hui-popup-header-tab-1-item {{moreChoose==item ?'hui-sel-this-1' :''}} " bindtap='moreChooseAction' data-value="{{item}}">{{item}}</view>
+    </block>
+    </view>
+    <!-- 信息输入板面 -->
+    <view class="hui-popup-select-board">
+      <!-- 滚动选择框 -->
+      <picker-view
+        indicator-style="height: 50px;"
+        value="{{value}}"
+        bindchange="bindChange1"
+        class="{{!showBoard?'':'hui-none'}}"
+      >
+      <!-- <block wx:for="{{listNum}}"  wx:for-item="items"> -->
+        <picker-view-column  wx:for="{{listNum}}"  wx:for-item="items">
+          <view wx:for="{{items}}">{{item}}</view>
+        </picker-view-column>
+      <!-- </block> -->
+        
+      </picker-view>
+
+      <!-- <picker-view
+        indicator-style="height: 50px;"
+        
+        bindchange="bindChange1"
+        class="{{!showBoard&&chooseType=='朝向'?'':'hui-none'}}"
+      >
+      <block wx:for="{{listNum}}"  wx:for-item="items">
+        <picker-view-column  >
+          <view wx:for="{{items}}">{{item+'2'}}</view>
+        </picker-view-column>
+      </block>
+        
+      </picker-view>
+
+
+      <picker-view
+        indicator-style="height: 50px;"
+        
+        bindchange="bindChange1"
+        class="{{!showBoard&&chooseType=='楼层'?'':'hui-none'}}"
+      >
+      <block wx:for="{{listNum}}"  wx:for-item="items">
+        <picker-view-column  >
+          <view wx:for="{{items}}">{{item+'3'}}</view>
+        </picker-view-column>
+      </block>
+        
+      </picker-view> -->
+
+      <!-- 计算器键盘 -->
+      <view class="hui-keyboard cl {{showBoard?'':'hui-none'}}">
+        <view class="fl cl">
+          <view 
+            wx:for="{{keyboardNum}}"
+            data-val="{{keyboardNum[index]}}" 
+            wx:key="{{index}}" 
+            class="hui-keyboard-item fl {{item === 'cancel' ? 'hui-keyboard-cancel' : ''}}"
+          bindtap='keyBoardAction'>
+            {{item === 'cancel' ? '' : keyboardNum[index]}}
+          </view>
+        </view>
+        <view class="fl">
+          <view class="hui-keyboard-delete" bindtap='keyBoardCancel'></view>
+          <view class="hui-keyboard-ok" bindtap='keyBoardSure'>确定</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- model bg-->
+<view class="hui-model-bg {{isShowModel==='show'? '' : 'hui-none'}}" bindtap="isShowModel" data-modelstatus = "hide"></view>

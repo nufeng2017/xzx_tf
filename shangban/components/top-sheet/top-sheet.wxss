@@ -1,0 +1,13 @@
+.z-component-top-sheet{
+  background: #ffff;
+}
+.z-component-top-sheet .z-component-top-sheet-item{
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color:#333;
+}
+.z-component-top-sheet-active{
+  color:#ffa229 !important;
+}

@@ -1,0 +1,101 @@
+@import '../../assets/css/app.wxss';
+.z-wrap{
+  padding:  0 38rpx;
+  overflow: hidden;
+  width:100%;
+  box-sizing: border-box;
+}
+.z-block-title{
+  height: 90rpx;
+  color:#333;
+  font-size: 34rpx;
+  line-height: 90rpx;
+  font-weight: 900;
+  margin-top: 30rpx;
+  position: relative;
+}
+.z-hot-search-item>view{
+  padding: 0 22rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 24rpx;
+  background: #fafafa;
+  border-radius: 4rpx;
+  margin: 0 20rpx 20rpx 0;
+}
+.z-history-search-delete{
+  height: 90rpx;
+  width:200rpx;
+  right: 0;
+  top:0;
+  text-align: right;
+  position: absolute;
+}
+.z-history-search-delete image{
+  height: 30rpx;
+  display: inline-block;
+  width:30rpx;
+}
+.z-history-search-box>view{
+  height: 90rpx;
+  line-height: 90rpx;
+  position: relative;
+  font-size: 30rpx;
+  color:#333;
+}
+.z-history-search-box>view:after{
+  content: '';
+  height: 1px;
+  width:750rpx;
+  transform: scaleY(0.5);
+  background: #f2f2f2;
+  position: absolute;
+  top:0;
+  left: 0rpx;
+}
+.z-history-search-box>view .z-history-search-item-icon{
+  height: 90rpx;
+  width:50rpx;
+  display: inline-block;
+  vertical-align: top;
+}
+.z-history-search-box>view .z-history-search-item-icon image{
+  width:30rpx;
+  height: 30rpx;
+  display: block;
+  margin-top: 30rpx;
+}
+.z-history-search-item-right{
+  background: #ee0a24;
+  color:#fff;
+  font-size: 30rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  width:100px;
+  text-align: center;
+}
+.z-history-search-item-title{
+  width:600rpx;
+}
+/* 搜索联动 */
+.z-search-win .z-history-search-box>view .z-history-search-item-icon image{
+  width:22rpx;
+  height: 29rpx;
+}
+.z-search-win{
+  position: fixed;
+  width:100%;
+  box-sizing: border-box;
+  padding:  0 38rpx;
+  height: 100%;
+  padding-bottom: 120rpx;
+  overflow-y:auto;
+  overflow-x: hidden;
+  left: 0;
+  top:120rpx;
+  background: #fff;
+}
+.z-search-win .z-history-search-box>view {
+  width:100%;
+  box-sizing: border-box;
+}

@@ -1,0 +1,81 @@
+<view class="z-wrap">
+  <image src="http://m.aizuna.com/Public/images/bg-1.png" mode="widthFix" class="z-bg"></image>
+  <view class="z-content-wrap">
+    <view class="z-content-container">
+      <view class="z-content-title">严选房源</view>
+      <view class="z-content-tips">参加“严选”房源的个人房东承诺房源真实可靠</view>
+      <view class="hui-promise">
+        <view class="hui-promise-item flex hui-flex-align-center">
+          <view>
+            <view class="size-36 color-000">身份真实</view>
+            <view class="color-99 size-24">我是真实的个人房东（即产权人）</view>
+          </view>
+        </view>
+        <view class="hui-promise-item flex hui-flex-align-center">
+          <view>
+            <view class="size-36 color-000">图片真实</view>
+            <view class="color-99 size-24">承诺实景拍摄</view>
+          </view>
+        </view>
+        <view class="hui-promise-item flex hui-flex-align-center">
+          <view>
+            <view class="size-36 color-000">描述真实</view>
+            <view class="color-99 size-24">设施真实，真实在租，可上门看房</view>
+          </view>
+        </view>
+        <view class="hui-promise-item flex hui-flex-align-center">
+          <view>
+            <view class="size-36 color-000">价格真实</view>
+            <view class="color-99 size-24">承诺不虚标价格</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <image src="/taofang-package/img/img-1.png" mode="widthFix" class="z-line"></image>
+    <view class="z-content-container" style="margin-bottom:30rpx;">
+      <view class="z-content-title">假一罚百</view>
+      <view class="z-txt-wrap">
+        <view class="z-content-p-1">举报途径及核实：</view>
+        <view class="z-txt-content">
+          <view>1.举报方式：用户登录三六五租房平台上看到认为是虚假的“<text>严选</text>”房源，点击举报按钮进行举报，同时填写违规内容并尽可能提供详细证据，如截图，视频，录音等等。</view>
+          <view>2.举报核实：用户投诉举报需向平台提供相应证据材料，平台有权要求个人房东提供自证材料，平台通过对比双方提交的证据材料进行核实判断确认判定用户投诉举报的有效性；用户必须上传证据材料证实房源的虚假，并确保上传证据均真实合法完整有效。且无条件接受平台的判定结果。</view>
+          <view>3.举报确认：确认为有效举报会以站内信及短信通知举报用户，30个工作日会进行赔付。</view>
+          <view>4.领取方式：举报后填写支付宝收款账户与联系电话。</view>
+        </view>
+      </view>
+    </view>
+    <view class="z-content-container">
+      <view class="z-check-content-btn" bindtap="showContent">赔付规则与流程</view>
+      <view class="z-txt-wrap" wx:if="{{isShow}}">
+        <view class="z-txt-content">
+          <view class="z-content-p-2">
+            <view class="z-content-p-3">赔付规则：</view>
+            <view>1）平台针对虚假房源，赔付第一个有效举报用户，用户需为365淘房注册用户，奖励100元人民币（含税）直接发送到用户的账户；</view>
+            <view>2）为保证公平公正，如发现举报人为恶意举报，一经证实将取消一年参加“假赔百元”的举报赔付活动，情况严重者会受到永久封号的处罚。</view>
+            <view>2.赔付时间：自通知用户系首个有效举报之日起30个工作日内.</view>
+            <view>3.赔付流程：用户举报＞确认有效＞进行赔付</view>
+            <view>4.该赔付方案仅适用于365淘房租房南京个人租房“严选”房源。</view>
+          </view>
+          <view class="z-content-p-2">
+            <view class="z-content-p-3">租房发布要求及处罚规则：</view>
+            <view>1.身份真实（即产权人）；所发布的房源信息系本人或本人配偶（已经获得配偶同意）或本人获得了合法授权的房源，本人非从事房地产经纪业务，不收取房租以外的如中介费、管理费、代看费等其他费用。</view>
+            <view>2.房源信息需真实，线下需有真实房源相对应</view>
+            <view>3.房租价格真实，不收取其他未明确标明的费用；此处不包含水电燃气等合理费用。</view>
+            <view>4.房源地理位置室厅卫信息及室内配套设施如抽油烟机、电视、冰箱、洗衣机、空调、暖气等信息真实。</view>
+            <view>5.线下交易需诚信履约。</view>
+          </view>
+          <view class="z-content-p-2">
+            <view>以上情况如有虚假，将会：</view>
+            <view>1.扣除个人用户账号下的全部房源保证金；</view>
+            <view>2.删除全部关联账号下所发布的全部租房。</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="z-bottom-content">
+    <view class="z-bottom-content-title">举报处理时间</view>
+    <view>周一至周五：8:40—17:30    周六日及节假日：9:00-17:30</view>
+    <view class="z-phone">举报电话：025-84645315，83247162转2</view>
+  </view>
+</view>

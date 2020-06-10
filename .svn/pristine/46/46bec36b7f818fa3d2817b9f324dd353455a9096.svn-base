@@ -1,0 +1,15 @@
+import network from './network.js';
+var appInstance = getApp();
+/**
+ * 收藏
+ **/
+export function keep(data) {
+  var cacheKey = appInstance.getUtil.getUserinfoKey();
+  var headData = appInstance.getUtil.cacheGet(cacheKey);
+  return network({
+    url: '/taofang/v1.0/esf/?method=collectHouse&name=UserCenter',
+    data: data,
+    baseUrl: 'https://esfmapi.house365.com/',
+    hideLoading:true
+  });
+}

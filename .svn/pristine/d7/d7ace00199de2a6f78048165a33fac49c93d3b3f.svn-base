@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "search": "/shangban/components/search/search",
+    "van-swipe-cell": "/shangban/@vant/weapp/swipe-cell/index"
+  },
+  "navigationBarTitleText": "搜索"
+}

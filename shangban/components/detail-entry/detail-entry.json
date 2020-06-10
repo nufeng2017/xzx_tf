@@ -1,0 +1,6 @@
+{
+  "component":true,
+  "usingComponents": {
+    "hidden-txt": "/shangban/components/hidden-txt/hidden-txt"
+  }
+}

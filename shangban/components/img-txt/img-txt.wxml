@@ -1,0 +1,11 @@
+<view class="z-hot-house" bindtap="router">
+  <view class="z-hot-house-img"><image-loader mode="aspectFill" original-image="{{info.img_url || info.pic1}}" default-image="/shangban/assets/img/default-img.png"/></view>
+  <view class="z-hot-house-title text-overflow">{{info.blockname || info.address}}</view>
+  <view 
+    class="z-components-item-characteristic" 
+    wx:if="{{info.type_arr}}"
+  >
+    <view wx:for="{{info.type_arr}}" wx:key="index" wx:if="{{index<=1}}">{{item}}</view>
+  </view>
+  <view class="z-hot-house-price text-overflow">{{info.price?info.price:info.rent_price?info.rent_price:info.price_day}}<text>{{info.price_unit?info.price_unit:info.priceunit}}</text></view>
+</view>

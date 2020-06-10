@@ -1,0 +1,107 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false,
+		"uglifyFileName": false,
+		"checkInvalidKey": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.7.7",
+	"appid": "wx2b8d823ffbf6a685",
+	"projectname": "aizuna",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 6,
+			"list": [
+				{
+					"id": 0,
+					"name": "其他渠道",
+					"pathName": "pages/detailPages/detailPages",
+					"query": "h_id=206391&r_id=145571&house_comefrom=1&l_id=0&city=hf"
+				},
+				{
+					"id": -1,
+					"name": "其他渠道",
+					"pathName": "pages/payment/payMode/payMode",
+					"query": "m_id=1"
+				},
+				{
+					"id": 2,
+					"name": "支付",
+					"pathName": "pages/payment/payMode/payMode",
+					"query": "m_id=56"
+				},
+				{
+					"id": -1,
+					"name": "全景看房",
+					"pathName": "pages/detailPages/detailPages",
+					"query": "h_id=53040&r_id=0&house_comefrom=1&l_id=296&city=nj"
+				},
+				{
+					"id": 4,
+					"name": "合并租约",
+					"pathName": "pages/payment/paydetail/paydetail",
+					"query": "ct_id=6314"
+				},
+				{
+					"id": -1,
+					"name": "列表",
+					"pathName": "pages[表情]st[表情]st",
+					"query": ""
+				},
+				{
+					"id": 6,
+					"name": "测试",
+					"pathName": "pages/apartment/detailPages/detailPages",
+					"query": "a_id=458&house_comefrom=1&city=nj"
+				},
+				{
+					"id": -1,
+					"name": "taofang-package/pages/yx/yx",
+					"pathName": "taofang-package/pages/yx/yx",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "taofang-package/pages/details-page/details-page",
+					"pathName": "taofang-package/pages/details-page/details-page",
+					"scene": null
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,12 @@
+<view class="hui-search-container">
+  <view class="hui-search-box flex flex-center">
+    <input placeholder-style="color:#ccc;font-size:28rpx;" placeholder="请输入小区名称" class="flex-item"></input>
+  </view>
+</view>
+<!-- 搜索列表 -->
+<view class="hui-search-list">
+  <view class="hui-search-list-item">
+    <view class="hui-area-name">金域华府</view>
+    <view class="hui-area-addr color-99 size-22">雨花区 古雄大道200号</view>
+  </view>
+</view>

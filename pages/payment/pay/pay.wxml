@@ -1,0 +1,141 @@
+<view class='list_con'>
+    <view class='list_item'>
+            <view class='item_left'>
+                <image src="/img/payment/fileicon.png" />
+            </view>
+            <view class='item_right'>
+                <text>{{info.title}}</text>
+                <text class='housedetail'>{{info.housedetail}}</text>
+                <text><text>{{info.rentername}}</text><text>{{info.rental}}元/月</text></text>
+                <view class="{{info.sign_type_ch == '电子合同' ? 'dianzi' : 'paper'}}">
+                    <view>{{info.sign_type_ch}}</view>
+                    <view class='red' wx:if="{{info.sign_type == '1'}}">{{info.sign_status_ch}}</view>
+                </view>
+            </view>
+    </view>
+</view>
+<view class='pay_state_title'>
+    <view class="{{titleSelected == 'unpaid' ? 'active' : '' }}" bindtap="changeSelect" data-index='unpaid'>
+        <text>未支付</text>
+    </view>
+    <view class="{{titleSelected == 'paid' ? 'active' : '' }}" bindtap="changeSelect" data-index='paid'>
+        <text>已支付</text>
+    </view>
+    <view class="{{titleSelected == 'cancel' ? 'active' : '' }}" bindtap="changeSelect" data-index='cancel'>
+        <text>已作废</text>
+    </view>
+</view>
+<view class='not-found' wx:if="{{titleSelected == 'unpaid' && info.unpaid.length == 0}}">
+  <image src='/img/404-2.png'></image>
+  <text class='text'>没有搜索到符合要求的数据</text>
+</view>
+<view class='not-found' wx:if="{{titleSelected == 'paid' && info.paid.length == 0}}">
+  <image src='/img/404-2.png'></image>
+  <text class='text'>没有搜索到符合要求的数据</text>
+</view>
+<view class='not-found' wx:if="{{titleSelected == 'cancel' && info.cancel.length == 0}}">
+  <image src='/img/404-2.png'></image>
+  <text class='text'>没有搜索到符合要求的数据</text>
+</view>
+<view class='pay_state'>
+    <!--未支付-->
+    <view wx:if='{{titleSelected == "unpaid" && info.unpaid.length > 0}}' class='unpaid'>
+        <view class="allpaids showallpaids">
+            <view class='paid_items' wx:if="{{item.now || isShowAllpaids}}" wx:for="{{info.unpaid}}" wx:key="period">
+                <view class='paid_items_time'>
+                    {{item.period}}
+                </view>
+                <view class='paid_items_con' wx:for="{{item.detail}}" wx:key="detail">
+                    <view bindtap="choosePaid" data-selected='{{item.selected}}' data-index='{{item.bid}}'>
+                        <text class='circle'></text>
+                        <image src="/img/payment/selected.png" />
+                    </view>
+                    <view>
+                        <navigator url="/pages/payment/billdetail/billdetail?bid={{item.bid}}">
+                            <view class='fl'>
+                                <text class='black-font size-30'>{{item.charge_name}}</text>
+                                <text class='size-22 color-656565' wx:if="{{item.period_str}}">账期：{{item.period_str}}</text>
+                                <text class='color-99 size-22'>请在{{item.p_date}}前完成支付</text>
+                            </view>
+                            <view class='fr'>
+                                <text class='size-30 yellow-font'>￥{{item.p_money}}</text>
+                                <text class='size-24 color-ff0600'>{{item.pay_status_ch}}</text>
+                            </view>
+                        </navigator>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class='seeAllpaid' bindtap="showallpaids" wx:if='{{hasWeilai}}'>
+            <text wx:if='{{!isShowAllpaids}}'>查看未来账单</text>
+            <image wx:if='{{!isShowAllpaids}}' src="/img/payment/dropdown_blue.png" />
+            <text wx:if='{{isShowAllpaids}}'>收起</text>
+            <image wx:if='{{isShowAllpaids}}' src="/img/payment/dropup_blue.png" />
+        </view>
+        <view class="paidbtn {{isIPX ? 'iphonex':''}}">
+            <view class='fl' bindtap="chooseAll" data-selected='{{all}}'>
+                <text class='circle' data-selected='{{all}}'></text>
+                <image src="/img/payment/selected.png" />
+                <text class='size-24 black-font'>全选</text>
+            </view>
+            <view class='fl'>
+                <text class='size-24 color-99'>已选择{{result.total}}条账单</text>
+                <text class='size-20 color-ff0600'>共计：￥{{result.money}}</text>
+            </view>
+            <view class='fr'>
+                <view bindtap="confirmPay" url="/pages/payment/payMode/payMode"><text>支付账单</text></view>
+            </view>
+        </view>
+    </view>
+    <!--已支付-->
+    <view wx:if='{{titleSelected == "paid" && info.paid.length > 0}}' class='paid'>
+        <view class='allpaids showallpaids'>
+            <view class='paid_items' wx:for="{{info.paid}}" wx:key="period">
+                <view class='paid_items_time'>
+                    {{item.period}}
+                </view>
+                <view class='paid_items_con' wx:for="{{item.detail}}" wx:key="detail">
+                    <view>
+                        <navigator url="/pages/payment/billdetail/billdetail?bid={{item.bid}}">
+                            <view class='fl'>
+                                <text class='black-font size-30'>{{item.charge_name}}</text>
+                                <text class='size-22 color-656565' wx:if="{{item.period_str}}">账期：{{item.period_str}}</text>
+                            </view>
+                            <view class='fr'>
+                                <text class='size-30 yellow-font'>￥{{item.p_money}}</text>
+                                <text class='size-24 color-ff0600'>{{item.pay_status_ch}}</text>
+                            </view>
+                        </navigator>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!--已废弃-->
+    <view wx:if='{{titleSelected == "cancel" && info.cancel.length > 0}}' class='paid'>
+        <view class='allpaids showallpaids'>
+            <view class='paid_items' wx:for="{{info.cancel}}" wx:key="period">
+                <view class='paid_items_time'>
+                    {{item.period}}
+                </view>
+                <view class='paid_items_con' wx:for="{{item.detail}}" wx:key="detail">
+                    <view>
+                        <navigator url="/pages/payment/billdetail/billdetail?bid={{item.bid}}">
+                            <view class='fl'>
+                                <text class='black-font size-30'>{{item.charge_name}}</text>
+                                <text class='size-22 color-656565' wx:if="{{item.period_str}}">账期：{{item.period_str}}</text>
+                            </view>
+                            <view class='fr'>
+                                <text class='size-30 yellow-font'>￥{{item.p_money}}</text>
+                                <text class='size-24 color-ff0600'>{{item.pay_status_ch}}</text>
+                            </view>
+                        </navigator>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<navigator url="/pages/web/web?url={{ad.advert_url}}" wx:if="{{ad.advert_id > 0}}">
+<image src="{{ad.advert_image}}" mode="widthFix" class="ad-f"></image>
+</navigator>

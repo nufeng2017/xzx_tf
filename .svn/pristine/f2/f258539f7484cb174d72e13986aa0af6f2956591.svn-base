@@ -1,0 +1,10 @@
+<view class="z-component-top-sheet">
+  <view 
+    class="z-component-top-sheet-item {{active == index?'z-component-top-sheet-active':''}}" 
+    wx:for="{{list}}" 
+    wx:key="index" 
+    data-id="{{item.tag_id}}" 
+    bindtap="select" 
+    data-index="{{index}}"
+  >{{item.tag_name}}</view>
+</view>

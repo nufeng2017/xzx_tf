@@ -1,0 +1,29 @@
+.z-component-detail-item{
+  height: 84rpx;
+  font-size: 22rpx;
+  color:#8a8a8a;
+  width:195rpx;
+}
+.z-component-detail-item-price-txt{
+  color:#242424;
+  font-size: 40rpx;
+  font-weight: 900;
+}
+.z-component-detail-item-price-unit{
+  color:#242424;
+  font-size: 22rpx;
+}
+
+/* 房源详情页 */
+.z-component-detail-item-1{
+  width:100%;
+  text-align: center;
+}
+.z-component-detail-item-title{
+  font-size: 26rpx;
+}
+.z-component-detail-item-1 .z-component-detail-item-price-txt,.z-component-detail-item-1 .z-component-detail-item-price-unit{
+  font-size: 32rpx;
+  color:#ff5500;
+  font-weight: 900;
+}

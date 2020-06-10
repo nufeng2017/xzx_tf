@@ -1,0 +1,358 @@
+var appInstance = getApp();
+var that;
+var offset = 0;
+var pagesize = 20;
+var enableLoadMore = true;
+var houseTypeMap= {};
+var authentication = false;
+Page({
+  data: {
+    priceUnitMap: [],
+    publishList: [{
+        "id": "81385540",
+        "title": "嘉业阳光城100平米整租毛坯", //title
+        "telno": "15651617821",
+        "infotype": "4",
+        "pic": "http:\/\/img31.house365.com\/M01\/34\/89\/rBEBYFzajxqAJgzGAABlweHLXPc407.jpg", //图片url
+        "price": "18000", //价格  
+        "room": "0", //室
+        "hall": "0", //厅
+        "toilet": "0", //卫
+        "renttype": "1", //1：整租  2：合租
+        "buildarea": "100",
+        "blockname": "嘉业阳光城", //content 1
+        "refrashnum": "1", //可刷新次数
+        "status": "3", //0-队列 1-激活 2-失效 3-审核未通过
+        "republish": "1", //是否可再发布  1：可再发布  
+        "order_id": "0",
+        "order_price": "0",
+        "payrefrashnum": "0",
+        "order_end_time": "0",
+        "priceunit": "1", // 参考initConfig.price_unit_map
+        "updatetime": "1557902670",
+        "yesterday_click_num": "0",
+        "person_tel": "(025)84645315 83247162"
+      },
+      {
+        "id": "81385540",
+        "title": "嘉业阳光城100平米整租毛坯", //title
+        "telno": "15651617821",
+        "infotype": "4",
+        "pic": "http:\/\/img31.house365.com\/M01\/34\/89\/rBEBYFzajxqAJgzGAABlweHLXPc407.jpg", //图片url
+        "price": "18000", //价格  
+        "room": "0", //室
+        "hall": "0", //厅
+        "toilet": "0", //卫
+        "renttype": "1", //1：整租  2：合租
+        "buildarea": "100",
+        "blockname": "嘉业阳光城", //content 1
+        "refrashnum": "1", //可刷新次数
+        "status": "0", //0-队列 1-激活 2-失效 3-审核未通过
+        "republish": "1", //是否可再发布  1：可再发布  
+        "order_id": "0",
+        "order_price": "0",
+        "payrefrashnum": "0",
+        "order_end_time": "0",
+        "priceunit": "1", // 参考initConfig.price_unit_map
+        "updatetime": "1557902670",
+        "yesterday_click_num": "0",
+        "person_tel": "(025)84645315 83247162"
+      }, {
+        "id": "81385540",
+        "title": "嘉业阳光城100平米整租毛坯", //title
+        "telno": "15651617821",
+        "infotype": "4",
+        "pic": "http:\/\/img31.house365.com\/M01\/34\/89\/rBEBYFzajxqAJgzGAABlweHLXPc407.jpg", //图片url
+        "price": "18000", //价格  
+        "room": "0", //室
+        "hall": "0", //厅
+        "toilet": "0", //卫
+        "renttype": "1", //1：整租  2：合租
+        "buildarea": "100",
+        "blockname": "嘉业阳光城", //content 1
+        "refrashnum": "1", //可刷新次数
+        "status": "1", //0-队列 1-激活 2-失效 3-审核未通过
+        "republish": "1", //是否可再发布  1：可再发布  
+        "order_id": "0",
+        "order_price": "0",
+        "payrefrashnum": "0",
+        "order_end_time": "0",
+        "priceunit": "1", // 参考initConfig.price_unit_map
+        "updatetime": "1557902670",
+        "yesterday_click_num": "0",
+        "person_tel": "(025)84645315 83247162"
+      },
+      {
+        "id": "81385540",
+        "title": "嘉业阳光城100平米整租毛坯", //title
+        "telno": "15651617821",
+        "infotype": "4",
+        "pic": "http:\/\/img31.house365.com\/M01\/34\/89\/rBEBYFzajxqAJgzGAABlweHLXPc407.jpg", //图片url
+        "price": "18000", //价格  
+        "room": "0", //室
+        "hall": "0", //厅
+        "toilet": "0", //卫
+        "renttype": "1", //1：整租  2：合租
+        "buildarea": "100",
+        "blockname": "嘉业阳光城", //content 1
+        "refrashnum": "1", //可刷新次数
+        "status": "2", //0-队列 1-激活 2-失效 3-审核未通过
+        "republish": "1", //是否可再发布  1：可再发布  
+        "order_id": "0",
+        "order_price": "0",
+        "payrefrashnum": "0",
+        "order_end_time": "0",
+        "priceunit": "1", // 参考initConfig.price_unit_map
+        "updatetime": "1557902670",
+        "yesterday_click_num": "0",
+        "person_tel": "(025)84645315 83247162"
+      }
+    ], //我的发布列表
+  },
+  onLoad(options) {
+    that = this
+    houseTypeMap =  appInstance.getUtil.cacheGet("initConfig").house_type_map
+    this.setData({
+      priceUnitMap: appInstance.getUtil.cacheGet("initConfig").price_unit_map,
+     
+    })
+    // this.getPublishRecord(true)
+  },
+
+
+  //上滑加载下一页列表数据
+  onReachBottom: function() {
+    this.getPublishRecord(false)
+  },
+
+  // 获取我的发布列表
+  getPublishRecord(isRefresh) {
+    if (isRefresh) {
+      offset = 0;
+      pagesize = 20
+      enableLoadMore = true
+    } else {
+      if (!enableLoadMore) {
+        this.showHint("暂无更多数据")
+        return
+      }
+      offset += pagesize;
+    }
+    var cacheKey = appInstance.getUtil.getUserinfoKey();
+    let userInfo = appInstance.getUtil.cacheGet(cacheKey)
+    appInstance.getUtil.ajax({
+      path: 'taofang/v1.0/esf/index.php',
+      method: 'GET',
+      isMyPublish: true,
+      data: {
+        method: "getRentHouseList",
+        name: "HousePersonNew",
+        city: appInstance.globalData.city,
+        telno: userInfo.passport_phone,
+        version: "8.0.30",
+        offset: offset,
+        pagesize: pagesize
+      },
+      success: res => {
+        if (res.data.result == 1) {
+          if (res.data.data.length != 0) {
+            that.data.publishList.push(res.data.data)
+            that.setData({
+              publishList: that.data.publishList
+            })
+            if (res.data.data.length < pagesize) {
+              // 已经全部加载完
+              enableLoadMore = false
+            }
+          } else {
+            // 已经全部加载完
+            enableLoadMore = false
+          }
+        } else {
+          this.showHint(res.data.msg)
+        }
+      },
+      fail: error => {
+        this.showHint("网络异常")
+      }
+    })
+  },
+
+  showHint(title) {
+    wx.showToast({
+      title: title,
+      icon: 'none',
+    })
+  },
+
+
+  itemClick(e) {
+    let index = e.currentTarget.dataset.index;
+    let item = this.data.publishList[index]
+    if (item.status == 1) {
+      //     已发布
+      // todo  详情页跳转
+    } else if (item.status == 0) {
+      //     审核中
+      this.showHint("房源审核中暂时无法查看房源详情")
+    } else if (item.status == 2) {
+      //     审核中
+      this.showHint("房源已失效暂时无法查看房源详情")
+    } else if (item.status == 3) {
+      //     未通过
+      this.showHint("房源审核未通过暂时无法查看房源详情")
+    }
+  },
+
+  itemRefresh(e) {
+    let index = e.currentTarget.dataset.index;
+    let item = this.data.publishList[index]
+    if (item.status == 0) {
+      //     审核中
+      this.showHint("审核中，暂不支持其他操作")
+    } else if (item.status == 1) {
+      //     已发布  
+      if (parseInt(item.refrashnum) == 0){
+        this.showHint("刷新次数不足")
+      }else{
+        var cacheKey = appInstance.getUtil.getUserinfoKey();
+        let userInfo = appInstance.getUtil.cacheGet(cacheKey)
+        appInstance.getUtil.ajax({
+          path: 'taofang/v1.0/esf/index.php',
+          method: 'GET',
+          isMyPublish: true,
+          data: {
+            method: "refreshRentPerson",
+            name: "HousePersonNew",
+            id: item.id,
+            city: appInstance.globalData.city,
+            telno: userInfo.passport_phone,
+            version: "8.0.30"
+          },
+          success: res => {
+            if (res.data.result == 1) {
+              item.updatetime = res.data.time
+              this.setData({ publishList: this.data.publishList })
+            } else {
+              this.showHint(res.data.msg)
+            }
+          },
+          fail: error => {
+            this.showHint("网络异常")
+          }
+        })
+      }
+    }
+  },
+  itemEdit(e) {
+    let index = e.currentTarget.dataset.index;
+    let item = this.data.publishList[index]
+    if (item.status == 0) {
+      //     审核中
+      this.showHint("审核中，暂不支持其他操作")
+    } else if (item.status == 1) {
+      //     已发布
+      wx.navigateTo({
+        url: "/taofang-package/pages/publish-form/publish-form?houseType=" + findHouseName(item.infotype) + "&publish=" + false + "&id=" + item.id,
+      })
+    }
+  },
+  itemShare(e) {
+    let index = e.currentTarget.dataset.index;
+    let item = this.data.publishList[index]
+    if (item.status == 0) {
+      //     审核中
+      this.showHint("审核中，暂不支持其他操作")
+    } else if (item.status == 1) {
+      //     已发布
+
+    }
+  },
+  itemDelete(e) {
+    let index = e.currentTarget.dataset.index;
+    let item = this.data.publishList[index]
+    if (item.status == 0) {
+      //     审核中
+      this.showHint("审核中，暂不支持其他操作")
+    } else {
+      var cacheKey = appInstance.getUtil.getUserinfoKey();
+      let userInfo = appInstance.getUtil.cacheGet(cacheKey)
+      appInstance.getUtil.ajax({
+        path: 'taofang/v1.0/esf/index.php',
+        method: 'GET',
+        isMyPublish: true,
+        data: {
+          method: "delRentHousePerson",
+          name: "HousePersonNew",
+          id: item.id,
+          telno: userInfo.passport_phone,
+          tbl:"rent",
+          city: appInstance.globalData.city,
+          version: "8.0.30"
+        },
+        success: res => {
+          if (res.data.result == 1) {
+            this.data.publishList.splice(index, 1)
+            this.setData({publishList:this.data.publishList})
+          } else {
+            this.showHint(res.data.msg)
+          }
+        },
+        fail: error => {
+          this.showHint("网络异常")
+        }
+      })
+    }
+  },
+  itemRepublication(e) {
+    let index = e.currentTarget.dataset.index;
+    let item = this.data.publishList[index];
+    appInstance.getUtil.checkAuthentication(appInstance.globalData.city,function(result){
+        if(result){
+          // 已实名认证
+          if (item.republish == "1") {
+            // 可再发布
+            wx.navigateTo({
+              url: "/taofang-package/pages/publish-form/publish-form?houseType=" + findHouseName(item.infotype) + "&publish=" + false + "&id=" + item.id,
+            })
+          } else {
+            this.showHint("您当前无法再发布")
+          }
+        }else{
+          //未实名认证
+          wx.showModal({
+            title: '',
+            content: '实名认证后可进行再发布',
+            confirmText:"进行认证",
+            confirmColor:"#ff9000",
+            cancelText:"取消",
+            success(res) {
+              if (res.confirm) {
+                  wx.navigateTo({
+                    url: '/taofang-package/pages/authentication/authentication',
+                  })
+              }
+            }
+          })
+        }
+    })
+   
+  },
+
+
+  //转发
+  onShareAppMessage: function (res) {
+    console.log(res)
+    if (res.from === 'button') { }
+    return {
+      title: '转发',
+      path: "/taofang-package/pages/my-publish/my-publish",
+      success: function (res) { }
+    }
+  },
+
+})
+
+function findHouseName(houseType){
+  return houseTypeMap[houseType]
+}

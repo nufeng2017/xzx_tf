@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "popup-box": "/shangban/components/popup-box/popup-box",
+    "count-down": "/shangban/components/count-down/count-down"
+  }
+}

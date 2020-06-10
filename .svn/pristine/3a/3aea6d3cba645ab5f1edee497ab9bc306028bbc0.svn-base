@@ -1,0 +1,5 @@
+<view class="z-component-load-page z-flex z-flex-center" wx:if="{{show}}">
+  <view class="z-component-load-page-icon">
+    <van-loading color="#ffa229" type="spinner" size="80rpx"/>
+  </view>
+</view>

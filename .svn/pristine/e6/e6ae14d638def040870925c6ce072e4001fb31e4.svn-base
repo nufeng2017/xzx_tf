@@ -1,0 +1,48 @@
+var appInstance = getApp();
+Page({
+  data: {},
+
+
+
+  formSubmit: function(e) {
+    let userName = e.detail.value.userName
+    let userIDCard = e.detail.value.userIDCard
+    if(!userName){
+      this.showHint("请填写姓名")
+      return
+    }else if(!userIDCard){
+      this.showHint("请填写身份证号码")
+      return
+    }
+    var cacheKey = appInstance.getUtil.getUserinfoKey();
+    let userInfo = appInstance.getUtil.cacheGet(cacheKey)
+    appInstance.getUtil.ajax({
+      path: 'api/certification-server/ali-certification',
+      method: 'POST',
+      passport_uid: userInfo.passport_uid,
+      data: {
+        cert_name: userName,
+        cert_no: userIDCard,
+        userId: userInfo.passport_uid
+      },
+      success: res => {
+        this.showHint(res.data.msg)
+        if (res.data.result == 1) {
+          wx.navigateBack({
+            detail:1
+          })
+        } 
+      },
+      faile: error => {
+        this.showHint("网络异常")
+      }
+    })
+  },
+
+  showHint(title){
+    wx.showToast({
+      title: title,
+      icon: 'none',
+    })
+  }
+});

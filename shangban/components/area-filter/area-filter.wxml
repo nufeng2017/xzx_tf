@@ -1,0 +1,38 @@
+<!-- 区域选择弹窗 -->
+<view class="z-component-area-filter">
+  <view class="z-component-area-box flex">
+    <view class="z-component-area-item">
+      <view 
+        class="z-component-area-sel-item text-overflow {{active0==index?'z-component-area--active':''}}" 
+        wx:for="{{list0}}" 
+        wx:key="index"
+        catchtap="selType"
+        data-index="{{index}}"
+      >{{item}}</view>
+    </view>
+    <view class="z-component-area-item">
+      <view 
+        class="z-component-area-sel-item text-overflow {{active1==index?'z-component-area--active':''}}" 
+        wx:for="{{list1}}" 
+        wx:key="index"
+        data-id="{{item.tag_id}}"
+        data-index="{{index}}"
+        catchtap="selList1"
+      >{{item.tag_name}}</view>
+    </view>
+    <view class="z-component-area-item">
+      <view 
+        class="z-component-area-sel-item text-overflow {{active2[index]?'z-component-area--active':''}}" 
+        wx:for="{{list2}}" 
+        wx:key="index"
+        data-id="{{item.tag_id}}"
+        catchtap="selList2"
+        data-index="{{index}}"
+      >{{item.tag_name}}</view>
+    </view>
+  </view>
+  <view class="z-component-area-btn">
+    <button class="z-btn-class" bindtap="reset">重置</button>
+    <button class="z-btn-class" bindtap="beSet">确定</button>
+  </view>
+</view>

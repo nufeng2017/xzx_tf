@@ -1,0 +1,11 @@
+page{
+  height: 100%;
+  background: #f5f5f5;
+}
+.hui-txt-tips-other{
+  padding-left: 32rpx;
+  padding-right: 30rpx;
+}
+.hui-btn-wrap{
+  margin: 50rpx 0;
+}

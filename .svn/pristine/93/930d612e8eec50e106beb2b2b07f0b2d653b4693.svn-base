@@ -1,0 +1,23 @@
+<view class="hui-wrap">
+  <view class="hui-show-img-board flex flex-center">
+  
+    <canvas class= "flex-center"style="width:{{canvasWidth}}px; height:{{canvasHeight}}px;"  canvas-id="canvasImg" id="canvasImg"></canvas>
+  </view>
+  <view class="hui-edit-btn">
+    <view class="flex hui-flex-justify hui-flex-align-center">
+      <view class="hui-cancel-btn" catchtap='cancel'>取消</view>
+      <view class="hui-left-btn" catchtap='doRotate' data-rotateDuration="left">
+        <image src="/taofang-package/img/left-rotate-icon.png" mode="widthFix"></image>
+        <view>左旋转</view>
+      </view>
+      <view class="hui-right-btn" catchtap='doRotate' data-rotateDuration="right">
+        <image src="/taofang-package/img/right-rotate-icon.png" mode="widthFix"></image>
+        <view>右旋转</view>
+      </view>
+    
+      <view class="hui-ok-btn hui-change-image"    wx:if="{{enableSave}}" catchtap='doSave'>完成</view>
+      <view class="hui-ok-btn hui-disable-image"  wx:else>完成</view>
+    </view>
+  </view>
+</view>
+<!-- <image src="{{originImgUrl}}" mode="widthFix" class="hui-img-box" bindload="loadSuccess" id="img" ></image> -->

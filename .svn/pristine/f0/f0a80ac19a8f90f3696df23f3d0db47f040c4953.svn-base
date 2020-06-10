@@ -1,0 +1,17 @@
+<!--地图-->
+<view class="z-wrap">
+  <map id="map" 
+    longitude="{{markers[0].longitude}}" 
+    latitude="{{markers[0].latitude}}" 
+    markers="{{markers}}"
+  ></map>
+  <view class="z-address flex flex-center">
+    <view class="z-address-txt">
+      <view class="z-address-tips text-overflow">[地址]</view>
+      <view class="z-address-content z-text-hidden">{{address}}</view>
+    </view>
+    <view class="z-icon-box " bindtap="checkMap" >
+      <image src="./img/icon.png"></image>
+    </view>
+  </view>
+</view>

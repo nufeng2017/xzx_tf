@@ -1,0 +1,147 @@
+@import '../../assets/css/app.wxss';
+page{
+  padding-bottom: 200rpx;
+  position: relative;
+}
+.z-swiper{
+  width:100%;
+  height: 516rpx;
+  position: relative;
+}
+.z-view-title{
+  font-size: 36rpx;
+  color:#242424;
+  font-weight: 400;
+}
+btn-groups{
+  position: absolute;
+  right: 0;
+  top:0;
+}
+.z-view-title{
+  font-weight: 900;
+}
+/* 滚动面板 */
+.z-scroll-box{
+  white-space: nowrap;
+  position: relative;
+  width:712rpx;
+  box-sizing: border-box;
+}
+.z-scroll-box img-txt{
+  display: inline-block;
+  vertical-align: top;
+}
+.z-check-more-box{
+  position: relative;
+}
+.z-check-more{
+  right: -38rpx;
+  width:96rpx;
+  background: #fff;
+  position: absolute;
+  top:0;
+  height: 100%;
+}
+.z-check-more .z-flex{
+  width:76rpx;
+  height: 215rpx;
+  background: #f5f5f5;
+  color:#666666;
+  font-size: 24rpx;
+  box-sizing: border-box;
+  padding: 40rpx 24rpx 0;
+  line-height: 1;
+  text-align: center;
+}
+.z-check-more image{
+  width:28rpx;
+  height: 28rpx;
+  margin-top: 10rpx;
+}
+
+/* 楼盘简介 */
+.z-introduce-item{
+  margin-bottom: 30rpx;
+}
+/* 九宫格样式 */
+.van-grid-item__text text{
+  font-size: 24rpx;
+  color:#ccc;
+  text-decoration:line-through;
+}
+.z-has .van-grid-item__text text{
+  text-decoration:none;
+  color:#000;
+}
+.van-icon.van-icon--image{
+  width:55rpx;
+  height:55rpx;
+}
+
+/* 地图 */
+.z-map{
+  position: relative;
+}
+.z-map>image{
+  width:100%;
+  height:360rpx;
+} 
+/* 地图地铁 */
+.z-map-line{
+  position: relative;
+  padding: 0 30rpx;
+  top:-68rpx;
+}
+.z-zixun{
+  font-size: 30rpx;
+  color:#3399ff;
+}
+.z-detail-intro{
+  padding: 20rpx 0;
+}
+
+/* 所属楼盘 */
+.z-owner-lp .z-component-item{
+  padding: 0rpx 0 45rpx 245rpx;
+}
+.z-owner-lp .z-component-item-img{
+  top:0 !important;
+}
+/* 举报 */
+.z-report .z-compoent-cell{
+  height: 70rpx;
+  line-height: 70rpx;
+}
+.z-report-title image{
+  width:27rpx;
+  height: 30rpx;
+}
+.z-report-title .z-report-title-big{
+  font-size: 24rpx;
+  color:#404040;
+  margin-left: 8rpx;
+  font-weight: 400;
+}
+.z-report-title .z-report-title-small{
+  font-size: 20rpx;
+  color:#999999;
+  font-weight: 400;
+  margin-left: 12rpx;
+}
+.z-report-right image{
+  width:28rpx;
+  height: 30rpx;
+  margin-right: 8rpx;
+}
+.z-report-right{
+  font-size: 24rpx;
+  color:#90aed4;
+}
+.z-components-address{
+   width:100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: normal;
+}

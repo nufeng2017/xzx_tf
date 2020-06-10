@@ -1,0 +1,16 @@
+.z-component-popup{
+  position: fixed;
+  width:100%;
+  height: 100%;
+  left: 0;
+  top:0;
+  display: none;
+}
+.z-my-popup{
+  position: absolute;
+  background: transparent;
+  width:100%;
+}
+.z-component-popup-show{
+  display: block;
+}

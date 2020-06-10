@@ -1,0 +1,2 @@
+<!--taofang-package/pages/external-url/external-url.wxml-->
+<image src='{{imgUrl}}'  mode='widthFix' style='vertical-align:bottom'></image>

@@ -1,0 +1,164 @@
+<!--==============独栋公寓品牌介绍===============  -->
+<!-- 品牌介绍广告banner -->
+<view class='apartment_banner cl'>
+  <image src='/img/apartment/apartment_bgimg.png'></image>
+  <view class='fl apartment_banner_logo'>
+    <image src="{{company.logo ? company.logo : '/img/d_logo.png'}}"></image>
+  </view>
+  <view class='fl banner_text'>
+    <text class="size-30">{{company.companyid}}</text>
+    <text class="size-20">该公寓品牌共有{{company.store_count}}家门店</text>
+  </view>
+</view>
+<!-- apartment_list_tap -->
+<view class='apartment_list_tap cl'>
+  <view class="fl {{showpinpaitap =='ddgy' ? 'selected' : '' }}" bindtap='chooseTap' data-tapindex='ddgy'>
+    <text class='size-30 color-99'>独栋公寓</text>
+  </view>
+  <view class="fl {{showpinpaitap =='ppjs' ? 'selected' : '' }}" bindtap='chooseTap' data-tapindex='ppjs'>
+    <text class='size-30 color-99'>品牌介绍</text>
+  </view>
+</view>
+
+<view class='search_title_out' style="{{showpinpaitap =='ddgy' ? 'display:block' : 'display:none' }}">
+  <!--筛选条件  -->
+  <view class='condition_out'>
+    <view class='condition'>
+      <view class="condition_item {{show.weizhi==true ? 'active' :''}} {{selected.area_id ? 'active' : ''}} {{selected.sl_id ? 'active' : ''}}"  bindtap='showCondition' data-key='weizhi'>
+        <text>{{menu.weizhi?menu.weizhi:'区域'}}</text>
+        <image src='../../../img/dropdown.png'></image> 
+      </view>
+      <view  class="condition_item {{show.zujin==true ? 'active' :''}} {{selected.rent_min || selected.rent_max ? 'active' : ''}}"  bindtap='showCondition' data-key='zujin'>
+        <text>{{menu.zujin?menu.zujin:'租金'}}</text>
+        <image src='../../../img/dropdown.png'></image> 
+      </view>
+      <view class="condition_item {{show.more==true ? 'active' :''}} {{selected.acreage ? 'active' : ''}}"  bindtap='showCondition' data-key='more'>
+        <text>{{menu.more?menu.more:'面积'}}</text>
+        <image src='../../../img/dropdown.png'></image> 
+      </view>
+    </view>
+  </view>
+  <!--位置条件筛选  -->
+  <view wx:if='{{show.weizhi}}' class="screen_view_bg  screen_view_bg_top" style="height:{{second_height}}px">
+    <view class='screen_view'>
+      <view class='location_search'>
+        <view class='first_part_location part_location'>
+          <!--第一级  -->
+          <view class="{{ show.street == true ? 'active' : '' }}" data-key='street' bindtap='showCondition'>区域</view>
+          <view class="{{ show.metro == true ? 'active' : '' }}" data-key='metro' bindtap='showCondition'>地铁</view>
+        </view>
+        <view class='second_part_location part_location'>
+          <!--第二级  -->
+          <view class="{{ color.area_id == index ? 'active' : '' }}"  wx:if='{{show.street == true}}' wx:for='{{config.street}}' wx:key='*this' bindtap='clickSelected' data-key='area_id' data-value='{{item.aid}}' data-index='{{index}}' data-title="{{item.title}}">{{item.title}}</view>
+          <view class="{{ color.sl_id == index ? 'active' : '' }}"  wx:if='{{show.metro == true}}' wx:for='{{config.metro}}' wx:key='*this' bindtap='clickSelected' data-key='sl_id' data-value='{{item.id}}' data-index ='{{index}}' data-title="{{item.name}}">{{item.name}}</view>
+        </view>
+        <view class='third_part_location part_location'>
+          <!--第三级  -->  
+          <view class="{{ color.plate_id[item.aid] == true ? 'active' : '' }}"  wx:if='{{show.street == true}}' wx:for='{{config.street[color.area_id]._child}}' wx:key='*this' bindtap='clickSelected' data-key='plate_id' data-value='{{item.aid}}' data-index='{{index}}' data-title="{{item.title}}">{{item.title}}</view> 
+          <view class="{{ color.ss_id[item.id] == true ? 'active' : '' }}"  wx:if='{{show.metro == true}}' wx:for='{{config.metro[color.sl_id].station}}' wx:key='*this' bindtap='clickSelected' data-key='ss_id' data-value='{{item.id}}' data-index ='{{index}}' data-title="{{item.name}}">{{item.name}}</view> 
+        </view>
+      </view>
+      <view class='selected'>
+        <view class='reset' data-key='weizhi' bindtap='reset'>重置</view>
+        <view class='confirm' bindtap='interlist'>确定</view>
+      </view>
+    </view>
+  </view>
+  <!--租金条件筛选  -->
+  <view  wx:if='{{show.zujin}}' class="screen_view_bg screen_view_bg_top" style="height:{{second_height}}px">
+    <view class='screen_view'>
+      <view class='screen_view_con'>
+        <view class='price_view'>
+          <view class="{{color.rent == index ? 'active':''}}" data-key='rental_range' data-min='{{item.min}}' data-max='{{item.max}}' data-index='{{index}}' data-title="{{item.value}}"  wx:for='{{config.rental_range}}' wx:key='*this' bindtap='clickSelected'>{{item.value}}</view>
+        </view>
+      </view> 
+      <!--确定或重置筛选条件  -->
+      <view class='selected priceSelected'>
+        <input placeholder='最低价' type='number' data-key='rental_range_min' bindinput='clickSelected' value="{{selected.rent_min}}"></input>
+        <view class='pricexian'>-</view>
+        <input placeholder='最高价' type='number' data-key='rental_range_max' bindinput='clickSelected' value="{{selected.rent_max}}"></input>
+        <view class='confirm' data-msg='rent' bindtap='interlist'>确定</view>
+      </view>
+    </view>
+  </view> 
+  <!--面积条件筛选  -->
+  <view  wx:if='{{show.more}}' class="screen_view_bg screen_view_bg_top" style="height:{{second_height}}px">
+    <view class='screen_view'>
+      <view class='screen_view_con'>
+        <view class='price_view'>
+          <view class="{{color.acreage == index ? 'active':''}}" wx:key='*this' data-key='acreage' data-value='{{item.min}},{{item.max}}' bindtap='clickSelected' data-index='{{index}}' wx:for="{{config.acreage}}">{{item.value}}</view>
+        </view>
+      </view> 
+      <!--确定或重置筛选条件  -->
+      <view class='selected'>
+        <view class='reset' data-key='more' bindtap='reset'>重置</view>
+        <view class='confirm' bindtap='interlist'>确定</view>
+      </view>
+    </view>
+  </view> 
+</view>
+<!--房源list  -->
+<import src="../../../template/custom.wxml"/>
+<view class='ddgy' style="height:{{window_height}}px;overflow:hidden;{{showpinpaitap =='ddgy' ? 'display:block' : 'display:none' }}"> 
+  <view wx:if='{{houseList.length != 0}}' class='list_houselistpart gongyu_list_houselistpart'>
+    <view wx:for="{{houseList}}" wx:key="house_list">
+      <navigator url="/pages/apartment/detailPages/detailPages?a_id={{item.id}}&house_comefrom=1&city={{item.city}}">
+        <template is="dudong-house_list" data="{{item}}" />
+      </navigator>
+    </view>
+  </view>
+  <view class='not-found' wx:if="{{houseList.length == 0}}">
+    <image src='../../../img/404-2.png'></image>
+    <text class='text'>没有搜索到符合要求的房源</text>
+  </view>
+</view>
+<!-- 品牌介绍tap -->
+<view class='ppjs' style="{{showpinpaitap =='ppjs' ? 'display:block' : 'display:none' }}">
+  <view class='ppjs_description' wx:if="{{company.remark}}">
+    <view class="dark-font {{ isShowHouseDescription ? 'text-decription' : 'text-decription-3'}}">{{company.remark}}</view>
+    <view class="arrow-box" bindtap='showHouseDescription' >
+      <image src="{{isShowHouseDescription ? '/img/dropup.png' : '/img/dropdown.png'}}" class="arrowUp"></image>
+    </view>
+  </view>
+  <view class='ppjs_icon'>
+    <view>
+      <text class='color-99 size-24'>365淘房租房在租房源</text>
+      <text class='black-font size-32'>{{company.room_count}}</text>
+    </view>
+    <view>
+      <text class='color-99 size-24'>365淘房租房累计经营房源</text>
+      <text class='black-font size-32'>{{company.room_total}}</text>
+    </view>
+    <view>
+      <text class='color-99 size-24'>门店数量</text>
+      <text class='black-font size-32'>{{company.store_count}}</text>
+    </view>
+  </view>
+  <view class='ppjs_sjzz'>
+    <view class='black-font size-30'>商家资质</view>
+    <view class='cl'>
+      <view class='fl'>
+        <image src='/img/apartment/sjzz_icon1.png'></image>
+        <text class='dark-font size-20'>经营许可证</text>
+      </view>
+      <view class='fl'>
+        <image src='/img/apartment/sjzz_icon2.png'></image>
+        <text class='dark-font size-20'>房屋使用权许可证</text>
+      </view>
+      <view class='fl'>
+        <image src='/img/apartment/sjzz_icon3.png'></image>
+        <text class='dark-font size-20'>品质保证</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!--跳转到首页  -->
+<navigator url='/pages/index/index' open-type='reLaunch' hover-class="none" wx:if="{{is_show_index}}">
+  <view class='toIndex'>
+    <image src='/img/toindex.png'></image>
+  </view>
+</navigator>
+<navigator url="/pages/web/web?url={{ad.advert_url}}" wx:if="{{ad.advert_id > 0}}">
+<image src="{{ad.advert_image}}" mode="widthFix" class="ad-f"></image>
+</navigator>

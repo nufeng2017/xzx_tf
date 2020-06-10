@@ -1,0 +1,10 @@
+// pages/detailpages/detailpages.js
+var appInstance = getApp();
+var obj = {};
+Page({
+  /**
+   * 页面的初始数据
+   */
+  data: {}
+   
+})

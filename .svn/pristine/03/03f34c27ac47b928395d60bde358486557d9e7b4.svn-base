@@ -1,0 +1,58 @@
+// pages/web/web.js
+var appInstance = getApp();
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    url: '',
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    console.log(options)
+    var that = this;
+    that.setData({ options: options });
+    var url = options.url + '&uid=' + wx.getStorageSync('changeUid');
+    url = decodeURIComponent(decodeURIComponent(url));
+    this.setData({ url: url });
+  },
+  onShow(){
+    this.sendUserInfo();
+  },
+  sendUserInfo(){
+    let that = this;
+    let url = this.data.url;
+    let index = url.indexOf('&uid');
+    url = url.slice(0,index);
+    setTimeout(function(){
+      if (wx.getStorageSync('user_info')) {
+        that.setData({
+          url:''
+        });
+        that.setData({ url: url + '&uid=' + wx.getStorageSync('changeUid')+'&avatar=' + encodeURIComponent(wx.getStorageSync('user_info').userInfo.avatarUrl) + '&nickname=' + wx.getStorageSync('user_info').userInfo.nickName});
+      } else {
+        that.setData({
+          url: ''
+        });
+        that.setData({ url: url + '&uid=' + wx.getStorageSync('changeUid') + '&userinfo=err'});
+      }
+    },500);
+  },
+  // 分享
+  onShareAppMessage(options) {
+    let that = this;
+    return {
+      title: that.title,
+      desc: that.description,
+      path: '/pages/web/web?url=' + that.data.url,
+      success: function (res) {
+        console.log(res,options)
+      }
+    }
+  },
+  
+})

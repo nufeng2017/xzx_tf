@@ -1,0 +1,13 @@
+<view class="z-component-detail-item z-flex z-flex-direction z-flex-justify z-flex-item {{detailType==2?'z-component-detail-item-1':''}}">
+  <view wx:if="{{detailType==1}}">{{info.title}}</view>
+  <view class="z-component-detail-item-price">
+    <view wx:if="{{info.price && info.price != 0}}">
+      <text class="z-component-detail-item-price-txt">{{info.price}}</text>
+      <text class="z-component-detail-item-price-unit">{{info.unit}}</text>
+    </view>
+    <view wx:if="{{!info.price || info.price == 0}}">
+      <text class="z-component-detail-item-price-unit">暂无数据</text>
+    </view>
+  </view>
+  <view wx:if="{{detailType==2}}" class="z-component-detail-item-title">{{info.title}}</view>
+</view>

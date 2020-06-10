@@ -1,0 +1,81 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"uglifyFileName": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.7.0",
+	"appid": "wx2b8d823ffbf6a685",
+	"projectname": "aizuna",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 6,
+			"list": [
+				{
+					"id": 0,
+					"name": "其他渠道",
+					"pathName": "pages/detailPages/detailPages",
+					"query": "h_id=206391&r_id=145571&house_comefrom=1&l_id=0&city=hf"
+				},
+				{
+					"id": -1,
+					"name": "其他渠道",
+					"pathName": "pages/payment/payMode/payMode",
+					"query": "m_id=1"
+				},
+				{
+					"id": 2,
+					"name": "支付",
+					"pathName": "pages/payment/payMode/payMode",
+					"query": "m_id=56"
+				},
+				{
+					"id": -1,
+					"name": "全景看房",
+					"pathName": "pages/detailPages/detailPages",
+					"query": "h_id=53040&r_id=0&house_comefrom=1&l_id=296&city=nj"
+				},
+				{
+					"id": 4,
+					"name": "合并租约",
+					"pathName": "pages/payment/paydetail/paydetail",
+					"query": "ct_id=6314"
+				},
+				{
+					"id": -1,
+					"name": "列表",
+					"pathName": "pages/list/list",
+					"query": ""
+				},
+				{
+					"id": 6,
+					"name": "测试",
+					"pathName": "pages/apartment/detailPages/detailPages",
+					"query": "a_id=458&house_comefrom=1&city=nj"
+				}
+			]
+		}
+	}
+}

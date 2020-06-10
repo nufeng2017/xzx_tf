@@ -1,0 +1,12 @@
+<view class="z-component-scroll-tabs">
+  <scroll-view class="z-component-scroll-tabs-box" scroll-x="{{true}}">
+    <view 
+      class="z-component-scroll-tab {{active[index]?'z-component-scroll-tab-active':''}}" 
+      wx:for="{{items}}" 
+      wx:key="index"
+      data-index="{{index}}"
+      bindtap="select"
+    >{{item.tag_name}}</view>
+    
+  </scroll-view>
+</view>

@@ -1,0 +1,179 @@
+/* pages/detailpages/detailpages.wxss */
+/*轮播图容器*/
+#imgBox{
+  position: relative;
+  margin-bottom:44rpx;
+  height: 480rpx;
+}
+#imgBox swiper{
+  height: 100%;
+  width:100%;
+}
+#imgBox image{
+  width:100%;
+  height: 480rpx;
+}
+#imgBox.shadow:after{
+  content: '';
+  display: block;
+  position: absolute;
+  bottom:0px;
+  left:0px;
+  width:100%;
+  height:100rpx;
+  background: -moz-linear-gradient(top, transparent,rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
+  background: linear-gradient(top, transparent, rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.4));
+  background: -webkit-linear-gradient(top, transparent,rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
+  background: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.4));
+  z-index: 100;
+}
+#imgsNum{
+  color:#fff;
+  position: absolute;
+  bottom: 15rpx;
+  right: 35rpx;
+  font-size:24rpx;
+  z-index: 120;
+}
+/* 房源基本信息 */
+.hui-content-box{
+  padding: 0 38rpx;
+}
+.border-b{
+  border-bottom:20rpx solid #f5f5f5;
+}
+.hui-details-title{
+  line-height: 58rpx;
+  font-size:38rpx;  
+  position: relative;
+  color:#242424;
+  margin-bottom: 70rpx;
+}
+.hui-details-title:after{
+  content:'';
+  display: block;
+  position: absolute;
+  height: 32rpx;
+  border-radius: 4rpx;
+  color:#fff;
+  font-size:24rpx;
+  bottom:13rpx;
+  right: 0rpx;
+  line-height: 32rpx;
+  padding: 0 6rpx;
+}
+/* 急租ICON */
+.hui-details-title[data-icon="1"]:after{
+  background: #fd4a4a;
+  content: '\6025\79df';
+}
+/* 验真ICON */
+.hui-details-title[data-icon="2"]:after{
+  background: #58be4b;
+  content: '\9a8c\771f';
+}
+.hui-details{
+  text-align: center;
+  margin-bottom: 70rpx;
+  font-size:26rpx;
+  color:#8a8a8a;
+}
+.hui-details .hui-font-color-y{
+  color:#ff5500;
+  margin-top: 20rpx;
+}
+.hui-details .flex-item:nth-child(2){
+  border:1rpx solid #e9e9e9;
+  border-top:none;
+  border-bottom:none;
+}
+.hui-details .hui-details-txt{
+  font-size:36rpx;
+  color:#ff5500;
+}
+.hui-characteristic{
+  margin: 40rpx 0;
+}
+.hui-characteristic view{
+  display: inline-block;
+  font-size:24rpx;
+  height: 35rpx;
+  line-height: 35rpx;
+  padding: 0 10rpx;
+  margin-right: 20rpx;
+}
+.hui-characteristic view[ data-color="1"]{
+  background: #ffe7db;
+  color:#ff7a3b;
+}
+.hui-characteristic view[ data-color="2"]{
+  background: #eff6fe;
+  color:#448bc4;
+}
+.hui-characteristic view[ data-color="3"]{
+  background: #e2f5e1;
+  color:#36a333;
+}
+.hui-details-item{
+  font-size:30rpx;
+  color:#242424;
+}
+.hui-details-item .hui-font-color-g,.hui-details-wrap .hui-font-color-g{
+  color:#8a8a8a;
+  margin-right: 24rpx;
+  white-space: nowrap;
+}
+.hui-details-item .flex-item>view{
+  margin-bottom: 40rpx;
+}
+.hui-details-wrap{
+  height: 108rpx;
+  border-bottom:1rpx solid #ececec;
+  line-height: 108rpx;
+  font-size:30rpx;
+  color:#242424;
+}
+.hui-details-wrap .hui-font-color-y{
+  color:#ff9e4c;
+}
+.hui-details-module-title{
+  font-size:36rpx;
+  color:#242424;
+  padding: 40rpx 0;
+}
+.hui-house-description{
+  font-size:30rpx;
+  color:#4a4a4a;
+  line-height: 55rpx;
+  max-height: 385rpx;
+  overflow: hidden;
+}
+.hui-check-more{
+  height: 80rpx;
+  text-align: center;
+}
+.hui-check-more image{
+  height: 12rpx;
+  width:19rpx;
+  display: inline-block;
+}
+.hui-facilities {
+  font-size:24rpx;
+  color:#404040;
+  padding-bottom: 20rpx;
+  
+}
+.hui-facilities .fl{
+  width:20%;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+.hui-facilities image{
+  width:60rpx;
+  display: inline-block;
+  height: 60rpx;
+  margin-bottom: 20rpx;
+}
+.border-b-1{
+  border-bottom: 1rpx solid #ececec;
+}

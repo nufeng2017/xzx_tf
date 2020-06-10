@@ -1,0 +1,112 @@
+.z-component-item{
+  line-height: 1.2;
+  position: relative;
+  padding: 40rpx 0 40rpx 245rpx;
+  min-height: 160rpx;
+}
+.z-component-item:after{
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width:100%;
+  height: 1px;
+  background: #f2f2f2;
+  transform: scaleY(0.5);
+}
+.z-component-item .z-component-item-content .z-component-item-content-box{
+  margin-bottom: 10rpx;
+  color:#333;
+  font-size: 22rpx;
+}
+.z-text-overflow{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: normal;
+}
+.z-component-item .z-component-item-content .z-component-item-title{
+  font-size: 30rpx;
+  color:#222;
+}
+.z-component-item .z-component-item-content .z-component-item-address{
+  color: #666;
+  line-height: 26rpx;
+  position: relative;
+  padding-left: 33rpx;
+}
+.z-component-item .z-component-item-address .z-component-item-train-icon{
+  height: 26rpx;
+  width:22rpx;
+  position: absolute;
+  top:0;
+  left: 0;
+}
+.z-component-item .z-component-item-img{
+  height: 160rpx;
+  width:210rpx;
+  position: absolute;
+  top:40rpx;
+  left: 0;
+  overflow: hidden;
+  background: #ccc;
+}
+.z-component-item .z-component-item-img .z-component-item-img-content{
+  width:100%;
+  height: 100%;
+}
+.z-component-item .z-component-item-img .z-component-item-icon,.z-component-item .z-component-item-img .z-component-item-play-icon{
+  position: absolute;
+  top:0;
+  left: 0;
+  height: 34rpx;
+  padding: 0 20rpx;
+  line-height: 34rpx;
+  color:#fff;
+  font-size: 22rpx;
+  border-bottom-right-radius:10rpx;
+  background: #f14843; 
+}
+.z-component-item .z-component-item-img .z-component-item-icon.z-component-item-icon-1{
+  background: #40ce78; 
+}
+.z-component-item-play-icon{
+  background: transparent !important;
+  width:64rpx !important;
+  height: 64rpx !important;
+  left:73rpx !important;
+  top:48rpx !important;
+  padding: 0 !important;
+}
+.z-component-item-yx-icon{
+  padding: 0 12rpx;
+  height: 30rpx;
+  color: #fff;
+  background: #f3f8ff;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+  border-radius: 4rpx;
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+  width:50rpx;
+}
+.z-component-item-yx-icon image{
+  width:100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top:0;
+}
+.z-component-item-yx-icon .z-component-item-yx-icon-txt{
+  position: absolute;
+  width:100%;
+  height: 100%;
+  line-height: 30rpx;
+  color:#fff;
+  font-size: 20rpx;
+  left: 0;
+  top:0;
+  text-align: center;
+  z-index: 1;
+}

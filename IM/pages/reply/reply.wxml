@@ -1,0 +1,19 @@
+<!--IM//pages/reply/reply.wxml-->
+<view class="z-main">
+  <view class="z-content">
+    <view class="z-reply-txt" wx:for="{{replyTxt}}" wx:key="index" bindtouchstart="deleteTxt" data-index="{{index}}" bindtouchend="completeDeleteTxt">{{item}}</view>
+  </view>
+  <view class="z-add-reply"><button bindtap="addReply">新增回复</button></view>
+</view>
+
+<!-- 新增弹窗 -->
+<view class="z-add-popup flex flex-center" wx:if="{{show}}">
+  <view class="z-add-content">
+    <view class="z-add-title">新增快捷回复</view>
+    <view class="z-add-input"><input placeholder="请输入" bindinput="inputTxt"></input></view>
+    <view class="flex z-add-btns">
+      <view class="flex-item z-add-cancel" bindtap="cancel">取消</view>
+      <view class="flex-item z-add-comfirm" bindtap="comfirm">确定</view>
+    </view>
+  </view>
+</view>

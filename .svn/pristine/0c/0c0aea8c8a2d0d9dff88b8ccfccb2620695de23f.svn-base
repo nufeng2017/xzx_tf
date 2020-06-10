@@ -1,0 +1,144 @@
+page{
+    background: #f4f4f4;
+    font-size: 30rpx;
+    padding-bottom: 98rpx;
+}
+.paid_bill{
+    height: auto;
+    overflow: hidden;
+    background: #fff;
+    padding-left: 58rpx;
+    font-size: 30rpx;
+    color: #333;
+    line-height: 120rpx;
+}
+.paid_bill view:last-child{
+    max-width: 85%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.paid_bill view image{
+    width: 48rpx;
+    height: 48rpx;
+    margin: 37rpx 22rpx 0 0;
+}
+.paid_way {
+    background: #fff;
+    padding: 0 30rpx 0 40rpx;
+}
+.paid_way .paid_way_list {
+    max-height: 625rpx;
+    overflow: hidden;
+}
+.paid_way .paid_way_list.showAllThings {
+    max-height: none;
+}
+.paid_way .items {
+    background: #fafafa;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 20rpx;
+    overflow: hidden;
+    padding: 46rpx 30rpx 46rpx 30rpx;
+    line-height: 40rpx;
+}
+.paid_way .items .fl text{
+    display: block;
+}
+.paid_way .items .fl text:first-child{
+    font-weight: bold;
+}
+.paid_way .items .fl text:last-child{
+    margin-top: 16rpx;
+}
+.paid_way .items .fr{
+    margin-top: 16rpx;
+}
+.paid_way .seeMoreway {
+    width: 120rpx;
+    text-align: center;
+    height: 60rpx;
+    line-height: 60rpx;
+    border: 2rpx solid #dfdfdf;
+    background: #f8f8f8;
+    font-size: 24rpx;
+    border-radius: 4rpx;
+    margin: 30rpx auto 27rpx auto;
+}
+.paid_way .total_paid {
+    border-top: 1rpx solid #e5e5e5;
+    text-align: right;
+    font-size: 18rpx;
+    color: #333;
+    line-height: 80rpx;
+    padding-right: 40rpx
+}
+.paid_type {
+    margin-bottom: 196rpx;
+}
+.paid_type > view:first-child{
+    font-size: 24rpx;
+    color: #666;
+    line-height: 69rpx;
+    padding-left: 40rpx;
+}
+.paid_type > view.paid_type_item {
+    background: #fff;
+    overflow: hidden;
+    padding-left: 40rpx;
+    line-height: 100rpx;
+}
+.paid_type > view.paid_type_item image{
+    width: 60rpx;
+    height: 60rpx;
+    margin: 20rpx 30rpx -20rpx 0;
+}
+.paid_type > view.paid_type_item text{
+    line-height: 100rpx;
+    font-size: 30rpx;
+    color: #333;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer_btn{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 98rpx;
+    line-height: 98rpx;
+    text-align: center;
+    background: #ffa229;
+    color: #fff;
+    font-size: 32rpx;
+}

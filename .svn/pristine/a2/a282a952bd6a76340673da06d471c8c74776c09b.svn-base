@@ -1,0 +1,20 @@
+<!--房源列表-->
+<view class="z-wrap" style="{{listType==1?'padding-top:180rpx':''}}">
+  <view class="z-page-head" style="{{listType==1?'height:180rpx':''}}">
+    <view class="z-container"><search new-style="{{false}}" dis-input="{{true}}" type="{{listType}}" value="{{value}}"/></view>
+
+    <!-- 筛选TABS -->
+    <view class="z-filter-tabs"><filter-tabs tabs="{{filterTabs}}" list-type="{{listType}}" request-data="{{requestData}}"></filter-tabs></view>
+
+    <!-- 滚动tabs -->
+    <view class="z-scroll-tabs"><scroll-tabs items="{{topSearch}}" wx:if="{{listType==2}}" request-data="{{requestData}}"/></view>
+  </view>
+
+  <!-- 列表 -->
+  <view class="z-main">
+    <list list-box="view-item" list-type="{{listType}}" request-data="{{requestData}}" options="{{options}}"></list>>
+  </view>
+</view>
+
+<!-- 品牌入驻按钮 -->
+<brand-presence wx:if="{{listType==1}}"/>

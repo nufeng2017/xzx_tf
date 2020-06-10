@@ -1,0 +1,48 @@
+<!--taofang-package/pages/external-url/external-url.wxml-->
+<view class="hui-page-box" wx:if="{{imgUrl == '1'}}">
+  <image src="https://aznapi.house365.com/public/static/images/365kz.png"  mode='widthFix' style='vertical-align:bottom'></image>
+
+  <!-- 微信 -->
+  <view class="hui-page-item" bindtap="saveNum" data-num="17749520780">
+    <image src="/taofang-package/img/wx-icon.png"></image>
+    <view class="flex flex-center flex-column">
+      <view>微信客服</view>
+      <view>17749520780</view>
+    </view>
+  </view>
+
+  <!-- QQ -->
+  <view class="hui-page-item qq" bindtap="saveNum" data-num="1349554553">
+    <image src="/taofang-package/img/QQ-icon.png"></image>
+    <view class="flex flex-center flex-column">
+      <view>QQ客服</view>
+      <view>1349554553</view>
+    </view>
+  </view>
+
+  <!-- 租房热线 -->
+  <view class="hui-page-item rent" bindtap="call" data-num="400-8988-365,,8888">
+    <image src="/taofang-package/img/phone-icon.png"></image>
+    <view class="flex flex-center flex-column">
+      <view>租房热线 </view>
+      <view>400-8988-365转8888</view>
+    </view>
+  </view>
+
+  <!-- 二维码-->
+  <view class="hui-page-item qrcode">
+    <image src="https://aznapi.house365.com/public/static/images/qrcode.png" bindtap="qrcode" data-url="https://aznapi.house365.com/public/static/images/qrcode.png"></image>
+    <view class="flex flex-center flex-column">
+      <view>点击查看二维码并保存</view>
+      <view>加租博士快速找房</view>
+    </view>
+  </view>
+</view>
+<view class="hui-page-box" wx:if="{{imgUrl == '2'}}">
+  <image src='https://aznapi.house365.com/public/static/images/365zbs.png'  mode='widthFix'></image>
+  <!-- 二维码-->
+  <view class="hui-page-item qrcode qrcode-other">
+    <image src="https://aznapi.house365.com/public/static/images/qrcode.png" bindtap="qrcode" data-url="https://aznapi.house365.com/public/static/images/qrcode.png"></image>
+    <view>点击加好友咨询</view>
+  </view>
+</view>

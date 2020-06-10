@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-icon": "/shangban/@vant/weapp/icon/index",
+    "popup": "/shangban/components/popup/popup"
+  }
+}

@@ -1,0 +1,14 @@
+<view class="z-laxin flex flex-center" wx:if="{{show}}">
+  <view class="z-laxin-content">
+    <image src="https://m.aizuna.com/Public/ActivityStartWork/img/laxin_bg.png" mode="aspectFit" class="z-bg"></image>
+    <image src="./img/close.png" class="z-close-btn" bindtap="close"></image>
+    <view class="z-content-box">
+      <view class="z-content-tips">· 您有<text>100元租房补贴</text>待领取 ·</view>
+      <view class="z-form">
+        <input  placeholder="请输入您的手机号"  bindinput="bindKeyInput"/>
+        <image src="./img/get-btn.png" bindtap="limitGet"></image>
+      </view>
+      <view class="z-notice">温馨提示：成功领取后，通过365租房平台租房即可兑换为100元现金补贴，有效期截止2020年12月30日。详情咨询租博士（微信号：17342700607）</view>
+    </view>
+  </view>
+</view>

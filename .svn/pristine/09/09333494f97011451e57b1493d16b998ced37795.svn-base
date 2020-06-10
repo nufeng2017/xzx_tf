@@ -1,0 +1,33 @@
+<view class="z-component-item" bindtap="router">
+  <view class="z-component-item-img">
+    <image-loader 
+      mode="aspectFill" 
+      default-image="/shangban/components/view-item/img/default-img.png"
+      original-image="{{img}}"
+      class="z-component-item-img-content"
+    />
+    <view class="z-component-item-icon" wx:if="{{isRent==1}}">急租</view>
+    <view class="z-component-item-icon z-component-item-icon-1" wx:if="{{isYx==1}}">严选</view>
+    <image src="./img/play-icon.png" wx:if="{{isVideo}}" class="z-component-item-play-icon"></image>
+  </view>
+  <view class="z-component-item-content">
+    <view class="z-text-overflow z-component-item-content-box z-component-item-title">{{title}}</view>
+    <view class="z-component-item-content-box z-text-overflow">
+      <slot name="content"></slot>
+    </view>
+    <view class="z-component-item-address z-component-item-content-box z-text-overflow">
+      <image src="./img/train.png" class="z-component-item-train-icon"></image>
+      {{address}}
+    </view>
+    <view class="z-components-item-characteristic">
+      <view class="z-component-item-yx-icon" wx:if="{{isMoneyHouse==1}}">
+        <image src="./img/yanxuan.png"></image>
+        <view class="z-component-item-yx-icon-txt">严选</view>
+      </view>
+      <view wx:for="{{characteristic}}" wx:key="index">{{item}}</view>
+    </view>
+    <view class="z-component-item-price z-component-item-content-box z-text-overflow">
+      <slot name="price"></slot>
+    </view>
+  </view>
+</view>

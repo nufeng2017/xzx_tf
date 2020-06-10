@@ -1,0 +1,101 @@
+<scroll-view scroll-y>
+  <view class="hui-other-item-container">
+    <view class="hui-form-item flex hui-flex-align-center hui-flex-justify" bindtap="isShowModel" data-modelstatus = "show">
+      <view class="hui-form-item-title size-24 dark-font">证件类型</view>
+      <view class="hui-form-item-block">
+        <input placeholder="请选择" placeholder-class="hui-placeholder-style-2" disabled="{{true}}"></input>
+      </view>
+    </view>
+    <view class="hui-form-item flex hui-flex-align-center hui-flex-justify">
+      <view class="hui-form-item-title size-24 dark-font">证件号码</view>
+      <view class="hui-form-item-block">
+        <input placeholder="请参照示例填写权证号" placeholder-class="hui-placeholder-style-2"></input>
+      </view>
+    </view>
+    <view class="hui-form-item flex hui-flex-align-center hui-flex-justify">
+      <view class="hui-form-item-title size-24 dark-font">丘权号</view>
+      <view class="cl hui-form-item-block flex hui-flex-align-center">
+        <input placeholder="请参照示例填写丘权号" placeholder-class="hui-placeholder-style-2"></input>
+      </view>
+    </view>
+    <view class="hui-form-item flex hui-flex-align-center hui-flex-justify">
+      <view class="hui-form-item-title size-24 dark-font">产权人姓名</view>
+      <view class="cl hui-form-item-block flex hui-flex-align-center">
+        <input placeholder="请输入产权人姓名" placeholder-class="hui-placeholder-style-2"></input>
+      </view>
+    </view>
+    <view class="hui-form-item flex hui-flex-align-center hui-flex-justify">
+      <view class="hui-form-item-title size-24 dark-font">产权人身份证号</view>
+      <view class="cl hui-form-item-block">
+        <input placeholder="请输入产权人身份证号" placeholder-class="hui-placeholder-style-2"></input>
+      </view>
+    </view>
+    <view class="hui-txt-tips">
+      <view class="flex hui-flex-align-center">
+        <image src="/taofang-package/img/icon-tips.png" mode="scaleToFill"></image>
+        <view>仅限网站审核使用，不对外展示，示例
+          <navigator url="" hover-class="none">《不动产权证》</navigator>
+          <navigator url="" hover-class="none">《房屋所有权证》</navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="flex hui-flex-align-center hui-upload-tips">
+    <text>上传房产证明及产权人身份证</text>
+    <view class="hui-txt-tips">
+      <view class="flex hui-flex-align-center">
+        <image src="/taofang-package/img/icon-tips.png" mode="scaleToFill"></image>
+        <view>仅用于网站房源审核，请放心上传！</view>
+      </view>
+    </view>
+  </view>
+  <view class="hui-img-board cl">
+    <view class="hui-img-item fl">
+      <navigator class="hui-img-box" hover-class="none" url="/taofang-package/pages/edit-img/edit-img">
+        <image mode="aspectFill" src="../../img/test-img.png"></image>
+      </navigator>
+      <view class="hui-img-item-delete-btn"></view>
+    </view>
+    <view class="hui-img-item fl">
+      <view class="hui-img-loading flex flex-center flex-column">上传中</view>
+      <navigator class="hui-img-box hui-none" hover-class="none" url="/taofang-package/pages/edit-img/edit-img">
+        <image mode="aspectFill" src="../../img/test-img.png"></image>
+      </navigator>
+      <view class="hui-img-item-delete-btn"></view>
+    </view>
+    <view class="hui-img-item hui-img-upload-btn flex flex-center flex-column">
+      <view>上传照片 最多9张</view>
+    </view>
+  </view>
+  <button class="hui-save-btn">保存</button>
+</scroll-view>
+
+<!-- 弹窗 -->
+<view class="hui-popup-container {{isShowModel==='show'? '' : 'hui-none'}}">
+  <view class="hui-popup-header">
+    <!-- 弹窗tips  -->
+    <view class="hui-popup-tips" >
+      <view class="hui-popup-txt"  >请选择证件类型</view>
+      <view class="hui-popup-btn" bindtap='listSureAction'>确定</view>
+    </view>
+    <!-- 信息输入板面 -->
+    <view class="hui-popup-select-board">
+      <!-- 滚动选择框 -->
+      <picker-view
+        indicator-style="height: 50px;"
+        value="{{value}}"
+        bindchange="bindChange"
+        class="showBoard"
+      >
+        <picker-view-column >
+          <view>房屋所有权证</view>
+          <view>不动产权证书</view>
+          <view>商品房预（现）售合同</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+  </view>
+</view>
+
+<!-- model bg-->
+<view class="hui-model-bg {{isShowModel==='show'? '' : 'hui-none'}}" bindtap="isShowModel" data-modelstatus = "hide"></view>

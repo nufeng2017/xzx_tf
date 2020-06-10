@@ -1,0 +1,34 @@
+.z-component-detail-entry{
+  font-size: 24rpx;
+  padding-bottom: 30rpx;
+}
+.z-component-detail-entry .z-component-detail-entry-box{
+  width:50%;
+  min-height: 60rpx;
+  position: relative;
+  padding-left: 132rpx;
+  box-sizing: border-box;
+}
+.z-component-detail-entry-title{
+  position: absolute;
+  color:#8a8a8a;
+  top:0;
+  left: 0;
+  line-height: 38rpx;
+}
+.z-component-detail-entry-content{
+  line-height: 38rpx;
+  word-break:break-all;
+}
+.z-component-detail-entry-1{
+  font-size: 30rpx !important;
+}
+.z-component-detail-entry-1 .z-component-detail-entry-box{
+  width:100%;
+}
+.z-component-detail-entry-icon{
+  width:35rpx;
+  height: 35rpx;
+  margin-right: 10rpx;
+  vertical-align: sub;
+}

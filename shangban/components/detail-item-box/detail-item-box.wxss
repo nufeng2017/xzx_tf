@@ -1,0 +1,28 @@
+.z-component-detail-item-box detail-item{
+  position: relative;
+  padding-left: 45rpx;
+}
+.z-component-detail-item-box detail-item:after{
+  content:'';
+  display: block;
+  height: 84rpx;
+  width:1px;
+  background: #f1f1f1;
+  position: absolute;
+  left: 0;
+  top:0;
+}
+.z-component-detail-item-box detail-item:first-child{
+  padding-left: 0;
+}
+.z-component-detail-item-box detail-item:first-child:after{
+  display: none;
+}
+.z-component-detail-item-box-1{
+  padding-top: 40rpx;
+}
+.z-component-detail-item-box-1 detail-item{
+  padding-left: 0rpx;
+  text-align: center;
+  flex: 1;
+}

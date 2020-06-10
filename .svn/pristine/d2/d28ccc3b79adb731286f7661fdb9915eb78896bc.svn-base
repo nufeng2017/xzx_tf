@@ -1,0 +1,37 @@
+// pages/detailpages/detailpages.js
+var appInstance = getApp();
+var obj = {};
+Page({
+  /**
+   * 页面的初始数据
+   */
+  data: {
+
+    markers: [{
+      iconPath: "/img/position-market.png",
+      id: 0,
+      latitude: 32.093815,
+      longitude: 18.9138131,
+      width: 25,
+      height: 34,
+    }]
+
+  },
+  onLoad(options){
+
+    console.log(options)
+
+    appInstance.getUtil.ajax({
+      path: '5cecf9143ece2',
+      method: "GET",
+      check: true,
+      data: { 'rid': options.id, 'city': appInstance.globalData.city },
+      success:res=>{
+
+        console.log(res);
+      }
+    })
+
+  }
+   
+})

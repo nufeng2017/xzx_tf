@@ -1,0 +1,170 @@
+<scroll-view scroll-y>
+  <view class="hui-container">
+    <view class="hui-wrap hui-pb">
+      <view class="hui-block-title">您想要租哪种户型？</view>
+      <view class="hui-block-body cl">
+        <view 
+          class="hui-block-item fl {{index === renthouse_type_index ? 'hui-active' : ''}}" 
+          wx:for="{{renthouse_type}}" 
+          wx:key="*this"
+          data-index="{{index}}"
+          data-key="{{item.key}}"
+          bindtap="selHouseType"
+        >
+          {{item.value}}
+        </view>
+      </view>
+    </view>
+    <view class="hui-wrap">
+      <view class="hui-block-title">您想在哪里租房？</view>
+      <view class="hui-block-body cl" bindtap="showPopup" data-popup = "{{2}}">
+        <view class="hui-sel-area text-overflow" style="{{screenShow?'color:#333':''}}">
+          {{screenShow?screenShow:'请选择您的意向区域/地铁'}}           
+        </view>
+      </view>
+    </view>
+    <view class="hui-wrap">
+      <view class="hui-block-title">您的其他需求？</view>
+      <view class="hui-block-body cl">
+        <navigator class="hui-house-description" hover-class="none" url="/taofang-package/pages/textarea/textarea">
+          <view class="hui-textare" style="{{areaTxt.fillTxt ? 'color:#333' : ''}}">{{areaTxt.fillTxt ? areaTxt.fillTxt : areaTxt.defaultTxt}}</view>
+          <view class="hui-textarea-txt-num">{{areaTxt.fillTxt?areaTxt.fillTxt.length:0}}/300</view>
+        </navigator>
+      </view>
+    </view>
+    <view class="hui-wrap">
+      <view class="hui-block-title">您的联系方式？</view>
+      <view class="hui-block-body cl">
+        <view class="hui-form">
+          <view class="hui-form-item flex flex hui-flex-justify hui-flex-align-center">
+            <input class="hui-form-input" 
+              placeholder-style="color:#ccc;font-size:32rpx" 
+              placeholder="请输入姓名" 
+              value="{{realname}}" 
+              bindinput="inputTxt" 
+              data-input="realname"
+            >
+            </input>
+            <view class="hui-sex-sel cl">
+              <view class="fl {{sexChoose===index?'hui-sel-this':''}}" data-value="{{item.value}}" wx:for="{{sex}}" bindtap="changeSex">{{item.sex}}</view>
+            </view>
+          </view>
+          <view class="hui-form-item bottom-border-none">
+            <input class="hui-form-input" placeholder-style="color:#ccc;font-size:32rpx" placeholder="请输入手机号码" value='{{phone}}' disabled="{{true}}" bindtap="showPopup" data-popup = "{{1}}">
+            </input>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="hui-txt-tips-1">
+      <image src="/taofang-package/img/icon-tips.png" mode="scaleToFill"></image>
+      <view>温馨提示:提交找房需求后将由365专属客服为您推荐品质好房 并提供专业线下带看服务。</view>
+    </view>
+  </view>
+</scroll-view>
+
+<view class="hui-submit-btn {{isIPX ? 'iphonex':''}}" bindtap="submit">确认提交</view>
+
+<!-- 弹窗 -->
+<view class="hui-model-bg {{showPopup?'':'hui-none'}}" bindtap="showPopup" data-popup = "{{0}}"></view>
+<view class="hui-model-box flex flex-center {{showPopup === 1?'':'hui-none'}}">
+  <view class="hui-model-container">
+    <view class="hui-popup-title size-36 color-000">修改手机号</view>
+    <view class="hui-popup-input">
+      <input 
+        placeholder-style="color:#999;font-size:30rpx" 
+        placeholder="请输入新手机号"
+        bindinput="inputTxt"
+        maxlength="11"
+        type="number" 
+        value="{{newPhone}}"
+        data-input="newPhone"
+      >
+      </input>
+    </view>
+    <view class="hui-code">
+      <view class="hui-popup-input">
+        <input 
+          data-input="code"
+          placeholder-style="color:#999;font-size:30rpx" 
+          placeholder="请输入验证码"
+          bindinput="inputTxt"
+          type="number" 
+          value='{{code}}'>
+        </input>
+      </view>
+      <view class="hui-get-code-btn" bindtap="getCode" data-value="{{codename}}">{{codename}}</view>
+    </view>
+    <view class="cl hui-popup-btn">
+      <view class="fl" bindtap="showPopup" data-popup = "{{0}}">取消</view>
+      <view class="fl hui-popup-btn-ok" bindtap="surePhoneAction" data-popup = "{{0}}">确认</view>
+    </view>
+  </view>
+</view>
+
+<!-- 弹窗 区域选择 -->
+<view class="hui-screen-area-box {{showPopup === 2?'':'hui-none'}}" >
+  <view class="hui-screen-board flex">
+    <view>
+      <view 
+        class="{{index===screenIndex?'area-active':''}}"
+        wx:for="{{screenData}}"
+        wx:key="*this"
+        data-index="{{index}}"
+        bindtap="changeA"
+        data-key = "screenIndex"
+      >
+        {{item.key}}
+      </view>
+    </view>
+    <view>
+      <view 
+        class="{{screenIndex == 0 ?((level_id_1[item.id]+''&&level_id_1[item.id]==screenIndex)||(level_id_1[item.aid]+''&&level_id_1[item.aid]==screenIndex)?'area-active':''):((level_aid_1[item.id]+''&&level_aid_1[item.id]==screenIndex)||(level_aid_1[item.aid]+''&&level_aid_1[item.aid]==screenIndex)?'area-active':'')}}"
+        style="{{index===screenIndex_1?'background:#f3f3f3':''}}"
+        wx:for="{{screenData[screenIndex].data}}"
+        data-index="{{index}}"
+        wx:key="*this"
+        data-id="{{item.id?item.id:item.aid}}"
+        bindtap="changeA"
+        data-key = "screenIndex_1"
+      >
+        {{item.name?item.name:item.title}}
+      </view>
+    </view>
+    <view class="flex-item">
+      <view 
+        hover-class="hui-f3" 
+        data-id="{{'0' +screenIndex_1+screenIndex}}" 
+        class="{{screenIndex == 0 ?(level_id_2['0' +screenIndex_1+screenIndex]+''&&level_id_2['0' +screenIndex_1+screenIndex]==screenIndex_1?'area-active':''):(level_aid_2['0' +screenIndex_1+screenIndex]+''&&level_aid_2['0' +screenIndex_1+screenIndex]==screenIndex_1?'area-active':'')}}" 
+        bindtap="changeB" 
+        data-txt=""
+      >
+        不限
+      </view>
+      <view 
+        class="{{screenIndex == 0 ?((level_id_2[item.id]+''&&level_id_2[item.id]==screenIndex_1)||(level_id_2[item.aid]+''&&level_id_2[item.aid]==screenIndex_1)?'area-active':''):((level_aid_2[item.id]+''&&level_aid_2[item.id]==screenIndex_1)||(level_aid_2[item.aid]+''&&level_aid_2[item.aid]==screenIndex_1)?'area-active':'')}}"
+        wx:for="{{screenData[screenIndex].data[screenIndex_1]._child||screenData[screenIndex].data[screenIndex_1].station}}"
+        wx:key="*this"
+        data-id="{{item.id?item.id:item.aid}}"
+        hover-class="hui-f3"
+        bindtap="changeB" 
+        data-txt="{{item.name?item.name:item.title}}"
+      >
+        {{item.name?item.name:item.title}}
+      </view>
+    </view>
+  </view>
+  <view class="hui-already-sel-show" wx:if="{{selectionData.length>0}}">
+    <text>已选</text>
+    <view class="hui-already-sel-show-board cl">
+      <view class="fl" wx:for="{{selectionData}}" wx:key="*this">
+        <text>{{item}}</text>
+        <view class="hui-delete-btn" bindtap="deleteScreen" data-value="{{item}}"></view>
+      </view>
+    </view>
+  </view>
+  <view class="hui-screen-btn-group flex flex-center">
+    <view class="hui-reset-btn" bindtap="resetData">重置</view>
+    <view class="hui-determine-btn" bindtap="sure" data-popup = "{{0}}">确定</view>
+  </view>
+</view>

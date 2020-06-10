@@ -1,0 +1,68 @@
+.z-component-card {
+  padding-bottom: 30rpx;
+}
+.z-component-card-info{
+  padding-left: 120rpx;
+  position: relative;
+  min-height: 90rpx;
+  width:360rpx;
+}
+.z-component-card-content{
+  height: 90rpx;
+}
+.z-component-card-img{
+  width:90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top:0;
+}
+.z-component-card-name{
+  color:#242424;
+  font-size: 30rpx;
+  font-weight: 900;
+  height: 38rpx;
+  line-height: 38rpx;
+}
+.z-component-card-middle-info{
+  height: 30rpx;
+  line-height: 30rpx;
+  font-size: 20rpx;
+  color:#8a8a8a;
+}
+.z-component-card-middle-star{
+  height: 20rpx;
+  padding-top: 2rpx;
+}
+.z-custom-class{
+  line-height: 1;
+  height: 20rpx;
+  position: relative;
+  top:-10rpx;
+}
+.z-component-card-rel{
+  width:112rpx;
+  height: 30rpx;
+  margin-left: 10rpx;
+}
+.z-component-card-zz{
+  width:40rpx;
+  height: 28rpx;
+  padding: 5rpx 10rpx;
+}
+.z-component-card-btns{
+  width:194rpx;
+  height: 72rpx;
+}
+.z-component-card-btns .z-component-card-btn{
+  height: 100%;
+  width:72rpx;
+}
+.z-component-card-zz-img{
+  width:650rpx;
+  height: 700rpx;
+  box-sizing: border-box;
+  padding:0 20rpx 20rpx;
+}

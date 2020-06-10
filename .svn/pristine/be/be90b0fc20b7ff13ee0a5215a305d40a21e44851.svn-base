@@ -1,0 +1,91 @@
+<view class="hui-wrap">
+  <view class="hui-page-title flex flex-center">房源详情</view>
+  <view class="hui-house-info-wrap">
+    <view class="size-24 dark-font">房源标题</view>
+    <view class="hui-house-base-info text-overflow">
+      <input placeholder-style="color:#ccc;font-size:32rpx" placeholder="请输入" value="白鹭花园莺歌苑3室1厅1卫18平米合租精装白"></input>
+    </view>
+  </view>
+  <view class="hui-house-info-wrap hui-house-equipment-wrap">
+    <view class="size-24 dark-font">房屋配置</view>
+    <view class="hui-house-equipment cl">
+      <view class="hui-equipment-item hui-has-this fl">家具</view>
+      <view class="hui-equipment-item hui-has-this fl">电视</view>
+      <view class="hui-equipment-item fl">电视柜</view>
+      <view class="hui-equipment-item fl">电视柜</view>
+      <view class="hui-equipment-item fl">电视柜</view>
+      <view class="hui-equipment-item fl">电视柜</view>
+      <view class="hui-equipment-item fl">电视柜</view>
+      <view class="hui-equipment-item fl">电视柜</view>
+      <view class="hui-equipment-item fl">电视柜</view>
+      <view class="hui-equipment-item fl">电视柜</view>
+    </view>
+  </view>
+  <view class="hui-house-info-wrap bottom-border-none">
+    <view class="size-24 dark-font">房源描述</view>
+    <navigator class="hui-house-description" hover-class="none" url="/taofang-package/pages/textarea/textarea">
+      <view class="hui-textarea">（选填）详细的描述会大大增加快速出租的机会！可以介绍交通和周边环境，入住时间，对租客的要求等提升吸引力。</view>
+      <view class="hui-textarea-txt-num">0/300</view>
+    </navigator>
+  </view>
+  <view class="hui-page-title flex flex-center">联系人</view>
+  <view class="hui-form">
+    <view class="hui-form-item flex flex hui-flex-justify hui-flex-align-center">
+      <input 
+        class="hui-form-input"
+        placeholder-style="color:#ccc;font-size:32rpx"
+        placeholder="请输入姓名"
+      >
+      </input>
+      <view class="hui-sex-sel cl">
+        <view class="fl hui-sel-this" data-txt="先生">先生</view>    
+        <view class="fl" data-txt="女士">女士</view>   
+      </view> 
+    </view>
+    <view class="hui-form-item bottom-border-none">
+      <input 
+        class="hui-form-input"
+        placeholder-style="color:#ccc;font-size:32rpx"
+        placeholder="请输入手机号码"
+      >
+      </input>
+    </view>
+  </view>
+</view>
+<!-- 底部按钮 -->
+<view class="hui-next-step flex hui-flex-align-center">
+  <view class="hui-reset flex flex-center size-24 dark-font flex-column">重置</view>
+  <view class="hui-next-step-btn flex-item size-36" bindtap="nextStep">下一步</view>
+</view>
+
+<!-- 成功提示 -->
+<view class="hui-submit-tips flex flex-center">房源发布成功！实名认证后可优先通过审核哦！</view>
+
+<!-- 弹窗 -->
+<!-- <view class="hui-model-bg"></view>
+<view class="hui-model-box flex flex-center">
+  <view class="hui-model-container">
+    <view class="hui-popup-title size-36 color-000">修改手机号</view>
+    <view class="hui-popup-input">
+      <input 
+        placeholder-style="color:#999;font-size:30rpx" 
+        placeholder="请输入新手机号"
+      >
+      </input>
+    </view>
+    <view class="hui-code">
+      <view class="hui-popup-input">
+        <input 
+          placeholder-style="color:#999;font-size:30rpx" 
+          placeholder="请输入验证码"
+        >
+        </input>
+      </view>
+      <view class="hui-get-code-btn">获取</view>
+    </view>
+    <view class="cl hui-popup-btn">
+      <view class="fl">取消</view>
+      <view class="fl hui-popup-btn-ok">确认</view>
+    </view>
+  </view>
+</view> -->

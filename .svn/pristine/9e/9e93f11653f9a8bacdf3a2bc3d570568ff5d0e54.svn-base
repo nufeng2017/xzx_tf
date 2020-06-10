@@ -1,0 +1,320 @@
+// pages/detailpages/detailpages.js
+var appInstance = getApp();
+var obj = {};
+Page({
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    id:'',
+    bus:'',//公交
+    subway:'',//地铁
+    b_other:'',//设备
+    current:1,//轮播图游标
+
+    // housePics:[],//轮播图
+    // address:'',//顶部标题
+    // istag:'' ,//急售
+    // isreal:'',//保真
+    housePics: [],
+    address:'',
+    isreal: '',
+    istag: '',
+    price: '',
+    priceUnit: "",
+    payment: "",
+    room: "",
+    hall: "",
+    toilet: "",
+    buildarea: "",
+    forward: "",
+    renttype: "",
+    fitment: "",
+    district: "",
+    streetName: "",
+    subfloor: "",
+    floor: "",
+    totalfloor: "",
+    lastFloor: "",
+    infoType: "",
+    creattime:"",
+    blockshowname: "",
+    remark: "",
+    equipment: "",
+    selectEqu: "",
+    longitude: "",
+    latitude: "",
+    bus: "",
+    subway: "",
+    b_other: "",
+    detail_address: "",
+    sitename: "",
+    goodHouseRecommend: "",
+
+    phone:'',
+
+    userPic:'',
+    trueName:'',
+    agentname:'',
+
+    rentcount:'',
+    starlevel:'',
+
+    houseDesArr:true,
+    otherDesArrow:true,
+    isShowHouseDescription:false,
+    isShowOther: false,
+    loadOver:false
+
+
+  },
+
+  loadOver: function () {//加载结束
+    this.setData({ loadOver: true });
+  },
+  onLoad(options){
+
+    console.log(options)
+
+    appInstance.getUtil.ajax({
+      path: '5cecf9143ece2',
+      method: "GET",
+      check: true,
+      data: { 'rid': options.id, 'city': appInstance.globalData.city },
+
+      
+      success:res=>{
+        
+        if (res.data.code == '1') {
+
+          let data = res.data.data
+
+          let equ = data.equipment.split(',')
+          let selectedequ = data.equipment.split(",")
+          var temp = [];
+          console.log(selectedequ)
+          selectedequ.forEach(function (val, index, arr) {
+            if(val!=''){
+            let t = { "name": val, "value": appInstance.globalData.equipment[val]}
+            temp.push(t);
+            }
+          })
+
+          let sex = data.userInfo.sex == 0 ? "先生" : '女士'
+          let num = 0;
+          if (data.infofrom=='1'){
+            num = data.isstar
+          }else{
+            num = data.userInfo.starlevel
+          }
+
+          console.log(num)
+          let starArr = [];
+          for (let i = 0; i < parseInt(num);i++ ){
+            starArr.push("1");
+          }
+          console.log(temp)
+          this.setData({
+            id:options.id,
+            housePics: data.rentImages,
+            address:data.address,
+            isreal:data.isreal,
+            istag:data.istag,
+            price:data.price.split('.')[0],
+            priceUnit: appInstance.globalData.unit[data.priceunit],
+            payment: data.payment,
+            room:data.room,
+            hall:data.hall,
+            toilet:data.toilet,
+            buildarea: data.buildarea.split('.')[0],
+            forward: data.forward,
+            renttype: data.renttype,
+            fitment: data.fitment,
+            district: data.district,
+            streetName: data.streetName,
+            subfloor: data.subfloor,
+            floor:data.floor,
+            totalfloor: data.totalfloor,
+            lastFloor: parseInt(data.subfloor) > 0 && data.subfloor!="" ? data.subfloor + "-" + data.floor + "/" + data.totalfloor : data.floor + "/" + data.totalfloor,
+            infoType: data.infoType,
+            updatetime_ch: data.updatetime_ch,
+            creattime: appInstance.getUtil.formatDate(parseInt(data.updatetime)*1000 , 'YY/MM/DD'),
+            blockshowname: data.blockshowname,
+            remark:data.remark,
+            equipment: equ,
+            selectEqu:temp,
+            longitude: data.blockInfo.b_map_x,
+            latitude: data.blockInfo.b_map_y,
+            bus: data.blockInfo.b_bus,
+            subway: data.blockInfo.b_metro,
+            b_other: data.blockInfo.b_other,
+            detail_address: data.blockInfo.address,
+            around: data.around,
+            goodHouseRecommend: data.goodHouseRecommend,
+            phone: data.userInfo.telno,
+            infofrom: data.infofrom,
+            trueName: data.infofrom == '1' ? (data.contactor != '' ? data.contactor.substr(0, 1)+sex:''):data.userInfo.truename,
+            agentname: data.infofrom == '5' ? data.userInfo.agencyInfo.agentname:'',
+            headPic: data.infofrom == '1' ? data.userInfo.head_pic : data.userInfo.smallphoto,
+            starlevel: starArr,
+            rentcount: data.blockInfo.rentcount
+
+
+          })
+
+          this.getViewInfo()
+          this.getThreeLine()
+            
+        }
+        console.log(res);
+
+        
+      }
+    })
+
+  },
+
+  swiperChange: function (e) {
+    this.setData({ current: e.detail.current + 1 });
+  },
+
+  //举报
+  report: function () {//转跳到举报页面
+    var cacheKey = appInstance.getUtil.getUserinfoKey();
+    var data = appInstance.getUtil.cacheGet(cacheKey);
+    if (data) {
+      var obj = {};
+      // obj.city = appInstance.globalData.city;
+      obj.telno = data.passport_phone;
+      obj.id = this.data.id
+      // obj.h_id = this.data.houseInfo.h_id;
+      // obj.r_id = this.data.houseInfo.r_id;
+      // obj.passport_username = data.passport_username;
+      obj.complain_id = data.passport_uid;
+      // obj.from = appInstance.globalData.from;
+      // obj.house_comefrom = this.data.houseInfo.house_comefrom;
+      wx.setStorageSync('report', obj);
+      wx.navigateTo({
+        url: 'report/report'
+      });
+    } else {
+      wx.navigateTo({
+        url: '/pages/login/login'
+      });
+    }
+  },
+
+
+  checkLgImg: function (event) {//查看大图
+    var that = this;
+    // var ttype = event.target.dataset.ttype || 0;
+    var index = event.target.dataset.index || 0;
+    console.log(event)
+    // if (ttype == '1') {
+    //   var url = appInstance.getUtil.otherConfig.touch + 'Home/Zrent/allview/';
+    //   url += 'city/' + this.data.houseInfo.city + '/';
+    //   url += 'id/' + this.data.houseInfo.h_id + '/';
+    //   url += 'l_id/' + this.data.houseInfo.l_id + '/';
+    //   url += 'house_comefrom/' + this.data.houseInfo.house_comefrom + '/';
+    //   url += 'roomid/' + this.data.houseInfo.r_id + '/';
+    //   url += 'img_num/' + index + '/';
+    //   wx.navigateTo({
+    //     url: '/pages/web/web?url=' + url,
+    //   })
+    // } else {
+      var imgUrls = new Array();
+      that.data.housePics.forEach(function (val, index, arr) {
+        if (val.ttype != '1') imgUrls.push(val.filename);
+      })
+      wx.setStorageSync('carouselPageIndex', index);
+      wx.setStorageSync('imgUrls', imgUrls);
+      wx.navigateTo({
+        url: '/pages/detailPages/lgImg/lgImg',
+      })
+    // }
+  },
+
+  position: function (event) {//查看位置
+    // this.data.markers[0].adr = this.data.houseInfo.xdistrict_name + this.data.houseInfo.xstreet_name + this.data.houseInfo.xaddress;
+
+    console.log(this.data.longitude);
+   let markers = [{
+      iconPath: "/img/position-market.png",
+      id: 0,
+      latitude: this.data.latitude,
+      longitude: this.data.longitude,
+      width: 25,
+      height: 34,
+      adr: this.data.district + this.data.streetName + this.data.detail_address
+    }]
+
+  console.log(markers[0].longitude)
+  console.log(markers[0].latitude)
+    wx.setStorageSync('markers', markers);
+    wx.navigateTo({
+      url: '/pages/detailPages/position/position',
+    });
+  },
+
+  getViewInfo: function () {
+    var that = this;
+    
+    wx.createSelectorQuery().select('#house-description').boundingClientRect(function (rect) {
+      rect.height  // 节点的高度
+      console.log(rect.height)
+      if (rect.height <= 180) {
+        that.setData({ houseDesArr: false });
+      } else {
+        that.setData({ houseDesArr: true });
+      }
+
+      console.log(rect.height)
+    }).exec()
+  },
+
+  getThreeLine(){
+
+    var that = this;
+
+    wx.createSelectorQuery().select('#threeLineView').boundingClientRect(function (rect) {
+      rect.height  // 节点的高度
+      console.log(rect.height)
+      if (rect.height <= 180) {
+        that.setData({ otherDesArrow: false });
+
+      } else {
+        that.setData({ otherDesArrow: true });
+      }
+
+      console.log(rect.height)
+    }).exec()
+
+  }
+,
+  showHouse: function (event) {//展示所有文字
+
+    console.log('show');
+    if (this.data.isShowHouseDescription) {
+      this.setData({ isShowHouseDescription: false });
+    } else {
+      this.setData({ isShowHouseDescription: true });
+    }
+  },
+
+  showMoreLess(){
+
+    if (this.data.isShowOther) {
+      this.setData({ isShowOther: false });
+    } else {
+      this.setData({ isShowOther: true });
+    }
+  },
+
+  call(){
+
+    wx.makePhoneCall({
+      phoneNumber:this.data.phone ,
+    })
+  }
+   
+})

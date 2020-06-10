@@ -1,0 +1,4 @@
+<view class="hui-wrap">
+  <textarea placeholder="如有其他更具体的说明，请填写备注不超过300字" placeholder-class="hui-input-placeholder" maxlength="300" focus="true" bindinput="record" bindconfirm="finish"value="{{publishObj.detail_content}}"></textarea>
+  <view class="z-textareaTxtNum">{{publishObj.detail_content.length}}/300</view>
+</view>

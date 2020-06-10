@@ -1,0 +1,33 @@
+<!-- 筛选tabs组件 -->
+<view class="z-components-filter-tabs flex">
+  <view 
+    wx:for="{{tabs}}" 
+    wx:key="index" 
+    data-type="{{item.type}}" 
+    class="z-components-filter-tab flex-item text-overflow {{index==active?'z-components-filter-tab--active':''}}"
+    style="{{item.value?'color:#ffa229':''}}"
+    data-index="{{index}}"
+    bindtap="changeTab"
+  >
+    {{item.value&&item.value!==true?item.value:item.title}}
+    <van-icon 
+      name="{{index==active?'arrow-up':'arrow-down'}}" 
+      size="20rpx" 
+      color="{{index==active?'#ffa229':'#e5e5e5'}}" 
+      custom-style="margin-left:10rpx"
+    />
+  </view>
+  <view class="z-components-filter-sort" bindtap="changeTab" data-type="{{2}}" data-index="{{50}}"><image src="./img/order-icon.png"></image></view>
+</view>
+
+<!-- 弹窗 -->
+<popup 
+  popup-style="{{show?'top:176rpx':'height:0'}}" 
+  show="{{show}}" 
+  bind:close="close" 
+  position="top" 
+  popup-type="{{type}}" 
+  popup-title="{{active>-1&&tabs[active].title || active==50&&'排序'}}"
+  list-type="{{listType}}"
+  request-data="{{requestData}}"
+/>

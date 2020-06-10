@@ -1,0 +1,74 @@
+/* taofang-package/pages/external-url/external-url.wxss */
+image{
+  width: 100%;
+  vertical-align: bottom;
+}
+.hui-page-box{
+  position: relative;
+}
+.hui-page-item{
+  position: absolute;
+  left: 248rpx;
+  top:539rpx;
+}
+.hui-page-item.qq{
+  left:450rpx;
+  top:812rpx;
+}
+.hui-page-item.rent{
+  top:895rpx;
+  left: 51rpx;
+}
+.hui-page-item image{
+  margin: 0 auto;
+  position: relative;
+  z-index: 100;
+  width:125rpx;
+  height: 125rpx;
+  bottom: -15rpx;
+  display: block;
+}
+.hui-page-item.qq image{
+  width:90rpx;
+  height: 90rpx;
+}
+.hui-page-item.rent image{
+  width:106rpx;
+  height: 106rpx;
+}
+.hui-page-item .flex{
+  font-size:24rpx;
+  color:#3f3f3f;
+  background: #fff;
+  border-radius: 50rpx;
+  height: 90rpx;
+  padding: 0 50rpx;
+}
+.hui-page-item.qrcode{
+  font-size:22rpx;
+  bottom: 62rpx;
+  top:auto;
+  left:50%;
+  transform: translateX(-50%);
+}
+.hui-page-item.qrcode image{
+  width:167rpx;
+  height: 167rpx;
+  margin-bottom: 10rpx;
+}
+.hui-page-item.qrcode .flex{
+  background: transparent;
+  font-size:22rpx;
+  white-space: nowrap;
+}
+.hui-page-item.qrcode-other{
+  top:240rpx;
+  left: 480rpx;
+  transform: translateX(0);
+  height: auto;
+}
+.hui-page-item.qrcode-other view{
+  color:#8f81b9;
+  font-size:22rpx;
+  text-align: center;
+}
