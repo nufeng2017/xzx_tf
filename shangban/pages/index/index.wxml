@@ -3,7 +3,7 @@
 
   <!-- 搜索 -->
   <view class="z-search-box">
-    <search dis-input="{{true}}" type="2" show-im="{{false}}"/>
+    <search dis-input="{{true}}" type="2" show-im="{{true}}"/>
   </view>
 
   <!-- 链接 -->

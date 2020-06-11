@@ -95,10 +95,7 @@ let pageConfig = {
       detail.houseType = options.houseType
       let chatRecord = wx.getStorageSync('chat-record');
       this.setData({
-        detail:detail 
-      })
-      wx.setNavigationBarTitle({
-        title: detail.contactor
+        detail:detail
       })
       if (chatRecord) {
         if (chatRecord[detail.data.houseId] != 'chatted'){
